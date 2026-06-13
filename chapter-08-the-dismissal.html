@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: The Dismissal — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body p, .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; }
+  .exhibit-body ul { list-style: none; padding: 0; }
+  .exhibit-body li { padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 28px; margin: 32px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .fact-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #1e1e1e; gap: 12px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 13px; color: var(--paper); font-weight: bold; text-align: right; }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Eight</div>
+    <h1 class="banner-title">The Dismissal</h1>
+    <div class="banner-subtitle">May 15, 2026 · $40K · "Total Vindication" · What Remained</div>
+    <p class="banner-summary">On May 15, 2026, Commonwealth v. Jones — Case CL26-011 — was dismissed with prejudice. Mayor LC Jones declared total vindication. The forensic audit had not been publicly released. The Virginia State Police investigation remained active. Twenty-five days later, two new federal lawsuits were filed.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Date</strong>May 15, 2026</div>
+      <div class="banner-meta-item"><strong>Case</strong>CL26-011</div>
+      <div class="banner-meta-item"><strong>Taxpayer Cost</strong>$40,000 prosecution</div>
+      <div class="banner-meta-item"><strong>Audit Status</strong>Still sealed at dismissal</div>
+      <div class="banner-meta-item"><strong>VSP Status</strong>Active at dismissal</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>Commonwealth v. Jones, Case CL26-011, was dismissed with prejudice on May 15, 2026. A dismissal with prejudice means the case cannot be refiled on the same grounds. The prosecution is over. Jones cannot be retried on these charges.</p>
+  <p>What the dismissal did not do: it did not release the Brown Edwards forensic audit. It did not close the Virginia State Police investigation. It did not resolve the five active federal lawsuits. It did not return the $40,000 in taxpayer funds spent on the prosecution. It did not change the underlying facts documented in Chapters 1 through 7.</p>
+  <p>Jones publicly called it total vindication. The record documents what existed the day after.</p>
+  <hr class="section-rule">
+  <h2>What the Dismissal Means — And What It Does Not</h2>
+  <p>A dismissal with prejudice in a civil removal proceeding means the specific petition — with its specific charges, filed by specific prosecutors — cannot be pursued further. It is a final disposition of CL26-011 as a legal matter.</p>
+  <p>It does not mean the underlying facts were found to be false. It does not mean a court heard the evidence and acquitted. It means the case ended before a jury considered the evidence. The documented record — the offer letter, the airfare, the hot tub, the employment attempt, the legal arrangement, the undisclosed Statement of Economic Interests — remains in the public record regardless of the dismissal.</p>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>CL26-011 was dismissed with prejudice on May 15, 2026. No jury heard the evidence. No court ruled on the underlying facts. The forensic audit remained sealed. The VSP investigation remained active. The dismissal ended one proceeding. It did not end the record.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>The $40,000 — Taxpayer Cost of the Prosecution</h2>
+  <p>The prosecution of CL26-011 cost Martinsville taxpayers approximately $40,000. That figure covers the cost of the special prosecutor chain — Nance, Harrison, and Collins III — and associated prosecution expenses through dismissal.</p>
+  <p>This is separate from the cost of the Brown Edwards forensic audit, which cost the city over $500,000. It is separate from the legal fees the city has incurred defending the five active federal lawsuits. The $40,000 is the prosecution cost alone — the cost of the removal proceeding that ended on May 15.</p>
+  <div class="fact-block">
+    <div class="fact-label">Martinsville Taxpayer Costs — Documented</div>
+    <div class="fact-row">
+      <span class="fact-item">CL26-011 Prosecution Cost</span>
+      <span class="fact-value">~$40,000</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-item">Brown Edwards Forensic Audit</span>
+      <span class="fact-value">$500,000+</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-item">Ferrell-Benavides Severance Claim (pending)</span>
+      <span class="fact-value">$220,000+</span>
+    </div>
+    <div class="fact-row">
+      <span class="fact-item">Five Active Federal Lawsuits (ongoing)</span>
+      <span class="fact-value">TBD</span>
+    </div>
+  </div>
+  <hr class="section-rule">
+  <h2>The City's Own Graphic — $10 Million</h2>
+  <p>Among the documents in this record: an official City of Martinsville graphic — on city letterhead, using the city's own branding — stating that <strong>$10 million in budget changes were entered without council approval.</strong> That graphic was produced and distributed by the city itself during the period of the investigation.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH8-A</span>
+      <span class="exhibit-title">City of Martinsville Official Graphic — $10M Budget Changes</span>
+      <span class="exhibit-date">2025–2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Source: City of Martinsville — official city branding and letterhead</li>
+        <li>Statement: "$10M in Budget Changes Entered Without Council Approval"</li>
+        <li>Produced and distributed by the city during investigation period</li>
+        <li>Not a media allegation — the city's own documentation of the finding</li>
+        <li>Context: Brown Edwards forensic audit documented the $10M figure</li>
+        <li>Full audit details sealed — public received summary only</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH8-A — City of Martinsville official graphic, confirmed in hand</div>
+  </div>
+  <p>The city's own graphic is not an allegation from a political opponent. It is the city — using its own seal, its own branding, its own communications infrastructure — stating that $10 million in budget changes were made without council approval. That document exists regardless of what happened to CL26-011.</p>
+  <hr class="section-rule">
+  <h2>What Remained Sealed at Dismissal</h2>
+  <p>When CL26-011 was dismissed on May 15, 2026, the Brown Edwards forensic audit had not been publicly released. The city had acknowledged the audit's existence. A FOIA request had confirmed 1.6 gigabytes of records. The public had received a summary. The full report was withheld under the active litigation exemption — Virginia Code 2.2-3705.1.</p>
+  <p>With the dismissal of CL26-011, one of the litigation exemptions ended. However, the five active federal lawsuits filed in the months surrounding the dismissal — including two filed June 9, 2026 — provide continued grounds for withholding. The full audit release is expected July 14–24, 2026. Chapter 5 publishes when it drops.</p>
+  <div class="warning-box">
+    <div class="warning-label">Audit Still Sealed — As Of This Publication</div>
+    <p>The Brown Edwards forensic audit remains sealed as of this publication. 1.6 gigabytes of records confirmed by city FOIA response. Full release expected July 14–24, 2026. Chapter 5 of this record publishes on that date. The $10M figure documented in the city's own graphic represents findings from that audit. The full findings are not yet public.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>Twenty-Five Days Later</h2>
+  <p>On June 9, 2026 — twenty-five days after the dismissal of CL26-011 — two new federal lawsuits were filed in the Western District of Virginia, Roanoke Division:</p>
+  <p><strong>Jones v. Rawls and Sands Anderson</strong> — Mayor Jones suing the council member who filed the federal complaint and the law firm that conducted the investigation.</p>
+  <p><strong>Ferrell-Benavides v. City of Martinsville, Rawls, and Sands Anderson</strong> — The fired city manager suing the city, the council member, and the investigating law firm. Seeking $220,000 or more in unpaid severance plus additional claims.</p>
+  <p>Both docket numbers were pending PACER indexing as of June 11, 2026. Chapter 9 covers all five active federal cases.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH9-A / CH9-B</span>
+      <span class="exhibit-title">Two New Federal Suits — Filed June 9, 2026</span>
+      <span class="exhibit-date">Jun 9, 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Jones v. Rawls and Sands Anderson — WDVA Roanoke Division — filed June 9, 2026</li>
+        <li>Ferrell-Benavides v. City of Martinsville, Rawls, and Sands Anderson — WDVA Roanoke — filed June 9, 2026</li>
+        <li>Both filed 25 days after CL26-011 dismissal</li>
+        <li>Martinsville Bulletin and Star News TV reported both suits June 10–11, 2026</li>
+        <li>Docket numbers pending PACER indexing as of June 11, 2026</li>
+        <li>Ferrell-Benavides suit seeks $220,000+ unpaid severance plus additional damages</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH9-A, CH9-B — Bulletin and Star News screenshots, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Sequence Around Dismissal</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-date">April 21, 2026</div>
+      <div class="timeline-event">Jones Reinstated</div>
+      <div class="timeline-detail">Returns to mayoral duties. VSP investigation confirmed active same date.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 28, 2026</div>
+      <div class="timeline-event">Collins III Appointed — Third Special Prosecutor</div>
+      <div class="timeline-detail">Seven days after reinstatement. Seventeenth day before dismissal.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">May 15, 2026</div>
+      <div class="timeline-event">CL26-011 Dismissed With Prejudice</div>
+      <div class="timeline-detail">Seventeen days after Collins III appointed. Audit sealed. VSP active. Jones: total vindication.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">June 9, 2026</div>
+      <div class="timeline-event">Two Federal Suits Filed</div>
+      <div class="timeline-detail">Jones v. Rawls/Sands Anderson. Ferrell-Benavides v. City/Rawls/Sands Anderson. Twenty-five days after dismissal.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">July 14–24, 2026</div>
+      <div class="timeline-event">Brown Edwards Audit — Expected Release</div>
+      <div class="timeline-detail">Full forensic audit expected public release. Chapter 5 publishes on this date.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">November 3, 2026</div>
+      <div class="timeline-event">Martinsville City Council Election</div>
+      <div class="timeline-detail">Two seats. Jones and Rawls not seeking re-election. VSP investigation status unknown at publication.</div>
+    </div>
+  </div>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 8</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — Dismissed With Prejudice</td><td>May 15, 2026</td><td>Final disposition. Cannot be refiled.</td></tr>
+        <tr><td class="src-id">CH8-A</td><td>City of Martinsville — $10M Budget Changes Graphic</td><td>2025–2026</td><td>Confirmed in hand. Official city branding. City's own documentation.</td></tr>
+        <tr><td class="src-id">CH9-A</td><td>Martinsville Bulletin — Federal Lawsuit Headlines</td><td>Jun 10–11, 2026</td><td>Confirmed in hand. Both suits reported.</td></tr>
+        <tr><td class="src-id">CH9-B</td><td>Star News TV / Rawls — Federal Suits Statement</td><td>Jun 11, 2026</td><td>Confirmed in hand. BREAKING graphic.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>$40K prosecution cost. Audit figures. Dismissal context.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-07-the-legal-chain.html">← Chapter 7: The Legal Chain</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-09-the-lawsuits.html">Chapter 9: The Lawsuits →</a>
+</nav>
+</body>
+</html>
