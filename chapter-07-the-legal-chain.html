@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7: The Legal Chain — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body p, .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; }
+  .exhibit-body ul { list-style: none; padding: 0; }
+  .exhibit-body li { padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .prosecutor-block { background: var(--ink-deep); border: 1px solid #333; padding: 28px; margin: 32px 0; }
+  .prosecutor-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .prosecutor-row { padding: 14px 0; border-bottom: 1px solid #1e1e1e; }
+  .prosecutor-row:last-child { border-bottom: none; }
+  .prosecutor-name { font-family: var(--mono); font-size: 14px; color: var(--paper); font-weight: bold; margin-bottom: 4px; }
+  .prosecutor-role { font-family: var(--mono); font-size: 11px; color: var(--amber); margin-bottom: 4px; }
+  .prosecutor-detail { font-family: var(--mono); font-size: 11px; color: #555; }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Seven</div>
+    <h1 class="banner-title">The Legal Chain</h1>
+    <div class="banner-subtitle">Special Prosecutors · Attorney General · Suspension · Reinstatement</div>
+    <p class="banner-summary">Three special prosecutors. One attorney general who met the mayor at a campaign stop and declined without public explanation. One suspension. One reinstatement. The formal removal petition against Mayor LC Jones moved through the legal system from January through May 2026 — and ended with a dismissal with prejudice on May 15, 2026.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Case</strong>CL26-011</div>
+      <div class="banner-meta-item"><strong>Prosecutors</strong>Nance · Harrison · Collins III</div>
+      <div class="banner-meta-item"><strong>Suspended</strong>February 2026</div>
+      <div class="banner-meta-item"><strong>Reinstated</strong>April 21, 2026</div>
+      <div class="banner-meta-item"><strong>Dismissed</strong>May 15, 2026</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>Virginia Code 24.2-235 governs the removal of local elected officials from office. When a removal petition is filed, the Commonwealth's Attorney of the jurisdiction handles prosecution — unless a conflict exists, in which case a special prosecutor is appointed. In the case of Commonwealth v. Jones, Case CL26-011, the conflict question produced a chain of three prosecutors before the case reached trial.</p>
+  <p>The case alleged violations of the Virginia Conflict of Interests Act and bribery statute against Mayor LC Jones, based on the four undisclosed benefits documented in Chapter 2. It ended on May 15, 2026, dismissed with prejudice — before the Brown Edwards forensic audit was publicly released, and while the Virginia State Police investigation remained active.</p>
+  <hr class="section-rule">
+  <h2>The Three Special Prosecutors</h2>
+  <div class="prosecutor-block">
+    <div class="prosecutor-label">CL26-011 — Special Prosecutor Chain</div>
+    <div class="prosecutor-row">
+      <div class="prosecutor-name">Andy Hall</div>
+      <div class="prosecutor-role">Commonwealth's Attorney — Martinsville</div>
+      
