@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 6: The Petition — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body p, .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; }
+  .exhibit-body ul { list-style: none; padding: 0; }
+  .exhibit-body li { padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .threshold-block { background: var(--ink-deep); border: 1px solid #333; padding: 28px; margin: 32px 0; }
+  .threshold-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .threshold-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #1e1e1e; gap: 12px; flex-wrap: wrap; }
+  .threshold-row:last-child { border-bottom: none; }
+  .threshold-who { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .threshold-num { font-family: var(--mono); font-size: 18px; font-weight: bold; color: var(--amber); }
+  .threshold-basis { font-family: var(--mono); font-size: 11px; color: #555; }
+  .threshold-ruling { color: var(--red); }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 18px 20px; margin: 28px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 10px; }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } .threshold-row { flex-direction: column; gap: 4px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Six</div>
+    <h1 class="banner-title">The Petition</h1>
+    <div class="banner-subtitle">Signature Drive · Three-Way Threshold Dispute · Judge Brinks Rules</div>
+    <p class="banner-summary">In December 2025, Martinsville residents began a formal petition drive to remove Mayor LC Jones from office under Virginia law. Three officials cited three different signature thresholds. A judge ruled on which number was correct. The petition collected more than 375 valid signatures. It was not enough.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Drive Launched</strong>December 2025</div>
+      <div class="banner-meta-item"><strong>Organizer</strong>Patti Covington</div>
+      <div class="banner-meta-item"><strong>Threshold Ruled</strong>682 — Judge Brinks</div>
+      <div class="banner-meta-item"><strong>Signatures Collected</strong>375+ valid</div>
+      <div class="banner-meta-item"><strong>Outcome</strong>Did not reach threshold</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>Virginia law permits citizens to petition for the removal of a local elected official from office. The process requires collecting a specified number of verified signatures from registered voters, submitting them to the Commonwealth's Attorney, and — if the CA certifies the petition meets legal standards — presenting it to the circuit court for a hearing.</p>
+  <p>In December 2025, a group of Martinsville residents began that process against Mayor LC Jones. They cited concerns about city governance and transparency. What became equally documented was the dispute over how many signatures they needed — a number that three different officials cited three different ways.</p>
+  <hr class="section-rule">
+  <h2>The Launch — December 23, 2025</h2>
+  <p>Star News TV reported the petition drive launch on December 23, 2025. Patti Covington was identified as the group's principal administrator. The initial report cited the 375-signature threshold — the number based on the 2022 voter rolls — as the target.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-D</span>
+      <span class="exhibit-title">Star News TV — Petition Drive Launch</span>
+      <span class="exhibit-date">Dec 23, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Publication: Star News TV — Facebook, December 23, 2025</li>
+        <li>Petition drive begins quietly, already collected more than one-third of 375 signatures</li>
+        <li>Patti Covington identified as principal administrator</li>
+        <li>Petition alleges misconduct and mismanagement — no court has ruled on claims</li>
+        <li>Virginia does not allow recall elections — removal petition goes to circuit court</li>
+        <li>CA has 10 days to determine if petition meets legal standards</li>
+        <li>Petition references alleged violations of ethics and open-records statutes</li>
+        <li>Collection event scheduled Dec 27, 1–4 PM, Martinsville Recycling Center, Market Street</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-D — Star News TV Dec 23, 2025, confirmed in hand</div>
+  </div>
+  <p>Councilman Julian Mei was quoted in Star News TV coverage on the petition. His statement was precise and on the record.</p>
+  <div class="doc-quote">
+    "It doesn't really matter if I support it, or don't support it. Citizens have a right to have a say in their government, and that includes the lawful process to remove people from office, if they deem it necessary. The same would apply to me and any other elected official."
+    <div class="doc-quote-source">— Councilman Julian Mei, quoted in Star News TV coverage, December 2025</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Signature Count — December 27 and January 3</h2>
+  <p>A signature collection event was held December 27, 2025 at the Martinsville Recycling Center on Market Street. Organizers reported gathering approximately 100 signatures at the event. Combined with prior collection, the group reported a total of 221 signatures as of December 27.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-I</span>
+      <span class="exhibit-title">Star News TV — 221 Signatures Update</span>
+      <span class="exhibit-date">Dec 27, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Dec 27 collection event: approximately 100 signatures gathered</li>
+        <li>Total reported as of Dec 27: 221 signatures</li>
+        <li>375 verified signatures required under initial threshold cited</li>
+        <li>154 signatures short of 375 threshold at this date</li>
+        <li>Two additional volunteers collecting community-wide same day</li>
+        <li>Covington named as principal administrator</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-I — Star News TV Dec 27, 2025, confirmed in hand</div>
+  </div>
+  <p>By January 3, 2026, Star News TV reported the group had collected 260 of the 375 signatures they believed were required. Collection continued into January.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-E</span>
+      <span class="exhibit-title">Star News TV — "Petition Effort Grows" — 260 of 375</span>
+      <span class="exhibit-date">Jan 3, 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>260 of 375 signatures collected as of January 3, 2026</li>
+        <li>Supporters met at Martinsville Recycling Center, Market Street</li>
+        <li>Two additional volunteers collecting across community same day</li>
+        <li>Under Virginia law — judge may review once required valid signatures submitted</li>
+        <li>Organizers planned to continue collecting</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-E — Star News TV Jan 3, 2026, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Three-Way Threshold Dispute</h2>
+  <p>The central legal question of the petition drive was not whether citizens could collect signatures — it was how many they needed. Three officials cited three different numbers, each based on a different interpretation of Virginia's removal statute.</p>
+  <div class="threshold-block">
+    <div class="threshold-label">Three Officials — Three Numbers — One Correct Answer</div>
+    <div class="threshold-row">
+      <span class="threshold-who">Sara Workman<br>Martinsville Electoral Board</span>
+      <span class="threshold-num">375</span>
+      <span class="threshold-basis">Based on 2022 voter registration rolls</span>
+    </div>
+    <div class="threshold-row">
+      <span class="threshold-who">Andy Hall<br>Commonwealth's Attorney</span>
+      <span class="threshold-num">571</span>
+      <span class="threshold-basis">Based on 2024 voter registration rolls</span>
+    </div>
+    <div class="threshold-row">
+      <span class="threshold-who">Judge Brinks<br>Martinsville Circuit Court</span>
+      <span class="threshold-num threshold-ruling">682</span>
+      <span class="threshold-basis threshold-ruling">Court ruling — correct threshold under Virginia law</span>
+    </div>
+  </div>
+  <p>The organizers had been collecting toward 375. The Commonwealth's Attorney held the number was 571. Judge Brinks ruled the correct threshold was <strong>682</strong> — nearly double what the petitioners had originally been told they needed.</p>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Citizens organized a lawful removal petition based on a threshold provided by an electoral official. That number was wrong. The correct threshold — ruled by the circuit court — was 682. The petitioners collected more than 375 valid signatures. They fell short of 682. The petition did not advance to a court hearing.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>Andy Hall — Commonwealth's Attorney</h2>
+  <p>Andy Hall served as Martinsville's Commonwealth's Attorney during the petition process. Under Virginia law, when a removal petition is submitted, the CA has ten days to determine whether it meets legal standards before it may proceed to circuit court.</p>
+  <p>Hall cited 571 as the required threshold — higher than Workman's 375, lower than Brinks's 682. His role in the petition process and his subsequent role as the first special prosecutor appointed in Commonwealth v. Jones are both part of the documented record. The petition chapter and the legal chain chapter connect at Hall.</p>
+  <hr class="section-rule">
+  <h2>The Community Response</h2>
+  <p>The petition drive generated active public debate on social media. Star News TV's coverage drew significant comment activity. The documented record includes community members questioning the process, defending the petitioners, and in some cases attempting to discredit those who participated.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-A</span>
+      <span class="exhibit-title">Melody Cartwright — "Conspiracy Theory" Reply</span>
+      <span class="exhibit-date">2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Cartwright replies to community member Brittany Lynn Bowman in Star News TV comments</li>
+        <li>Describes concerns about the forensic audit connection as a "conspiracy theory on the doomed petition"</li>
+        <li>Comment made after petition outcome was known</li>
+        <li>Brittany Lynn Bowman's original comment had publicly committed to abiding by whatever the investigation finds</li>
+        <li>Cartwright's reply: "I have committed to the truth countless times. We all want the truth. Please tell me more of your conspiracy theory on the doomed petition. Intrigued."</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-A — Facebook screenshot, Star News TV comments, confirmed in hand</div>
+  </div>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-B / CH6-C</span>
+      <span class="exhibit-title">Jennifer Bowles — "Fake Page" Targeting of Commenters</span>
+      <span class="exhibit-date">2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Jennifer Bowles labels commenter Deshaun Hairston as "fake page alert" in Star News TV comments</li>
+        <li>Hairston's original comment deleted — Facebook notes "The comment Jennifer is replying to has been deleted"</li>
+        <li>Bowles replies to Cindy Minter: "it's a fake page and not a real person. You shouldn't be listening to anything a fake page has to say. It means someone wasn't brave enough to post it under their real name."</li>
+        <li>Cindy Minter had expressed support for Hairston's perspective on city governance</li>
+        <li>Pattern: community members expressing accountability concerns labeled as fake or conspiracy-minded</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-B, CH6-C — Facebook screenshots, Star News TV comments, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Petition Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-date">December 23, 2025</div>
+      <div class="timeline-event">Petition Drive Announced</div>
+      <div class="timeline-detail">Star News TV reports launch. More than one-third of 375 already collected. Covington named administrator.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">December 27, 2025</div>
+      <div class="timeline-event">Collection Event — Recycling Center</div>
+      <div class="timeline-detail">~100 signatures gathered. Total: 221. Still 154 short of 375 threshold.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">January 3, 2026</div>
+      <div class="timeline-event">260 Signatures Reported</div>
+      <div class="timeline-detail">Continuing collection. Two volunteers canvassing community independently same day.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">January–February 2026</div>
+      <div class="timeline-event">375+ Valid Signatures Collected</div>
+      <div class="timeline-detail">Petitioners reach and surpass original 375 threshold. Submit to Commonwealth's Attorney Hall.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">February 2026</div>
+      <div class="timeline-event">Threshold Dispute — Hall Cites 571</div>
+      <div class="timeline-detail">CA Hall rules 571 signatures required. Petitioners short. Matter goes to circuit court.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">February 2026</div>
+      <div class="timeline-event">Judge Brinks Rules — 682 Required</div>
+      <div class="timeline-detail">Correct threshold under Virginia law: 682. Petition does not advance. Jones suspended same month on separate removal petition CL26-011.</div>
+    </div>
+  </div>
+  <div class="warning-box">
+    <div class="warning-label">Note On Parallel Proceedings</div>
+    <p>The citizen signature petition and Commonwealth v. Jones (CL26-011) were separate legal proceedings running simultaneously. The citizen petition did not reach the threshold required to advance. CL26-011 — the formal removal petition filed by special prosecutors — was dismissed with prejudice May 15, 2026. Both proceedings are documented. Neither resulted in Jones's removal from office.</p>
+  </div>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 6</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH6-D</td><td>Star News TV — Petition Drive Launch</td><td>Dec 23, 2025</td><td>Confirmed in hand. Covington named. 375 threshold cited. Mei quote.</td></tr>
+        <tr><td class="src-id">CH6-I</td><td>Star News TV — 221 Signatures Update</td><td>Dec 27, 2025</td><td>Confirmed in hand. Dec 27 collection event results.</td></tr>
+        <tr><td class="src-id">CH6-E</td><td>Star News TV — 260 of 375 Signatures</td><td>Jan 3, 2026</td><td>Confirmed in hand. Continued momentum.</td></tr>
+        <tr><td class="src-id">CH6-A</td><td>Melody Cartwright "conspiracy theory" reply</td><td>2026</td><td>Confirmed in hand. Star News TV comments.</td></tr>
+        <tr><td class="src-id">CH6-B/C</td><td>Jennifer Bowles "fake page" targeting</td><td>2026</td><td>Confirmed in hand. Star News TV comments. Hairston comment deleted.</td></tr>
+        <tr><td class="src-id">CH6-H</td><td>Star News TV — Mei quote graphic</td><td>Dec 2025</td><td>Confirmed in hand. Mei statement on citizen rights.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>Threshold dispute. Workman 375, Hall 571, Brinks 682.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-04-the-firing.html">← Chapter 4: The Firing</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-07-the-legal-chain.html">Chapter 7: The Legal Chain →</a>
+</nav>
+</body>
+</html>
