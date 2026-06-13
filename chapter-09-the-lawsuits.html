@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 9: The Lawsuits — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .case-block { background: var(--ink-deep); border: 1px solid #333; border-left: 4px solid var(--red); padding: 24px; margin: 28px 0; }
+  .case-number { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
+  .case-title { font-size: 18px; font-weight: 700; color: var(--paper); line-height: 1.2; margin-bottom: 10px; }
+  .case-meta { font-family: var(--mono); font-size: 11px; color: #666; margin-bottom: 14px; }
+  .case-details { list-style: none; padding: 0; }
+  .case-details li { font-family: var(--mono); font-size: 12px; color: #aaa; padding: 5px 0 5px 16px; position: relative; border-bottom: 1px solid #1a1a1a; }
+  .case-details li:last-child { border-bottom: none; }
+  .case-details li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .case-status { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; margin-top: 12px; }
+  .case-status.active { background: rgba(192,57,43,0.15); color: var(--red); border: 1px solid rgba(192,57,43,0.3); }
+  .case-status.pending { background: rgba(212,160,23,0.12); color: var(--amber); border: 1px solid rgba(212,160,23,0.25); }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Nine</div>
+    <h1 class="banner-title">The Lawsuits</h1>
+    <div class="banner-subtitle">Five Active Federal Cases · Taxpayer Exposure · Western District of Virginia</div>
+    <p class="banner-summary">Five federal lawsuits involving Martinsville city officials, the city itself, and the law firm that conducted the forensic investigation are active as of this publication. One was filed in 2025. Two were filed on June 9, 2026 — twenty-five days after the dismissal of CL26-011. The total taxpayer exposure is not yet calculable.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Active Cases</strong>Five</div>
+      <div class="banner-meta-item"><strong>Court</strong>WDVA — Roanoke Division</div>
+      <div class="banner-meta-item"><strong>Confirmed Docket</strong>4:25-cv-00028</div>
+      <div class="banner-meta-item"><strong>Severance Claim</strong>$220,000+</div>
+      <div class="banner-meta-item"><strong>Status</strong>Active — ongoing</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>As of June 2026, five federal lawsuits involve Martinsville city governance figures. They span from June 2025 through June 2026. They name current and former elected officials, a fired city manager, a deputy sheriff, an interim city manager, and the law firm that conducted the city's own forensic investigation. The City of Martinsville — meaning its taxpayers — is a named defendant in at least one.</p>
+  <p>The cases are proceeding in the Western District of Virginia, Roanoke Division. Two docket numbers were pending PACER indexing as of June 11, 2026. The record will be updated as docket numbers are confirmed.</p>
+  <hr class="section-rule">
+  <h2>Case 1 — Rawls v. Keen, Ferrell-Benavides, and Jones</h2>
+  <div class="case-block">
+    <div class="case-number">Case 4:25-cv-00028 — Confirmed Docket</div>
+    <div class="case-title">Aaron Rawls v. Reva Keen, Aretha Ferrell-Benavides, and LC Jones</div>
+    <div class="case-meta">Filed: June 2, 2025 · WDVA Roanoke Division · 15 pages</div>
+    <ul class="case-details">
+      <li>Plaintiff: Aaron Rawls — Martinsville City Council Member</li>
+      <li>Defendants: Reva Keen (Deputy Sheriff), Aretha Ferrell-Benavides (former City Manager), LC Jones (Mayor)</li>
+      <li>Claims: First Amendment violation — unlawful removal of elected official during protected speech</li>
+      <li>Basis: March 25, 2025 removal from council chambers — nonverbal signal, no verbal order</li>
+      <li>Alleges Keen acted on signal from Ferrell-Benavides, not on lawful order from presiding officer</li>
+      <li>Jones named for role in authorizing or permitting removal</li>
+      <li>15-page complaint confirmed in hand — full text reviewed</li>
+    </ul>
+    <span class="case-status active">● Active</span>
+  </div>
+  <hr class="section-rule">
+  <h2>Case 2 — Mook v. Hall</h2>
+  <div class="case-block">
+    <div class="case-number">Docket Pending PACER</div>
+    <div class="case-title">Mook v. Andy Hall</div>
+    <div class="case-meta">Filed: 2025 · WDVA Roanoke Division</div>
+    <ul class="case-details">
+      <li>Plaintiff: Mook</li>
+      <li>Defendant: Andy Hall — Martinsville Commonwealth's Attorney</li>
+      <li>Specific claims: documented in case record</li>
+      <li>Hall's role: CA during petition threshold dispute and early CL26-011 proceedings</li>
+      <li>Docket number pending PACER confirmation</li>
+    </ul>
+    <span class="case-status active">● Active</span>
+  </div>
+  <hr class="section-rule">
+  <h2>Case 3 — Johnson v. Fincher and Rawls</h2>
+  <div class="case-block">
+    <div class="case-number">Docket Pending PACER</div>
+    <div class="case-title">Johnson v. Robert Fincher and Aaron Rawls</div>
+    <div class="case-meta">Filed: 2025–2026 · WDVA Roanoke Division</div>
+    <ul class="case-details">
+      <li>Plaintiff: Johnson</li>
+      <li>Defendants: Robert Fincher (Interim City Manager), Aaron Rawls (Council Member)</li>
+      <li>Fincher: appointed interim city manager after Ferrell-Benavides termination</li>
+      <li>Fincher discovered March 18 offer letter in Ferrell-Benavides email draft folder</li>
+      <li>Fincher subpoenaed to testify in CL26-011</li>
+      <li>Specific claims: documented in case record</li>
+      <li>Docket number pending PACER confirmation</li>
+    </ul>
+    <span class="case-status active">● Active</span>
+  </div>
+  <hr class="section-rule">
+  <h2>Case 4 — Jones v. Rawls and Sands Anderson</h2>
+  <div class="case-block">
+    <div class="case-number">Filed June 9, 2026 — Docket Pending PACER</div>
+    <div class="case-title">LC Jones v. Aaron Rawls and Sands Anderson</div>
+    <div class="case-meta">Filed: June 9, 2026 · WDVA Roanoke Division · 25 days after CL26-011 dismissal</div>
+    <ul class="case-details">
+      <li>Plaintiff: LC Jones — Mayor of Martinsville</li>
+      <li>Defendants: Aaron Rawls (Council Member), Sands Anderson (law firm)</li>
+      <li>Filed 25 days after dismissal of CL26-011</li>
+      <li>Sands Anderson: conducted the forensic investigation that produced the Brown Edwards audit</li>
+      <li>Rawls: filed original federal complaint 4:25-cv-00028 against Jones</li>
+      <li>Specific claims: documented in case record — reported by Martinsville Bulletin June 10–11, 2026</li>
+      <li>Docket number pending PACER indexing as of June 11, 2026</li>
+    </ul>
+    <span class="case-status pending">⏳ Docket Pending</span>
+  </div>
+  <hr class="section-rule">
+  <h2>Case 5 — Ferrell-Benavides v. City, Rawls, and Sands Anderson</h2>
+  <div class="case-block">
+    <div class="case-number">Filed June 9, 2026 — Docket Pending PACER</div>
+    <div class="case-title">Aretha Ferrell-Benavides v. City of Martinsville, Aaron Rawls, and Sands Anderson</div>
+    <div class="case-meta">Filed: June 9, 2026 · WDVA Roanoke Division · 25 days after CL26-011 dismissal</div>
+    <ul class="case-details">
+      <li>Plaintiff: Aretha Ferrell-Benavides — former City Manager</li>
+      <li>Defendants: City of Martinsville, Aaron Rawls, Sands Anderson</li>
+      <li>City of Martinsville is a named defendant — taxpayer exposure</li>
+      <li>Seeks $220,000 or more in unpaid severance</li>
+      <li>Additional claims beyond severance documented in complaint</li>
+      <li>Filed same day as Jones v. Rawls — June 9, 2026</li>
+      <li>Reported by Martinsville Bulletin and Star News TV June 10–11, 2026</li>
+      <li>Docket number pending PACER indexing as of June 11, 2026</li>
+    </ul>
+    <span class="case-status pending">⏳ Docket Pending</span>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Five federal lawsuits. One city. The City of Martinsville is a named defendant in at least one case seeking $220,000 or more. Martinsville taxpayers are funding both the city's legal defense and the prior $500,000 forensic audit and $40,000 prosecution. Total exposure is not yet calculable. All five cases are active as of this publication.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>Media Documentation — June 10–11, 2026</h2>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH9-A</span>
+      <span class="exhibit-title">Martinsville Bulletin — Both Federal Suit Headlines</span>
+      <span class="exhibit-date">Jun 10–11, 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Martinsville Bulletin reported both Jones and Ferrell-Benavides suits</li>
+        <li>Facebook screenshots confirmed in hand</li>
+        <li>Headlines document public reporting of both June 9 filings</li>
+        <li>Bulletin coverage confirms suits were filed and publicly known by June 10–11</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH9-A — Martinsville Bulletin screenshots, confirmed in hand</div>
+  </div>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH9-B</span>
+      <span class="exhibit-title">Star News TV / Aaron Rawls — BREAKING Graphic</span>
+      <span class="exhibit-date">Jun 11, 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Star News TV BREAKING graphic — both federal suits</li>
+        <li>Aaron Rawls public statement on suits documented</li>
+        <li>Confirmed in hand</li>
+        <li>Documents Rawls response to being named defendant in Jones suit and plaintiff in original 4:25-cv-00028</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH9-B — Star News TV screenshot, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Taxpayer Exposure — Running Total</h2>
+  <p>Every dollar spent defending these lawsuits, settling these lawsuits, or paying judgments in these lawsuits comes from Martinsville's city budget — meaning its taxpayers. The running documented costs as of this publication:</p>
+  <div class="warning-box">
+    <div class="warning-label">Documented Taxpayer Costs — Martinsville</div>
+    <p>Brown Edwards forensic audit: $500,000+. CL26-011 prosecution: ~$40,000. Ferrell-Benavides severance claim pending: $220,000+. Legal defense costs for five active federal cases: ongoing, not yet calculable. Total documented minimum exposure exceeds $760,000 — before any federal case reaches judgment or settlement.</p>
+  </div>
+  <p>This does not include any amounts the city may have paid in settlements, legal fees for individual defendants, or costs associated with the VSP investigation. The full financial picture will not be known until all five cases reach resolution.</p>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 9</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH1-F</td><td>Rawls Federal Complaint 4:25-cv-00028 (15 pp.)</td><td>Jun 2, 2025</td><td>Confirmed in hand. Only confirmed docket number in hand.</td></tr>
+        <tr><td class="src-id">CH9-A</td><td>Martinsville Bulletin — Both Suit Headlines</td><td>Jun 10–11, 2026</td><td>Confirmed in hand. Documents public reporting of June 9 filings.</td></tr>
+        <tr><td class="src-id">CH9-B</td><td>Star News TV / Rawls — BREAKING graphic</td><td>Jun 11, 2026</td><td>Confirmed in hand. Rawls statement on suits.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>All five case summaries. Taxpayer exposure tracking.</td></tr>
+        <tr><td class="src-id">PACER-WATCH</td><td>PACER — WDVA Roanoke Division</td><td>Ongoing</td><td>Docket numbers for Jones and F-B suits pending indexing. Check PACER for updates.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-08-the-dismissal.html">← Chapter 8: The Dismissal</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-10-the-actors.html">Chapter 10: Martinsville Remembers →</a>
+</nav>
+</body>
+</html>
