@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10: Martinsville Remembers — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .actor-block { border: 1px solid var(--paper-dark); margin: 24px 0; }
+  .actor-header { background: var(--ink); padding: 14px 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .actor-name { font-size: 16px; font-weight: 700; color: var(--paper); }
+  .actor-role { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+  .actor-body { background: #fafaf7; padding: 18px 20px; border-left: 4px solid var(--paper-dark); }
+  .actor-body p { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #444; margin-bottom: 0; }
+  .actor-status { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 8px; letter-spacing: 0.06em; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .closing-block { background: var(--ink-deep); border: 2px solid var(--red); padding: 48px 36px; margin: 48px 0; text-align: center; }
+  .closing-title { font-size: 28px; font-weight: 700; color: var(--paper); line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .closing-text { font-size: 16px; color: #999; line-height: 1.75; max-width: 560px; margin: 0 auto 28px; }
+  .closing-tagline { font-family: var(--mono); font-size: 13px; color: var(--red); letter-spacing: 0.1em; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } .closing-block { padding: 32px 20px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Ten</div>
+    <h1 class="banner-title">Martinsville Remembers</h1>
+    <div class="banner-subtitle">The Actors · The Community · What Comes Next</div>
+    <p class="banner-summary">Every name in this record played a documented role. Every community member who spoke, signed, showed up, or was silenced is part of the record too. This is the full cast — and what the public record says now.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Period</strong>2023–2026</div>
+      <div class="banner-meta-item"><strong>VSP Status</strong>Active — no charges</div>
+      <div class="banner-meta-item"><strong>Audit Release</strong>July 14–24, 2026</div>
+      <div class="banner-meta-item"><strong>Election</strong>November 3, 2026</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>Nine chapters of documented facts. Hundreds of pages of public records, sworn affidavits, court filings, city documents, and subpoenaed testimony. What follows is the cast — every named individual whose documented role shaped the events of 2023 through 2026 in Martinsville, Virginia.</p>
+  <p>This is not a verdict. It is a record. The sequence speaks for itself.</p>
+  <hr class="section-rule">
+  <h2>The Principal Actors</h2>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">LC Jones</span>
+      <span class="actor-role">Mayor — City of Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>Elected mayor. Signed Ferrell-Benavides's 15% pay raise alone, in closed session, with no legal counsel present. Sole dissenting vote on her termination. Received airfare, a hot tub, employment assistance, and legal arrangement — none disclosed on Statement of Economic Interests. Suspended February 2026. Reinstated April 21, 2026. CL26-011 dismissed with prejudice May 15, 2026. Filed federal lawsuit against Rawls and Sands Anderson June 9, 2026. Not seeking re-election November 2026.</p>
+      <div class="actor-status">Status: Mayor — active term through November 2026 election</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Aretha Ferrell-Benavides</span>
+      <span class="actor-role">City Manager — October 2023 to August 2025</span>
+    </div>
+    <div class="actor-body">
+      <p>Hired October 2023. Previously city manager of Duncanville, TX and Petersburg, VA. Nichols Jackson forensic audit of her Duncanville tenure released March 20, 2024 — while she was serving in Martinsville. Provided Jones with undisclosed personal benefits. Placed on administrative leave July 2025 — publicly described as personal leave. Filed EEOC discrimination complaint before termination. Fired August 2025, 4-1 vote. Filed federal lawsuit against City of Martinsville, Rawls, and Sands Anderson June 9, 2026 — seeking $220,000+ unpaid severance.</p>
+      <div class="actor-status">Status: Former city manager — federal plaintiff as of June 9, 2026</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Aaron Rawls</span>
+      <span class="actor-role">City Council Member — Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>Council member. Publicly opposed Ferrell-Benavides pay raise March 25, 2025 — not knowing it had already been signed. Removed from council chambers by Deputy Sheriff Keen on nonverbal signal. Learned of signed raise via news media six weeks later. Filed federal complaint 4:25-cv-00028 June 2, 2025. Subpoenaed to testify in CL26-011. Named defendant in Jones v. Rawls and Sands Anderson (June 9, 2026) and Ferrell-Benavides v. City et al. (June 9, 2026). Not seeking re-election November 2026.</p>
+      <div class="actor-status">Status: Council member — active term · Federal defendant as of June 9, 2026</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">J. Richard Stanfield</span>
+      <span class="actor-role">Chief Financial Officer — City of Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>City CFO. Sent internal memo to Ferrell-Benavides and Reese-Atmore March 13, 2025 — no resolution. Sent formal whistleblower letter to Sands Anderson April 13, 2025 — initiated the investigation that produced everything that followed. Warned city leadership about missed US Treasury ARPA filing deadlines. Subpoenaed to testify in CL26-011.</p>
+      <div class="actor-status">Status: City CFO — active as of publication</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Robert Fincher</span>
+      <span class="actor-role">Interim City Manager — August 2025 to present</span>
+    </div>
+    <div class="actor-body">
+      <p>Appointed interim city manager after Ferrell-Benavides termination. Discovered March 18 offer letter — Jones's sole signature — in Ferrell-Benavides's city email draft folder. Discovery documented in Sands Anderson investigation. Subpoenaed to testify in CL26-011. Named defendant in Johnson v. Fincher and Rawls.</p>
+      <div class="actor-status">Status: Interim City Manager — active · Federal defendant</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Reva Keen</span>
+      <span class="actor-role">Deputy Sheriff — Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>Deputy Sheriff assigned to city council security. Removed Aaron Rawls from council chambers March 25, 2025 on nonverbal signal from Ferrell-Benavides — without verbal order from presiding officer, without citing a specific rule violation. Named defendant in Rawls federal complaint 4:25-cv-00028. Subpoenaed to testify in CL26-011.</p>
+      <div class="actor-status">Status: Named federal defendant — 4:25-cv-00028 active</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Julian Mei</span>
+      <span class="actor-role">City Council Member — Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>Council member. Voted to terminate Ferrell-Benavides — part of 4-1 majority. Publicly stated on citizen petition: citizens have the right to use the lawful process to remove officials from office. Subpoenaed to testify in CL26-011. Seeking re-election November 2026.</p>
+      <div class="actor-status">Status: Council member — seeking re-election November 2026</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Andy Hall</span>
+      <span class="actor-role">Commonwealth's Attorney — Martinsville</span>
+    </div>
+    <div class="actor-body">
+      <p>Commonwealth's Attorney. Cited 571-signature threshold on citizen petition — higher than Workman's 375, lower than Brinks's court-ruled 682. Role in early CL26-011 proceedings. Named defendant in Mook v. Hall federal case.</p>
+      <div class="actor-status">Status: Commonwealth's Attorney · Named federal defendant</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Patrick Flinn</span>
+      <span class="actor-role">Commonwealth's Attorney — Filed CL26-011</span>
+    </div>
+    <div class="actor-body">
+      <p>Filed the formal removal petition CL26-011 against Jones. Noted that Jones and Ferrell-Benavides refused to cooperate with the investigation. Proceeded on willing witnesses only. Case dismissed with prejudice May 15, 2026 under third special prosecutor Alfred Gray Collins III.</p>
+      <div class="actor-status">Status: Commonwealth's Attorney — CL26-011 dismissed</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Alfred Gray Collins III</span>
+      <span class="actor-role">Third Special Prosecutor — CL26-011</span>
+    </div>
+    <div class="actor-body">
+      <p>Appointed April 28, 2026 as third special prosecutor in CL26-011 — seventeen days before dismissal. Prosecutor of record when case was dismissed with prejudice May 15, 2026.</p>
+      <div class="actor-status">Status: Case dismissed — no further proceedings on CL26-011</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Eric Payne</span>
+      <span class="actor-role">Witness — Hot Tub and Legal Arrangement</span>
+    </div>
+    <div class="actor-body">
+      <p>Eyewitness to hot tub at Ferrell-Benavides residence September 2024. Observed delivered hot tub at Jones residence December 12, 2024. Summoned by Ferrell-Benavides to advise Jones on HCSD employment matter Spring 2025. Subpoenaed to testify in CL26-011.</p>
+      <div class="actor-status">Status: Named witness — subpoenaed in CL26-011</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Karen Roberts</span>
+      <span class="actor-role">Executive Assistant — City Manager / Clerk of Council</span>
+    </div>
+    <div class="actor-body">
+      <p>Sent email to Jones June 13, 2024 requesting reimbursement for Las Vegas airfare charged to city credit card. Contemporary record of city's awareness that personal travel had been charged to government account. Subpoenaed to testify in CL26-011.</p>
+      <div class="actor-status">Status: Named witness — subpoenaed in CL26-011</div>
+    </div>
+  </div>
+
+  <div class="actor-block">
+    <div class="actor-header">
+      <span class="actor-name">Patti Covington</span>
+      <span class="actor-role">Citizen Petition Organizer</span>
+    </div>
+    <div class="actor-body">
+      <p>Principal administrator of citizen petition drive to remove Jones. Organized signature collection December 2025 through February 2026. Petition collected 375+ valid signatures — fell short of Judge Brinks's 682 threshold. Publicly confirmed Virginia State Police investigation active as of April 21, 2026.</p>
+      <div class="actor-status">Status: Private citizen — VSP confirmation on record April 21, 2026</div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+  <h2>The Community Voice</h2>
+  <p>The governance crisis did not happen in a vacuum. Martinsville residents watched, responded, debated, and documented in real time — on social media, at council meetings, through the petition drive, and in direct correspondence. The public record includes that voice.</p>
+
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH10-A</span>
+      <span class="exhibit-title">James Hairston — Star News TV Live Comments</span>
+      <span class="exhibit-date">2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Star News TV live coverage — community comment section</li>
+        <li>James Hairston: "What's sad is that LC Jones is mad and allowing his attorney to punish the community for holding their rights and their representatives accountable and doing exactly what LC Jones constructed the citizens to do from the start which is to support council and to hold members accountable. Remember this Martinsville."</li>
+        <li>Hairston references Jones's own stated standard — holding members accountable — applied back to Jones</li>
+        <li>Comment received 2 likes — documented in screenshot</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH10-A — Star News TV live screenshot, confirmed in hand</div>
+  </div>
+
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH6-G</span>
+      <span class="exhibit-title">Bobby Blue — Threatening DM to Community Member</span>
+      <span class="exhibit-date">Jan 9, 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Facebook Messenger — January 9, 2026, 3:54 PM</li>
+        <li>Bobby Blue account sent unsolicited message to community member who had been commenting publicly on governance matters</li>
+        <li>Message: "Hey, b****, keep my name out your mouth"</li>
+        <li>Screenshot documented — options shown: Mark as read, Archive, Delete, Block, Report</li>
+        <li>Pattern: community members expressing accountability concerns receiving hostile private contact</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH6-G — Facebook DM screenshot, confirmed in hand</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Community members who spoke publicly about accountability in Martinsville's city government were labeled fake, called conspiracy theorists, had their comments deleted, and received threatening private messages. The documented record of that pressure is part of this record — as much as the court filings and the offer letter.</p>
+  </div>
+
+  <hr class="section-rule">
+  <h2>What Comes Next</h2>
+  <p>As of this publication — June 2026 — the following remain unresolved:</p>
+
+  <div class="warning-box">
+    <div class="warning-label">Active and Pending — June 2026</div>
+    <p>Brown Edwards forensic audit: full release expected July 14–24, 2026. Chapter 5 publishes on that date. Five active federal lawsuits: ongoing — no judgments or settlements announced. Virginia State Police investigation: active as of April 21, 2026 — no charges announced. November 3, 2026 city council election: two seats, Jones and Rawls not seeking re-election. Rayshaun Gravely court date: July 23, 2026, Martinsville GDC.</p>
+  </div>
+
+  <p>The Brown Edwards audit is the next major development. When it is released publicly, it will be the first time Martinsville residents can read the full forensic findings — not a summary, not a closed-session briefing, but the complete documented record of what happened to $10 million in city funds. That record will be published here in full as Chapter 5 the day it becomes available.</p>
+
+  <p>The VSP investigation is a separate matter. State Police investigations proceed on their own timeline. If charges are filed, they will be documented here. If no charges are filed, that outcome will be documented here. The record does not editorialize. It records.</p>
+
+  <hr class="section-rule">
+
+  <div class="closing-block">
+    <div class="closing-title">The Public Record Is The Public Record.</div>
+    <div class="closing-text">This archive was built from sworn affidavits, court filings, city documents, subpoenaed records, public statements, and documented evidence. Every chapter traces to a named source. No claim is made that cannot be sourced. The sequence speaks for itself. Martinsville's record belongs to Martinsville.</div>
+    <div class="closing-tagline">THE PUBLIC RECORD IS THE PUBLIC RECORD. MARTINSVILLE REMEMBERS.</div>
+  </div>
+
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 10</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH10-A</td><td>Star News TV Live — James Hairston comment</td><td>2026</td><td>Confirmed in hand. Community accountability voice documented.</td></tr>
+        <tr><td class="src-id">CH6-G</td><td>Bobby Blue DM — threatening message to community member</td><td>Jan 9, 2026</td><td>Confirmed in hand. Hostile private contact documented.</td></tr>
+        <tr><td class="src-id">CH6-A</td><td>Melody Cartwright "conspiracy theory" reply</td><td>2026</td><td>Confirmed in hand. Accountability concerns dismissed publicly.</td></tr>
+        <tr><td class="src-id">CH6-B/C</td><td>Jennifer Bowles "fake page" targeting</td><td>2026</td><td>Confirmed in hand. Commenter labeled and original comment deleted.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 9</td><td>2024–2026</td><td>All actor facts sourced in individual chapter source indexes.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>Full cast documentation. Watch items. Election calendar.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-09-the-lawsuits.html">← Chapter 9: The Lawsuits</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="index.html">The Martinsville Record →</a>
+</nav>
+</body>
+</html>
