@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3: The Ejection — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body p, .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; }
+  .exhibit-body ul { list-style: none; padding: 0; }
+  .exhibit-body li { padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 18px 20px; margin: 28px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 10px; letter-spacing: 0.05em; }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Three</div>
+    <h1 class="banner-title">The Ejection</h1>
+    <div class="banner-subtitle">March 25 · Keen · The Nod · The Pay Raise Letter</div>
+    <p class="banner-summary">On March 25, 2025, Martinsville City Council Member Aaron Rawls was removed from a public council meeting by a deputy sheriff acting on a nonverbal signal — while speaking against a pay raise that had already been secretly signed seven days earlier.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Date</strong>March 25, 2025</div>
+      <div class="banner-meta-item"><strong>Location</strong>Martinsville City Council Chambers</div>
+      <div class="banner-meta-item"><strong>Actor</strong>Deputy Sheriff Reva Keen</div>
+      <div class="banner-meta-item"><strong>Signal</strong>Nonverbal — Ferrell-Benavides</div>
+      <div class="banner-meta-item"><strong>Offer Letter Signed</strong>March 18, 2025</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>At a Martinsville City Council meeting on March 25, 2025, Council Member Aaron Rawls was speaking against a proposed pay raise for City Manager Aretha Ferrell-Benavides. He did not know — and had no way of knowing — that the pay raise had already been signed into effect seven days earlier, on March 18, 2025, under the sole signature of Mayor LC Jones.</p>
+  <p>While Rawls was speaking, <strong>Deputy Sheriff Reva Keen moved to remove him from the chambers.</strong> No verbal order was issued by the mayor. No rule of order was cited. The documented record indicates Keen acted on a nonverbal signal from Ferrell-Benavides.</p>
+  <p>Rawls learned the pay raise had already been signed approximately six weeks later — from a news media report, not from the city.</p>
+  <hr class="section-rule">
+  <h2>What Was Already Done — March 18, 2025</h2>
+  <p>Seven days before the March 25 council meeting, on March 17, 2025, the Martinsville City Council met in closed session. No legal counsel was present. During that session, Mayor Jones was authorized to negotiate Ferrell-Benavides's compensation.</p>
+  <p>The following day — March 18, 2025 — Jones signed an offer letter on official City of Martinsville letterhead. The letter granted Ferrell-Benavides a <strong>15% compensation increase effective April 1, 2025.</strong> The letter bears Jones's sole signature. No other council member co-signed it.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH2-A</span>
+      <span class="exhibit-title">March 18 Offer Letter — LC Jones Sole Signature</span>
+      <span class="exhibit-date">Mar 18, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Date signed: March 18, 2025</li>
+        <li>Signatory: LC Jones — sole signature on official city letterhead</li>
+        <li>Effect: 15% compensation increase for Ferrell-Benavides</li>
+        <li>Effective date: April 1, 2025</li>
+        <li>Authorized in closed session March 17 — no legal counsel present</li>
+        <li>Discovered by City Manager Fincher in Ferrell-Benavides email draft folder</li>
+        <li>Rawls learned of it via news media on or about April 30, 2025</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH2-A — Offer Letter, confirmed in hand · Rawls Federal Complaint ¶26–27</div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>On March 25, 2025, Aaron Rawls stood before the Martinsville City Council and publicly opposed a pay raise for the city manager. The raise had already been signed — by the mayor alone, in a closed session with no legal counsel, seven days earlier. Rawls was removed from the chambers before he finished speaking. He would not learn the raise had already been approved until approximately six weeks later.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>The Meeting — March 25, 2025</h2>
+  <p>At the March 25 council meeting, Rawls addressed the proposed compensation increase for Ferrell-Benavides during public proceedings. His opposition was on the record — a council member, in chambers, speaking against a measure in the normal course of city business.</p>
+  <p>While he was speaking, <strong>Deputy Sheriff Reva Keen approached and removed Rawls from the chambers.</strong> The removal was not preceded by a verbal order from the presiding officer. No specific rule violation was cited in real time. The documented record in the Rawls federal complaint and sworn affidavit establishes that Keen acted on a nonverbal signal from Ferrell-Benavides — not on an order from the mayor or any council member with authority to direct removal.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH3-EJECTION</span>
+      <span class="exhibit-title">March 25, 2025 — Removal of Aaron Rawls From Council Chambers</span>
+      <span class="exhibit-date">Mar 25, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Rawls speaking against Ferrell-Benavides pay raise during public council proceedings</li>
+        <li>Deputy Sheriff Reva Keen moves to remove Rawls</li>
+        <li>No verbal order issued by presiding officer (Mayor Jones)</li>
+        <li>No specific rule of order cited at time of removal</li>
+        <li>Documented signal: nonverbal — from Ferrell-Benavides, not from Jones</li>
+        <li>Rawls removed from chambers before completing his remarks</li>
+        <li>Meeting continues without Rawls present</li>
+        <li>Pay raise Rawls was opposing had already been signed 7 days prior</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: Rawls Sworn Affidavit Jan 12, 2026 · Rawls Federal Complaint 4:25-cv-00028 · CL26-011 record</div>
+  </div>
+  <hr class="section-rule">
+  <h2>Reva Keen — Deputy Sheriff, Martinsville</h2>
+  <p>Reva Keen served as a Martinsville Deputy Sheriff assigned to provide security at city council meetings. Her role was to maintain order when directed by the presiding officer under established rules of procedure.</p>
+  <p>The Rawls federal complaint — Case 4:25-cv-00028, filed June 2, 2025 — names Keen as a defendant. The complaint alleges that Keen's removal of Rawls violated his First Amendment rights and constituted unlawful retaliation for his protected speech as an elected official.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH1-F</span>
+      <span class="exhibit-title">Rawls Federal Complaint — Case 4:25-cv-00028</span>
+      <span class="exhibit-date">Jun 2, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Filed: June 2, 2025 — Western District of Virginia, Roanoke Division</li>
+        <li>Plaintiff: Aaron Rawls, Martinsville City Council Member</li>
+        <li>Defendants include: Reva Keen, Deputy Sheriff</li>
+        <li>Alleges: First Amendment violation, unlawful removal of elected official during protected speech</li>
+        <li>15 pages — confirmed in hand</li>
+        <li>Keen named individually as defendant</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH1-F — Rawls Federal Complaint, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>The Pay Raise Form — Contemporaneous Documentation</h2>
+  <p>The March 18 offer letter was not the only document. An Employee Action and Change Form was also completed, formalizing Ferrell-Benavides's 15% compensation increase effective April 1, 2025. Both documents existed and were in effect on March 25 — the day Rawls was removed for opposing the raise.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH2-B</span>
+      <span class="exhibit-title">Employee Action / Change Form — Ferrell-Benavides Pay Raise</span>
+      <span class="exhibit-date">Mar 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Document type: Employee Action and Change Form — official city HR document</li>
+        <li>Effect: Formalizes 15% compensation increase for Ferrell-Benavides</li>
+        <li>Effective date: April 1, 2025</li>
+        <li>Companion to the March 18 offer letter</li>
+        <li>Both documents confirmed in hand</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH2-B — Employee Action Form, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>April 30, 2025 — Rawls Learns From the News</h2>
+  <p>Aaron Rawls learned that the pay raise had already been signed — not from the mayor, not from the city manager, not from any official notification — but from a news media report, on or about April 30, 2025. That is approximately six weeks after the offer letter was signed, and five weeks after it took effect.</p>
+  <div class="warning-box">
+    <div class="warning-label">The Timeline Gap</div>
+    <p>March 17: Closed session authorizes Jones to negotiate. March 18: Jones signs offer letter alone, no other council member present or co-signing. April 1: Raise takes effect. March 25: Rawls removed from chambers while opposing the raise. April 30: Rawls learns via news media the raise was already done. The city did not notify him.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>What Followed</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-date">March 18, 2025</div>
+      <div class="timeline-event">Offer Letter Signed — Jones Alone</div>
+      <div class="timeline-detail">15% raise. Official city letterhead. Sole signature. No legal counsel in closed session.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">March 25, 2025</div>
+      <div class="timeline-event">Rawls Removed From Chambers</div>
+      <div class="timeline-detail">Speaking against raise already signed. Removed by Deputy Sheriff Keen on nonverbal signal. No verbal order from presiding officer.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 1, 2025</div>
+      <div class="timeline-event">Raise Takes Effect</div>
+      <div class="timeline-detail">Ferrell-Benavides begins receiving increased compensation. Council not formally notified.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 4, 2025</div>
+      <div class="timeline-event">Jones Resigns From Henry County Sheriff's Department</div>
+      <div class="timeline-detail">Court documents indicate choice between resignation and termination.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 13, 2025</div>
+      <div class="timeline-event">Stanfield Whistleblower Letter</div>
+      <div class="timeline-detail">CFO sends letter to Sands Anderson. Investigation begins. Chapter 1.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 30, 2025</div>
+      <div class="timeline-event">Rawls Learns Via News Media</div>
+      <div class="timeline-detail">Six weeks after signing. Five weeks after it took effect. Not notified by the city.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">June 2, 2025</div>
+      <div class="timeline-event">Rawls Files Federal Complaint</div>
+      <div class="timeline-detail">Case 4:25-cv-00028. Names Keen, Ferrell-Benavides, and Jones. First Amendment and retaliation claims.</div>
+    </div>
+  </div>
+  <p>A council member was removed from public chambers while speaking against an action that had already been secretly completed. The officer who removed him acted on a signal from the person who stood to benefit from the action being opposed. The council member learned what had happened from a newspaper. These are the documented facts of March 25, 2025.</p>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 3</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH1-E</td><td>Aaron Rawls Sworn Affidavit (notarized)</td><td>Jan 12, 2026</td><td>Primary sworn account of March 25 removal. Keen and signal documented.</td></tr>
+        <tr><td class="src-id">CH1-F</td><td>Rawls Federal Complaint 4:25-cv-00028 (15 pp.)</td><td>Jun 2, 2025</td><td>Names Keen as defendant. First Amendment claims. ¶26–27 on offer letter discovery.</td></tr>
+        <tr><td class="src-id">CH2-A</td><td>March 18 Offer Letter — Jones sole signature</td><td>Mar 18, 2025</td><td>Confirmed in hand. Signed 7 days before ejection. 15% raise, eff. April 1.</td></tr>
+        <tr><td class="src-id">CH2-B</td><td>Employee Action / Change Form</td><td>Mar 2025</td><td>Confirmed in hand. Companion to offer letter.</td></tr>
+        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — Martinsville Circuit Court</td><td>2026</td><td>Keen subpoenaed to testify. Dismissed with prejudice May 15, 2026.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-02-the-relationship.html">← Chapter 2: The Relationship</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-04-the-firing.html">Chapter 4: The Firing →</a>
+</nav>
+</body>
+</html>
