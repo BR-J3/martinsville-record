@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1: The Origin — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body p, .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; }
+  .exhibit-body ul { list-style: none; padding: 0; }
+  .exhibit-body li { padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter One</div>
+    <h1 class="banner-title">The Origin</h1>
+    <div class="banner-subtitle">Whistleblower · ARPA · Duncanville, TX Pattern</div>
+    <p class="banner-summary">Before the forensic audit. Before the suspension. Before the federal lawsuits. A city CFO sent a letter. The pattern he was describing had already been documented in another city — a year before Martinsville knew to look for it.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Key Document</strong>Stanfield Letter, Apr 13, 2025</div>
+      <div class="banner-meta-item"><strong>Pattern Source</strong>Duncanville TX Audit, Mar 20, 2024</div>
+      <div class="banner-meta-item"><strong>Recipient</strong>Sands Anderson Law Firm</div>
+      <div class="banner-meta-item"><strong>Subject</strong>City Manager Aretha Ferrell-Benavides</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>Every governance crisis has a moment when someone inside the institution decides to put something in writing. In Martinsville, that moment came on <strong>April 13, 2025</strong>, when City Chief Financial Officer J. Richard Stanfield sent a letter to Sands Anderson — the law firm serving as Martinsville's city attorney.</p>
+  <p>Stanfield was not a political opponent. He was not a community activist or outside agitator. He was the city's own CFO — a CPA with direct access to every financial transaction flowing through Martinsville's accounts. What he put in writing that day set every subsequent event in motion.</p>
+  <p>But to understand what Stanfield was describing, you have to go back further — to a city in Texas that had already lived this story.</p>
+  <hr class="section-rule">
+  <h2>Duncanville, Texas — March 20, 2024</h2>
+  <p>Aretha Ferrell-Benavides served as City Manager of Duncanville, Texas from 2021 to 2023. She left that position before taking the Martinsville city manager role in October 2023.</p>
+  <p>On March 20, 2024 — while Ferrell-Benavides was already serving as Martinsville's city manager — the firm Nichols Jackson released a forensic audit report on the City of Duncanville covering her tenure there. The report was eight pages. Its findings were specific and documented.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH1-B</span>
+      <span class="exhibit-title">Nichols Jackson Duncanville Forensic Audit Report</span>
+      <span class="exhibit-date">Mar 20, 2024</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Commissioned by Duncanville City Council to examine financial practices under Ferrell-Benavides</li>
+        <li>Conducted by Nichols Jackson forensic accounting firm</li>
+        <li>Released March 20, 2024 — eight pages of findings</li>
+        <li>Covered period of Ferrell-Benavides's tenure as Duncanville City Manager 2021–2023</li>
+        <li>Documented irregularities in city spending, contract administration, and financial oversight</li>
+        <li>Report released while Ferrell-Benavides was actively serving as Martinsville City Manager</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH1-B — Nichols Jackson Duncanville Report, confirmed in hand</div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>A forensic audit documenting financial irregularities under Ferrell-Benavides's management was released publicly on March 20, 2024 — while she was serving as Martinsville's city manager. Martinsville hired her in October 2023 citing her prior city management experience, including her Duncanville tenure.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>Inside Martinsville — The CFO Memo</h2>
+  <p>On March 13, 2025, Stanfield sent an internal memo to Ferrell-Benavides and Assistant City Manager Reese-Atmore. The memo flagged specific financial concerns internally before Stanfield escalated the matter outside the city manager's chain of command.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH1-C</span>
+      <span class="exhibit-title">Stanfield Internal Memo — to Ferrell-Benavides and Reese-Atmore</span>
+      <span class="exhibit-date">Mar 13, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Author: J. Richard Stanfield, Chief Finance Officer, City of Martinsville</li>
+        <li>Recipients: Aretha Ferrell-Benavides (City Manager) and Reese-Atmore (Assistant City Manager)</li>
+        <li>Internal document — sent within city management chain</li>
+        <li>Preceded the external whistleblower letter by exactly 31 days</li>
+        <li>Stanfield attempted internal resolution before escalating externally</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH1-C — Stanfield Internal Memo, confirmed in hand</div>
+  </div>
+  <p>The internal memo went nowhere. Thirty-one days later, Stanfield went outside the city manager's chain entirely.</p>
+  <hr class="section-rule">
+  <h2>April 13, 2025 — The Letter</h2>
+  <p>On April 13, 2025, J. Richard Stanfield sent a formal letter to Sands Anderson — the law firm serving as Martinsville's city attorney. By addressing the letter to the city's outside legal counsel rather than city management, Stanfield was documenting concerns that he believed city management would not or could not address internally.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH1-A</span>
+      <span class="exhibit-title">Stanfield Whistleblower Letter to Sands Anderson</span>
+      <span class="exhibit-date">Apr 13, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Author: J. Richard Stanfield, CFO, City of Martinsville</li>
+        <li>Recipient: Sands Anderson law firm — city's outside legal counsel</li>
+        <li>Date: April 13, 2025</li>
+        <li>Sent 31 days after internal memo to Ferrell-Benavides produced no resolution</li>
+        <li>Documented specific financial irregularities under city manager's tenure</li>
+        <li>Triggered Sands Anderson investigation into city financial practices</li>
+        <li>Stanfield subpoenaed to testify in CL26-011</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH1-A — Stanfield Letter, confirmed in hand</div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Martinsville's own CFO attempted internal resolution on March 13, 2025. When that produced no result, he sent a formal letter to the city's outside legal counsel on April 13, 2025. That letter is what initiated the Sands Anderson investigation — the investigation that ultimately produced the forensic audit, the removal petition, and the chain of events documented in the chapters that follow.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>The ARPA Connection</h2>
+  <p>Among the financial irregularities Stanfield was tracking: the handling of American Rescue Plan Act funds — federal COVID relief money distributed to municipalities beginning in 2021. ARPA funds carried strict federal guidelines on eligible uses, reporting requirements, and documentation standards.</p>
+  <p>Martinsville received ARPA funding during Ferrell-Benavides's tenure as city manager, which began October 2023. The city was required to report ARPA expenditures to the US Treasury. Stanfield's role as CFO put him directly in the position of certifying those reports — and identifying when expenditures did not align with required documentation.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH1-D</span>
+      <span class="exhibit-title">Stanfield / Ferrell-Benavides Email Chain</span>
+      <span class="exhibit-date">Jul 10, 2025</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Date: July 10, 2025 — three months after whistleblower letter</li>
+        <li>Documents continued communication between Stanfield and Ferrell-Benavides</li>
+        <li>Ferrell-Benavides still serving as city manager at this date (fired August 2025)</li>
+        <li>Email chain documents the period between whistleblower letter and firing</li>
+        <li>Stanfield subpoenaed to testify in CL26-011</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: CH1-D — Stanfield/Ferrell-Benavides Email Chain, confirmed in hand</div>
+  </div>
+  <div class="warning-box">
+    <div class="warning-label">The Audit — Still Sealed</div>
+    <p>The Brown Edwards forensic audit exists. The city confirmed 1.6 gigabytes of records when denying a FOIA request. The public has received a summary only. The full audit is withheld under Virginia Code 2.2-3705.1 — active litigation exemption. Full release expected July 14–24, 2026. Chapter 5 publishes when it drops.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>The Sequence That Followed</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-date">March 13, 2025</div>
+      <div class="timeline-event">Stanfield Internal Memo</div>
+      <div class="timeline-detail">CFO flags concerns internally to Ferrell-Benavides and Reese-Atmore. No resolution.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">March 17, 2025</div>
+      <div class="timeline-event">Closed Session — No Legal Counsel Present</div>
+      <div class="timeline-detail">Jones authorized to negotiate Ferrell-Benavides compensation. <strong>Offer letter signed next day.</strong></div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">March 25, 2025</div>
+      <div class="timeline-event">Council Meeting — Rawls Removed From Chambers</div>
+      <div class="timeline-detail">Rawls speaks against pay raise he does not know has already been signed. Deputy Sheriff removes him on nonverbal signal. Chapter 3.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 13, 2025</div>
+      <div class="timeline-event">Stanfield Whistleblower Letter</div>
+      <div class="timeline-detail">CFO sends formal letter to Sands Anderson. Investigation begins.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">July 2025</div>
+      <div class="timeline-event">Ferrell-Benavides Files EEOC Complaint</div>
+      <div class="timeline-detail">Discrimination charges filed before firing. Named Elgin, TX city manager finalist same month.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">August 2025</div>
+      <div class="timeline-event">Ferrell-Benavides Fired — 4-1 Vote</div>
+      <div class="timeline-detail">Jones casts sole dissenting vote. Fincher appointed interim city manager. Chapter 4.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">Late December 2025</div>
+      <div class="timeline-event">Brown Edwards Forensic Audit Completed</div>
+      <div class="timeline-detail">Audit wraps. Council reviews in closed session January 8, 2026. Jones abstains. Public receives summary only.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">February 2026</div>
+      <div class="timeline-event">Jones Suspended</div>
+      <div class="timeline-detail">Pending jury trial on removal petition CL26-011.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">May 15, 2026</div>
+      <div class="timeline-event">CL26-011 Dismissed With Prejudice</div>
+      <div class="timeline-detail">Jones declares total vindication. Audit remains sealed. VSP investigation active.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">June 9, 2026</div>
+      <div class="timeline-event">Two New Federal Lawsuits Filed</div>
+      <div class="timeline-detail">Jones v. Rawls and Sands Anderson. Ferrell-Benavides v. City, Rawls, and Sands Anderson. Chapter 9.</div>
+    </div>
+  </div>
+  <p>Every event in this timeline traces back to one CFO who put his concerns in writing on April 13, 2025. What he described had already happened once before — in Duncanville, Texas. Martinsville was the second city to find out.</p>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 1</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH1-A</td><td>Stanfield Whistleblower Letter to Sands Anderson</td><td>Apr 13, 2025</td><td>Confirmed in hand. CFO to outside legal counsel. Initiated investigation.</td></tr>
+        <tr><td class="src-id">CH1-B</td><td>Nichols Jackson Duncanville TX Forensic Audit (8 pp.)</td><td>Mar 20, 2024</td><td>Confirmed in hand. Documents pattern under Ferrell-Benavides prior tenure.</td></tr>
+        <tr><td class="src-id">CH1-C</td><td>Stanfield Internal Memo to Ferrell-Benavides / Reese-Atmore</td><td>Mar 13, 2025</td><td>Confirmed in hand. Internal escalation attempt before external letter.</td></tr>
+        <tr><td class="src-id">CH1-D</td><td>Stanfield / Ferrell-Benavides Email Chain</td><td>Jul 10, 2025</td><td>Confirmed in hand. Documents communication during investigation period.</td></tr>
+        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — Martinsville Circuit Court</td><td>2026</td><td>Stanfield subpoenaed to testify. Dismissed with prejudice May 15, 2026.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>Stanfield CFO section. ARPA filing deadline warnings documented.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="index.html">← The Martinsville Record</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-02-the-relationship.html">Chapter 2: The Relationship →</a>
+</nav>
+</body>
+</html>
