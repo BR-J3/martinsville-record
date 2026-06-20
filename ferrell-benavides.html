@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aretha Ferrell-Benavides — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(30px, 6vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.05; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 14px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid #888; }
+  .era-tab.t2 { border-left: 3px solid var(--green); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 26px; }
+  .era-section h3 { font-size: 19px; margin: 30px 0 12px; }
+  .era-section p { font-size: 16px; line-height: 1.75; margin-bottom: 18px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 26px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 14px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 16px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: #333; margin-bottom: 6px; list-style: none; padding-left: 16px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 14px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 14px 16px; margin: 20px 0; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 16px; margin: 22px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 13.5px; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 20px; margin: 26px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 13.5px; line-height: 1.6; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 44px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 18px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 12px 14px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 13.5px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 44px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 9px 12px; text-align: left; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 10px 12px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 30px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Aretha Ferrell-Benavides</h1>
+    <div class="banner-roles">City Manager, Duncanville TX (2021–2023) → City Manager, Martinsville VA (Oct 2023–Aug 2025) → Federal Plaintiff (2026–Present)</div>
+    <p class="banner-summary">Fired from one city manager job, hired for another, fired again — with a documented pattern of financial-management findings following her from Texas to Virginia. Two leaves, a raise, an office break-in, and a termination that took two votes to finalize. She is now suing the city that fired her.</p>
+    <div class="era-tabs">
+      <a href="#era-tx" class="era-tab t1">Duncanville, TX — 2021–2023</a>
+      <a href="#era-mville" class="era-tab t2">Martinsville City Manager — 2023–2025</a>
+      <a href="#era-after" class="era-tab t3">Aftermath / Plaintiff — 2025–Present</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-tx">
+    <div class="era-label">Era One</div>
+    <div class="era-title">Duncanville, Texas</div>
+    <div class="era-dates">2021 – 2023</div>
+
+    <p>Ferrell-Benavides served as City Manager of Duncanville, TX from 2021 to 2023. A Nichols Jackson forensic audit covering her tenure documented a specific pattern that would matter later.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">CH3-TX1</span>
+        <span class="exhibit-title">Nichols Jackson Duncanville Audit — Key Findings</span>
+        <span class="exhibit-date">2023</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Finance Director not held accountable — complaints dismissed summarily</li>
+          <li>City Manager failed to advise City Council of the gravity of known issues</li>
+          <li>Outside individuals given sensitive financial/budgeting information without Council approval</li>
+          <li>Emails deleted by the City Manager, Finance Director, and Finance Dept employees — presumed public records</li>
+          <li>City Manager approved exceptions to hire unqualified Finance candidates</li>
+          <li>High turnover in Finance, with the City Manager's acquiescence</li>
+          <li>19 finance concerns and 8 management issues documented overall, tied to her tenure</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: CH3-TX1 — Nichols Jackson Duncanville Audit, confirmed in hand</div>
+    </div>
+
+    <p>The report found no malfeasance, but the pattern was extensive enough that <strong>she was fired 4–3 on March 30, 2023</strong> — the same month referenced in the audit's own meeting notes.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Stanfield's April 13, 2025 whistleblower letter to Sands Anderson cited financial mismanagement patterns in Martinsville that matched this prior Texas investigation almost exactly. Martinsville hired her in October 2023 — seven months after this report's findings became public in Duncanville.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-mville">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">Martinsville City Manager</div>
+    <div class="era-dates">October 2023 – August 2025</div>
+
+    <h3>The Four Undisclosed Benefits</h3>
+    <p>Airfare for Jones's Las Vegas trip ($544.71, city card), a hot tub delivered to his residence, an attempted job placement in Petersburg, and a shared attorney for his employment dispute. None disclosed on his Statement of Economic Interests. Full detail in Chapter 2.</p>
+
+    <h3>The Closed-Session Raise</h3>
+    <p>March 17, 2025: closed session, no legal counsel present, authorized Jones to negotiate her compensation. March 18: Jones signs the offer letter alone. 15% raise, effective April 1.</p>
+
+    <h3>The Office Break-In</h3>
+    <p>Early February 2025, her own office was broken into and her computer rummaged through. Eric Payne discovered law enforcement hadn't been informed and personally brought it to Police Chief Fincher. A Virginia State Police investigator was brought in.</p>
+    <div class="doc-quote">
+      "Unfortunately, when the investigator arrived, a member of the city manager's staff had erased the computer and all forensic data that would have supported or debunked a computer breach."
+      <div class="doc-quote-source">— Eric Payne, reported by the Martinsville Bulletin, August 2025</div>
+    </div>
+    <p>Mayor Jones called for a review of building camera footage and key-card logs. The outcome is unknown. She has said that after this incident she began to fear for her safety.</p>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Who erased the computer? Was the camera/key-card review ever conducted? Neither is answered in the public record found so far.</p>
+    </div>
+
+    <h3>Two Leaves, A Raise In Between</h3>
+    <p><strong>May 21 – June 10, 2025:</strong> first leave, cause never publicly disclosed. When pressed by Star News TV, she invoked federal leave protections and brought her personal attorney into the correspondence rather than explain.</p>
+    <p><strong>July 21, 2025:</strong> council voted 4-1 to raise her salary to $215,000/year. Jones dissented.</p>
+    <p><strong>July 23, 2025:</strong> placed on a second, paid administrative leave — barred from city property and contact with employees — tied to a credit card controversy and the authorization of the Brown Edwards forensic audit.</p>
+
+    <h3>Job-Hunting on the Martinsville Payroll</h3>
+    <p>While collecting her $215,000 salary on leave, she traveled to Elgin, TX to interview for that city's open city manager position — one of four finalists, reportedly engaging more citizens at a meet-and-greet than her competitors. The top candidate declined Elgin's offer August 20, 2025; her status there was uncertain when Martinsville terminated her a week later.</p>
+
+    <h3>Termination, Twice</h3>
+    <p><strong>August 7, 2025:</strong> fired 4-1, Jones dissenting. <strong>August 12, 2025:</strong> council briefly reverted her status to "suspended" to comply with city charter notice requirements, then finalized the termination again days later.</p>
+
+    <h3>The Three Statements on the Nod</h3>
+    <p>Full detail in Chapter 3. Her account of a head movement during the March 25, 2025 council ejection shifted across three separate public statements:</p>
+    <div class="doc-quote">"No one signed the deputy."<div class="doc-quote-source">— email statement, reported by BTW21</div></div>
+    <div class="doc-quote">"...the only person who has the authority over and run the meeting is the mayor."<div class="doc-quote-source">— reported by WSET</div></div>
+    <div class="doc-quote">"...I saw my head nod, I'm not sure who to, but with all the tension, it could have been anyone."<div class="doc-quote-source">— Martinsville Bulletin, March 29, 2025</div></div>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>These three statements are not fully consistent with one another. They are presented here together, not resolved — the same standard applied throughout this Record.</p>
+    </div>
+
+    <h3>Bank Statement Cross-Reference</h3>
+    <div class="fact-block">
+      <div class="fact-label">January 2024 — Total $623.98</div>
+      <div class="fact-row"><span class="fact-item">UVA Cooper Center Conference</span><span class="fact-value">$400.00</span></div>
+      <div class="fact-row"><span class="fact-item">Franklin Planner</span><span class="fact-value">$73.98</span></div>
+      <div class="fact-row"><span class="fact-item">FSP Virginia Municipal</span><span class="fact-value">$150.00</span></div>
+    </div>
+    <div class="fact-block">
+      <div class="fact-label">February 2024 — Total $2,340.79 (up 275% from January)</div>
+      <div class="fact-row"><span class="fact-item">Richmond Marriott (arrival 1/31)</span><span class="fact-value">$616.37</span></div>
+      <div class="fact-row"><span class="fact-item">Two FTD.com flower deliveries</span><span class="fact-value">$269.01</span></div>
+      <div class="fact-row"><span class="fact-item">Roanoke steakhouse</span><span class="fact-value">$231.01</span></div>
+      <div class="fact-row"><span class="fact-item">Hotel Roanoke (arrival 2/14)</span><span class="fact-value">$318.46</span></div>
+      <div class="fact-row"><span class="fact-item">American Airlines (booked for March travel)</span><span class="fact-value">$389.20</span></div>
+      <div class="fact-row"><span class="fact-item">American Airlines (booked for April travel)</span><span class="fact-value">$456.21</span></div>
+    </div>
+    <p>As City Manager she held a $10,000 card limit versus the standard $3,000 for most employees. Stanfield's April 2025 whistleblower letter specifically flagged routine meal charges without receipts and a city-card purchase of clothing for her assistant, and requested a full 12-month card review.</p>
+  </section>
+
+  <section class="era-section" id="era-after">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Aftermath / Federal Plaintiff</div>
+    <div class="era-dates">2025 – Present</div>
+
+    <p>She filed an EEOC discrimination complaint before her termination vote.</p>
+
+    <div class="contested">
+      <div class="contested-label">Contested Claim — Not Adjudicated</div>
+      <p><strong>Her claim:</strong> she has publicly stated that racial tension played a factor in her dismissal.</p>
+      <p>This Record does not adjudicate that claim. No independent confirmation or rebuttal has been located. It is documented here because she made it, on the record — not because it has been proven or disproven.</p>
+      <p>Separately, around the same period, Councilman Rayshaun Gravely stated publicly that the investigation's scope extended beyond the city manager alone. This is a different claim from a different person, made at a similar time — it should not be read as corroborating hers.</p>
+    </div>
+
+    <div class="contested">
+      <div class="contested-label">Contested Claim — Both Sides Shown</div>
+      <p><strong>Her claim (federal lawsuit, 2026):</strong> the entire investigation was retaliatory. She and Jones allege it began only after they questioned Sands Anderson's legal fees, which had increased 245% in a single fiscal year. The suit alleges Sands Anderson "manufactured" the bribery/corruption claims and fed that "work product" to the press, the Commonwealth's Attorney, and the court.</p>
+      <p><strong>Rawls's direct rebuttal, on the record:</strong> "Sands Anderson manufactured nothing. They received disclosures from employees, including the chief financial officer of the city who observed this wrongdoing." This points back to Stanfield's whistleblower letter — already documented in Chapter 1 — as the actual origin.</p>
+      <p>Both are sworn statements made in active federal litigation. Neither has been adjudicated as of this writing.</p>
+    </div>
+
+    <h3>The Federal Lawsuit</h3>
+    <p><strong>Ferrell-Benavides v. City of Martinsville, Rawls, and Sands Anderson</strong> — filed June 9, 2026, WDVA Roanoke, seeking $220,000+ in unpaid severance plus additional damages. Filed the same day as Jones's own suit against Rawls and Sands Anderson, 25 days after CL26-011 was dismissed.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Whose account of the Sands Anderson origin — hers and Jones's, or Rawls's — does the eventual Brown Edwards audit support, if either? Not yet resolved by any source found.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-01-the-origin.html" class="cl-item"><div class="cl-name">Chapter 1: The Origin</div><div class="cl-context">Stanfield's whistleblower letter</div></a>
+      <a href="chapter-02-the-relationship.html" class="cl-item"><div class="cl-name">Chapter 2: The Relationship</div><div class="cl-context">The four undisclosed benefits</div></a>
+      <a href="chapter-03-the-ejection.html" class="cl-item"><div class="cl-name">Chapter 3: The Ejection</div><div class="cl-context">The three nod statements</div></a>
+      <a href="chapter-04-the-firing.html" class="cl-item"><div class="cl-name">Chapter 4: The Firing</div><div class="cl-context">Full leave/raise/termination timeline</div></a>
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">Her federal suit, full detail</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">Investigated her office break-in</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Aretha Ferrell-Benavides</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">CH3-TX1</td><td>Nichols Jackson Duncanville Audit</td><td>2023</td><td>Confirmed in hand. 19 finance concerns, 8 management issues.</td></tr>
+        <tr><td class="src-id">FB-M1–M4</td><td>Star News / Martinsville Bulletin — Elgin job search</td><td>Jun–Aug 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">FINCHER-BREAKIN</td><td>Martinsville Bulletin (Bill Wyatt) — office break-in</td><td>Aug 7, 2025</td><td>Confirmed in hand. Erased evidence, per Eric Payne.</td></tr>
+        <tr><td class="src-id">BTW21/WSET/BULLETIN</td><td>Three statements on the nod</td><td>Mar 2025</td><td>Confirmed in hand. See Chapter 3.</td></tr>
+        <tr><td class="src-id">CH9-B</td><td>Federal lawsuit filing</td><td>Jun 9, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">SANDS-DISPUTE</td><td>Cardinal News/WDBJ7/WSLS — 245% fee dispute reporting</td><td>Jun 2026</td><td>Confirmed in hand. Rawls's rebuttal included.</td></tr>
+        <tr><td class="src-id">CH3-B1/B2</td><td>Bank statement series</td><td>Jan–Feb 2024</td><td>Confirmed in hand.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
