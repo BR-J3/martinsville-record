@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron Rawls — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Aaron Rawls</h1>
+    <div class="banner-roles">Martinsville City Council Member — 2022–Present</div>
+    <p class="banner-summary">Physically removed from chambers for opposing a raise that had already been secretly signed. Three documented confrontations over the following year. The sworn affidavit he signed the day before the removal petition was filed is the single most detailed piece of evidence in this entire record. He is now a named defendant in two federal lawsuits filed by the people his affidavit describes.</p>
+    <div class="era-tabs">
+      <a href="#era-ejection" class="era-tab t1">The Ejection — 2025</a>
+      <a href="#era-affidavit" class="era-tab t2">The Affidavit — 2026</a>
+      <a href="#era-now" class="era-tab t3">Aftermath / Federal Defendant — 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-ejection">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Ejection</div>
+    <div class="era-dates">March 25, 2025</div>
+
+    <p>Full detail in Chapter 3. On March 25, 2025, Rawls spoke against a proposed pay raise for City Manager Aretha Ferrell-Benavides, not knowing it had already been signed by Jones alone seven days earlier. Jones told him to "fall in order"; Rawls said he didn't understand the instruction. Deputy Sheriff Reva Keen removed him from chambers. Rawls learned the raise had already been signed via news media roughly six weeks later, on or about April 30, 2025.</p>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Rawls's own later words on this moment, from the March 27, 2025 press conference: "Notice that no one thought about removing me until I started criticizing pay raises for executives. That was the thing that got me removed."</p>
+    </div>
+    <p>He filed federal complaint 4:25-cv-00028 on June 2, 2025, naming Keen, Ferrell-Benavides, and Jones, alleging First Amendment violation and retaliation for protected speech.</p>
+  </section>
+
+  <section class="era-section" id="era-affidavit">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Affidavit</div>
+    <div class="era-dates">Notarized January 12, 2026</div>
+
+    <p>Rawls's notarized affidavit — signed one day before the CL26-011 removal petition was filed — is the single most detailed sworn document in this entire record. It is organized into four sections, summarized here. <strong>This is Rawls's sworn testimony. It has not been independently adjudicated by any court.</strong></p>
+
+    <h3>Section 1 — November 12, 2025 Closed Session</h3>
+    <p>Four council members (Gravely, Lawson, Mei, Rawls) convened with Sands Anderson and Woods Rogers attorneys for a closed session on the forensic audit's preliminary findings and Ferrell-Benavides's EEOC complaint. Per the affidavit, "previous disclosures by city employees and examination of city records indicated what a reasonable person may discern to be evidence that Ferrell-Benavides engaged in activity in violation of Virginia's Criminal Code."</p>
+    <p>Jones entered the session at approximately 6:45 PM despite being told not to, and refused repeated recusal requests from Sands Anderson attorney Steve Durbin — causing the Woods Rogers attorneys to decline to give EEOC counsel in his presence. The affidavit also flags that Paul Goldman, who corresponded with media and council on Jones's and Ferrell-Benavides's behalf, could not be confirmed as a licensed Virginia attorney.</p>
+
+    <h3>Section 2 — Financial Misconduct and Retaliation Timeline</h3>
+    <div class="fact-block">
+      <div class="fact-label">Key Dates, Per the Affidavit</div>
+      <div class="fact-row"><span class="fact-item">Mar 13, 2025</span><span class="fact-value">Stanfield's first written warning to Ferrell-Benavides</span></div>
+      <div class="fact-row"><span class="fact-item">Mar 17, 2025</span><span class="fact-value">F-B begins recruiting Stanfield's replacement, 10 min after ARPA notice</span></div>
+      <div class="fact-row"><span class="fact-item">Apr 13, 2025</span><span class="fact-value">Stanfield's formal disclosure to Sands Anderson</span></div>
+      <div class="fact-row"><span class="fact-item">Apr 30, 2025</span><span class="fact-value">Council unanimously votes to investigate</span></div>
+      <div class="fact-row"><span class="fact-item">Jul 18, 2025</span><span class="fact-value">Jones recommends investigation be "suspended immediately"</span></div>
+    </div>
+    <p>Stanfield's April 13 disclosure documented: failure to comply with federal reporting requirements; deficiencies mirroring the Duncanville, TX audit; appropriation of city funds without council authorization; and a lack of credit card controls — <strong>134 city employees held credit cards</strong>, with expenses frequently lacking receipts or business justification.</p>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Investigators on both the workplace investigation and the Brown Edwards forensic audit cited Jones's interference as "a detriment to their work" — the investigators' own characterization, not Rawls's.</p>
+    </div>
+
+    <h3>Section 3 — Threats and Intimidation</h3>
+    <div class="contested">
+      <div class="contested-label">Sworn Testimony — Not Adjudicated</div>
+      <p><strong>March 25, 2025, Room 208, prior to the council session:</strong> per Rawls, Jones shook the back of his chair forcefully for several seconds, then threw an unoccupied chair. A witness reportedly told Rawls what he observed "was assault."</p>
+      <p><strong>May 13, 2025, public meeting:</strong> per the same affidavit, Jones aggressively unseated himself and approached Rawls. Councilman Rayshaun Gravely intercepted him. Armed police approached the dais. Council recessed.</p>
+      <p><strong>January 8, 2026, public meeting:</strong> Jones again approached a council member — this time Julian Mei. Law enforcement intervened. Mei, who has a documented panic disorder he has publicly addressed, required assistance leaving chambers.</p>
+    </div>
+
+    <h3>Section 4 — The March 17 Closed Session</h3>
+    <p>Notice for the "special called closed session" was sent at 9:32 PM the Thursday before — after the working day ended. Per the affidavit, this violated the three-working-day notice requirement, and Sands Anderson was not present or notified as required under § 15.2-1418. The next day, Jones unilaterally signed an Employee Action/Change Form granting Ferrell-Benavides a <strong>$34,145 raise plus a city take-home vehicle.</strong></p>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Both Jones and Ferrell-Benavides made public remarks between March 18 and April 18, 2025 suggesting no raise had been discussed or awarded. CFO Richard Stanfield confirmed to Rawls on April 18 that the increase had in fact been processed March 18, effective April 1.</p>
+    </div>
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">CH1-E</span>
+        <span class="exhibit-title">Aaron Rawls Sworn Affidavit — Notarization Details</span>
+        <span class="exhibit-date">Jan 12, 2026</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Notarized by Kimberly D. Boyd, Reg. #34737, Commonwealth of Virginia, City of Martinsville</li>
+          <li>Signed one day before CL26-011 was filed</li>
+          <li>Four sections, submitted as sworn evidentiary foundation for the removal petition</li>
+          <li>Karen Roberts, who handled the airfare reimbursement matter, was removed as Executive Assistant July 22, 2025 — under 30 days after returning from vacation</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Aaron Rawls Sworn Affidavit, notarized January 12, 2026, confirmed in hand</div>
+    </div>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Karen Roberts's removal timing is noted in the affidavit without an explanation from the city. Whether it connects to her role in the reimbursement matter is not established.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-now">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Aftermath / Federal Defendant</div>
+    <div class="era-dates">2026 – Present</div>
+
+    <p>CL26-011 was dismissed with prejudice May 15, 2026. Krudys, Jones's attorney, publicly attributed the recall effort to Rawls in court and to the press that same day.</p>
+    <p>On June 9, 2026 — 25 days after the dismissal — Rawls was named a defendant in two separate federal suits: Jones v. Rawls and Sands Anderson, and Ferrell-Benavides v. City of Martinsville, Rawls, and Sands Anderson.</p>
+    <div class="contested">
+      <div class="contested-label">Contested Claim — Both Sides Shown</div>
+      <p><strong>Jones's and Ferrell-Benavides's claim:</strong> the investigation was retaliatory, sparked by questions over Sands Anderson's 245% fee increase, with findings "manufactured" and fed to the press and prosecutors.</p>
+      <p><strong>Rawls's direct, on-the-record rebuttal:</strong> "Sands Anderson manufactured nothing. They received disclosures from employees, including the chief financial officer of the city who observed this wrongdoing." This points back to Stanfield's whistleblower letter — documented in Chapter 1 and in Section 2 above — as the actual origin.</p>
+    </div>
+
+    <h3>The FOIA Documents and the 150 Pages</h3>
+    <p>Rawls posted FOIA documents publicly on his Google account at the time of their release, including signatures and other identifying information. Jennifer Bowles has separately stated, on the record, that 150 pages were sent by Rawls and "the gentleman Eric — I think his last name was Flynn" (confirmed elsewhere in this record as Eric Payne) to attorneys, and that those pages were "entered into Claude AI" during the case.</p>
+    <div class="contested">
+      <div class="contested-label">Contested Claim — Both Sides Shown</div>
+      <p><strong>Bowles's claim:</strong> "It's not a question about AI. It's the fact Aaron said he didn't send the pages. Melody said she asked Eric Payne if he had anything to do with it. He said no. So it was untruthful."</p>
+      <p>No direct, on-the-record statement from Rawls disputing this specific claim has been located. The documents themselves are confirmed in hand; whether Rawls personally denied sending them, as Bowles alleges, is not independently confirmed here.</p>
+    </div>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Were the 150 pages privileged city council information, as Bowles raised? Not yet resolved in the public record.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-03-the-ejection.html" class="cl-item"><div class="cl-name">Chapter 3: The Ejection</div><div class="cl-context">"Fall in order," the gavel sequence</div></a>
+      <a href="chapter-08-the-dismissal.html" class="cl-item"><div class="cl-name">Chapter 8: The Dismissal</div><div class="cl-context">Krudys blames Rawls</div></a>
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">Named defendant, two federal suits</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The affidavit's central subject</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">Named co-defendant, Sands Anderson dispute</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">Discovers the offer letter cited in the affidavit</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Aaron Rawls</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">CH1-E</td><td>Aaron Rawls Sworn Affidavit, notarized</td><td>Jan 12, 2026</td><td>Confirmed in hand. Sworn testimony, not adjudicated.</td></tr>
+        <tr><td class="src-id">CH1-F</td><td>Rawls Federal Complaint 4:25-cv-00028</td><td>Jun 2, 2025</td><td>Confirmed in hand. Names Keen, F-B, Jones.</td></tr>
+        <tr><td class="src-id">CH8-M5</td><td>Star News — Krudys blames Rawls</td><td>May 15, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">CH9-A</td><td>Martinsville Bulletin — Jones sues Rawls</td><td>Jun 10, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">JB-S5</td><td>Jennifer Bowles — Claude AI / 150 pages thread</td><td>2026</td><td>Confirmed in hand. Bowles's claim, not independently confirmed.</td></tr>
+        <tr><td class="src-id">SANDS-DISPUTE</td><td>Cardinal News/WDBJ7/WSLS — 245% fee dispute reporting</td><td>Jun 2026</td><td>Confirmed in hand. Rawls's rebuttal included.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 10</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
