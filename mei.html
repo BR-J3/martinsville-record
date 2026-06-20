@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julian Mei — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-wrap h3 { font-size: 20px; margin: 32px 0 14px; }
+  .body-wrap p { font-size: 17px; line-height: 1.75; margin-bottom: 20px; }
+  .body-wrap p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Julian Mei</h1>
+    <div class="banner-roles">Martinsville City Council Member — 2022–Present</div>
+    <p class="banner-summary">Not a central figure in the conduct documented elsewhere in this record. That absence is itself worth noting: Mei's documented role across this entire case is consistently procedural — defending citizens' rights to petition, present at the November 12 closed session, and the person Jones approached on January 8, 2026. This page reflects what the record actually shows, including where it stays quiet.</p>
+  </div>
+</header>
+
+<div class="body-wrap">
+  <div class="section-label">The Record</div>
+
+  <h3>The Petition — Defending Process, Not Taking a Side on Outcome</h3>
+  <p>When the citizen petition to remove Jones launched in December 2025, Mei was quoted publicly:</p>
+  <div class="doc-quote">
+    "It doesn't really matter if I support it, or don't support it. Citizens have a right to have a say in their government, and that includes the lawful process to remove people from office, if they deem it necessary. The same would apply to me and any other elected official."
+    <div class="doc-quote-source">— Councilman Julian Mei, quoted in Star News TV coverage, December 2025</div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Mei's statement defends the process of citizen accountability without endorsing the petition's outcome — a deliberately neutral, procedural position. He applied the same standard to himself ("the same would apply to me") as to Jones.</p>
+  </div>
+
+  <h3>November 12, 2025 — Closed Session</h3>
+  <p>Mei was one of four council members (alongside Gravely, Lawson, and Rawls) present for the closed session reviewing the forensic audit's preliminary findings and Ferrell-Benavides's EEOC complaint, per Rawls's sworn affidavit. Mei did not himself recommend or initiate the session's most contested action — Jones's unrequested entry and refusal to recuse — and the affidavit does not attribute any disputed conduct to Mei in this session.</p>
+
+  <h3>January 8, 2026 — The Confrontation</h3>
+  <p>Per Rawls's affidavit, Jones approached Mei during a public council meeting; law enforcement intervened. Mei, who has a documented panic disorder he has publicly addressed, required assistance leaving chambers. The Martinsville/Henry County Democratic Committee separately and publicly rebuked commenter Melody Cartwright for mocking Mei's mental health afterward — confirming both the condition and the community's defense of him are part of the independent public record, not only Rawls's account. Full detail on this incident: Jones's and Rawls's pages.</p>
+
+  <h3>The NCI Closed-Door Meeting — June 2025</h3>
+  <p>Mei was removed from a closed-door Sorensen Institute meeting at the New College Institute, alongside journalist Luis Romero, while Jones, Ferrell-Benavides, Fincher, and Vice Mayor Lawson remained. No agenda was provided. Neither Mei nor Romero has publicly addressed the removal in the year since. Full detail: the NCI research thread.</p>
+  <div class="open-question">
+    <div class="oq-label">Open Question</div>
+    <p>Why was a sitting council member removed from a meeting attended by the city's top officials? Mei has not commented publicly. Not resolved.</p>
+  </div>
+
+  <h3>The Close Election</h3>
+  <div class="fact-block">
+    <div class="fact-label">2022 Council Election Results</div>
+    <div class="fact-row"><span class="fact-item">Leading candidate</span><span class="fact-value">2,887 votes (24.80%)</span></div>
+    <div class="fact-row"><span class="fact-item">Julian Mei</span><span class="fact-value">2,488 votes (21.38%)</span></div>
+    <div class="fact-row"><span class="fact-item">Rayshaun Gravely</span><span class="fact-value">2,480 votes (21.31%)</span></div>
+  </div>
+  <p>Mei and Gravely were separated by only 8 votes. Both have since served alongside each other through the entirety of the events documented in this record.</p>
+
+  <div class="finding">
+    <div class="finding-label">What The Record Shows, Overall</div>
+    <p>Mei does not appear in this record as a central actor in the undisclosed benefits, the raise, the financial misconduct, or the legal disputes documented elsewhere. His documented role is consistently procedural: defending the petition process without taking a side, present but not implicated at the November 12 session, and the target rather than the source of confrontation on January 8. If further research surfaces a more active role, this page will be updated — but as of this writing, the record shows restraint, not involvement, and that absence is itself a documented fact worth recording plainly.</p>
+  </div>
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">His public quote on citizens' rights</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The January 8 confrontation</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Sworn affidavit's account of Jan 8</div></a>
+      <a href="chapter-10-the-actors.html" class="cl-item"><div class="cl-name">Chapter 10: The Actors</div><div class="cl-context">Full actor entry</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Julian Mei</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">CH6-H</td><td>Star News TV — Mei petition quote</td><td>Dec 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">RAWLS-AFFIDAVIT</td><td>Aaron Rawls Sworn Affidavit, notarized</td><td>Jan 12, 2026</td><td>Confirmed in hand. Nov 12 session, Jan 8 confrontation.</td></tr>
+        <tr><td class="src-id">NCI-THREAD</td><td>NCI Closed-Door Meeting research thread</td><td>Jun 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ELECTION-2022</td><td>Martinsville Research Hub — 2022 election results</td><td>2022</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 10</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
