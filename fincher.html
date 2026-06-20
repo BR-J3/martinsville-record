@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Martinsville Record — Justin Press VA</title>
+<title>Robert Fincher — The Martinsville Record</title>
 <style>
   :root {
     --ink: #1a1a1a;
@@ -21,336 +21,253 @@
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--ink-deep); color: var(--paper); font-family: var(--serif); line-height: 1.6; }
-  .masthead { background: var(--ink-deep); border-bottom: 3px solid var(--red); padding: 48px 24px 36px; text-align: center; }
-  .masthead-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--red); text-transform: uppercase; margin-bottom: 16px; }
-  .masthead-title { font-family: var(--serif); font-size: clamp(28px, 5vw, 52px); font-weight: 700; line-height: 1.1; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 12px; }
-  .masthead-title span { color: var(--red); }
-  .masthead-sub { font-family: var(--sans); font-size: 13px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
-  .masthead-tagline { font-family: var(--mono); font-size: 13px; color: var(--amber); font-style: italic; margin-bottom: 28px; }
-  .masthead-meta { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
-  .masthead-meta-item { font-family: var(--mono); font-size: 11px; color: #666; letter-spacing: 0.06em; }
-  .masthead-meta-item strong { color: #aaa; display: block; }
-  .start-here-btn { display: inline-block; background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 14px 32px; border: 2px solid var(--red); }
-  .short-section { background: #111; border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e; padding: 48px 24px; }
-  .short-inner { max-width: 720px; margin: 0 auto; }
-  .short-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 24px; }
-  .short-title { font-size: 22px; font-weight: 700; color: var(--paper); margin-bottom: 20px; line-height: 1.2; }
-  .short-list { list-style: none; padding: 0; }
-  .short-list li { font-size: 16px; line-height: 1.65; color: #ccc; padding: 10px 0 10px 24px; position: relative; border-bottom: 1px solid #1a1a1a; }
-  .short-list li:last-child { border-bottom: none; }
-  .short-list li::before { content: '→'; position: absolute; left: 0; color: var(--red); font-family: var(--mono); }
-  .short-list li strong { color: var(--paper); }
-  .short-note { font-family: var(--mono); font-size: 11px; color: #555; margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e1e1e; }
-  .lede-section { background: var(--paper); color: var(--ink); padding: 48px 24px; }
-  .lede-inner { max-width: 720px; margin: 0 auto; }
-  .lede-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 20px; }
-  .lede-text { font-size: 18px; line-height: 1.75; color: var(--ink); margin-bottom: 16px; }
-  .lede-text strong { color: var(--red-dark); }
-  .lede-note { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--paper-dark); padding-top: 16px; margin-top: 24px; }
-  .chapters-section { background: var(--ink-deep); padding: 56px 24px; }
-  .chapters-inner { max-width: 1100px; margin: 0 auto; }
-  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; border-bottom: 2px solid var(--rule); padding-bottom: 16px; }
-  .section-header-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
-  .section-header-rule { flex: 1; height: 1px; background: var(--rule); }
-  .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; }
-  .chapter-card { background: #111; border: 1px solid #222; padding: 28px 24px; position: relative; text-decoration: none; color: inherit; display: block; border-left: 3px solid var(--green); }
-  .chapter-card.hold { border-left: 3px solid var(--amber); }
-  .chapter-card.person { border-left: 3px solid #6b8cae; }
-  .chapter-number { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
-  .chapter-title { font-size: 19px; font-weight: 700; color: var(--paper); line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .chapter-subtitle { font-family: var(--sans); font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
-  .chapter-desc { font-family: var(--serif); font-size: 14px; line-height: 1.6; color: #999; margin-bottom: 20px; }
-  .chapter-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; }
-  .chapter-status.done { background: rgba(30,126,52,0.15); color: var(--green); border: 1px solid rgba(30,126,52,0.3); }
-  .chapter-status.hold { background: rgba(212,160,23,0.12); color: var(--amber); border: 1px solid rgba(212,160,23,0.25); }
-  .chapter-status.person { background: rgba(107,140,174,0.15); color: #6b8cae; border: 1px solid rgba(107,140,174,0.3); }
-  .chapter-key-facts { margin-top: 16px; padding-top: 14px; border-top: 1px solid #1e1e1e; }
-  .chapter-key-facts ul { list-style: none; padding: 0; }
-  .chapter-key-facts li { font-family: var(--mono); font-size: 11px; color: #555; padding: 3px 0 3px 14px; position: relative; }
-  .chapter-key-facts li::before { content: '→'; position: absolute; left: 0; color: #333; }
-  .watch-section { background: #0f0f0f; padding: 48px 24px; border-top: 1px solid #1e1e1e; }
-  .watch-inner { max-width: 920px; margin: 0 auto; }
-  .watch-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
-  .watch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-  .watch-item { background: #141414; border: 1px solid #222; padding: 18px 20px; }
-  .watch-date { font-family: var(--mono); font-size: 10px; color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
-  .watch-event { font-size: 14px; color: var(--paper); line-height: 1.4; margin-bottom: 6px; }
-  .watch-note { font-family: var(--mono); font-size: 11px; color: #555; }
-  .site-footer { background: var(--ink-deep); border-top: 2px solid var(--red); padding: 32px 24px; text-align: center; }
-  .footer-tagline { font-family: var(--mono); font-size: 12px; color: #555; letter-spacing: 0.12em; margin-bottom: 10px; }
-  .footer-tagline strong { color: var(--red); }
-  .footer-note { font-family: var(--mono); font-size: 10px; color: #333; }
-  @media (max-width: 600px) {
-    .masthead { padding: 36px 16px 28px; }
-    .short-section, .lede-section, .chapters-section, .watch-section { padding: 36px 16px; }
-    .chapter-grid { grid-template-columns: 1fr; }
-    .watch-grid { grid-template-columns: 1fr; }
-  }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.green { border-left: 3px solid var(--green); }
+  .era-tab.amber { border-left: 3px solid var(--amber); }
+  .era-tab.red { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 40px 0; } }
 </style>
 </head>
 <body>
 
-<header class="masthead">
-  <div class="masthead-eyebrow">Justin Press VA — <a href="https://br-j3.github.io/justinpressva" style="color: var(--red); text-decoration: underline;">br-j3.github.io/justinpressva</a></div>
-  <h1 class="masthead-title">The Martinsville<br><span>Record</span></h1>
-  <div class="masthead-sub">Martinsville, Virginia &nbsp;|&nbsp; 2023–Present</div>
-  <div class="masthead-tagline">"The Public Record Is The Public Record."</div>
-  <div class="masthead-meta">
-    <div class="masthead-meta-item"><strong>Reporter</strong>Justin Case</div>
-    <div class="masthead-meta-item"><strong>Publication</strong>Justin Press VA</div>
-    <div class="masthead-meta-item"><strong>Chapters</strong>10</div>
-    <div class="masthead-meta-item"><strong>Status</strong>Active Investigation</div>
-    <div class="masthead-meta-item"><strong>Updated</strong>June 2026</div>
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Robert Fincher</h1>
+    <div class="banner-roles">Police Officer (1994) → Chief of Police (2023) → Interim City Manager (2025) → City Manager (2026–Present)</div>
+    <p class="banner-summary">Thirty-one years with the Martinsville Police Department before stepping into city government. Three documented eras, three distinct accountability questions. This page pulls together everything on the public record about one person, across his full career — not just the chapter where he happens to appear.</p>
+    <div class="era-tabs">
+      <a href="#era-police" class="era-tab green">Police Chief — 2023–2025</a>
+      <a href="#era-interim" class="era-tab amber">Interim City Manager — 2025–2026</a>
+      <a href="#era-manager" class="era-tab red">City Manager — 2026–Present</a>
+    </div>
   </div>
-  <a href="chapter-01-the-origin.html" class="start-here-btn">Start Here — Chapter 1</a>
 </header>
 
-<section class="short-section">
-  <div class="short-inner">
-    <div class="short-label">The Short Version</div>
-    <div class="short-title">Ten things that happened in Martinsville. All of them documented.</div>
-    <ul class="short-list">
-      <li>A city manager gave the mayor a <strong>hot tub</strong>, paid for his <strong>Las Vegas trip</strong>, tried to get him a <strong>job</strong>, and arranged him a <strong>lawyer</strong>. None of it was disclosed.</li>
-      <li>The mayor signed her a <strong>15% pay raise</strong> — alone, in secret, with no legal counsel present. One signature. No other council member knew.</li>
-      <li>A council member who publicly opposed the raise was <strong>physically removed from chambers</strong> by a deputy sheriff acting on a nonverbal signal — while the raise had already been signed seven days earlier.</li>
-      <li>The city's own <strong>CFO blew the whistle</strong> — first internally, then in a formal letter to the city's outside lawyers.</li>
-      <li>A forensic audit found <strong>$10 million in budget changes entered without council approval</strong>. The city produced that finding in its own official graphic.</li>
-      <li>Citizens organized a <strong>petition drive</strong> to remove the mayor. Three officials gave three different signature thresholds. The court ruled a number nearly double what petitioners had been told they needed.</li>
-      <li>The mayor was <strong>suspended</strong>, then reinstated. Three special prosecutors handled the case. The Virginia Attorney General declined without explanation — after meeting the mayor at a campaign event.</li>
-      <li>The removal case was <strong>dismissed with prejudice</strong> on May 15, 2026. The forensic audit was still sealed. The VSP investigation was still active.</li>
-      <li><strong>Two new federal lawsuits</strong> were filed 25 days after the dismissal. The fired city manager is suing for $220,000+ in unpaid severance. The city — meaning taxpayers — is a named defendant.</li>
-      <li>While still suspended and awaiting jury trial, the mayor <strong>announced he will seek reelection</strong>. The full forensic audit has not been publicly released. The Virginia State Police investigation is ongoing. The record continues.</li>
-    </ul>
-    <div class="short-note">Every item above is sourced to a named document, a sworn affidavit, a court filing, or a city record. The chapters below contain the full documented record.</div>
-  </div>
-</section>
+<div class="body-wrap">
 
-<section class="lede-section">
-  <div class="lede-inner">
-    <div class="lede-label">What This Is</div>
-    <p class="lede-text">This is a sourced, chapter-by-chapter public record of how Martinsville, Virginia's city government arrived at <strong>$10 million in unauthorized budget amendments</strong>, a forensic audit, multiple federal lawsuits, a mayor's suspension, a special prosecutor chain, and an active Virginia State Police investigation — and who did what, in what order, with what documented consequences.</p>
-    <p class="lede-text">Every claim in these chapters traces to a named document, a named source, or a public record. No editorializing. <strong>The sequence says it.</strong> The public record does the work.</p>
-    <div class="lede-note">Contact: justinpressva@proton.me</div>
-  </div>
-</section>
+  <section class="era-section" id="era-police">
+    <div class="era-label">Era One</div>
+    <div class="era-title">Chief of Police</div>
+    <div class="era-dates">January 2023 – August 2025 · Final 3 of 31 years with Martinsville PD</div>
 
-<section class="chapters-section">
-  <div class="chapters-inner">
-    <div class="section-header">
-      <span class="section-header-label">The Record — Ten Chapters</span>
-      <div class="section-header-rule"></div>
+    <p>Fincher rose through the Martinsville Police Department over three decades — officer (1994), sergeant, captain, deputy chief, and finally Chief of Police beginning January 2023. Two documented incidents from this era raise accountability questions that remain open in the public record.</p>
+
+    <h3 style="font-size:20px;margin:32px 0 14px;">The Roark Phone-Slap, and the City's Response</h3>
+    <p>In February 2023, Star News TV reporter Charles Roark's phone was knocked from his hands while he was recording. His own camera captured Investigator E.L. Harper reaching for the phone immediately after. Roark says Capt. Wayne Davis later admitted Harper had given the phone to a woman nearby — not secured, not returned to Roark directly.</p>
+    <p>More than a year later, in June 2024, the department still had not released information about the incident. Mayor LC Jones, on the record to the Martinsville Bulletin, did not hold back: <strong>"The Chief is just stepping back, washing his hands and hoping it goes away!"</strong> He went further: <strong>"It looks like a good-ole system."</strong></p>
+    <div class="doc-quote">
+      "It is classified as a personnel case."
+      <div class="doc-quote-source">— Robert Fincher, Police Chief, to the Martinsville Bulletin, June 2024</div>
     </div>
-    <div class="chapter-grid">
+    <p>Fincher did release one name: Police Officer Samuel Kanode, identified as the officer who failed to seek medical attention for Roark or file a report.</p>
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">FINCHER-ROARK</span>
+        <span class="exhibit-title">The Phone-Slap Dispute — Key Facts</span>
+        <span class="exhibit-date">Feb 2023 – Jun 2024</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Feb 2023 — Roark's phone knocked from his hands; own camera captures Investigator E.L. Harper reaching for it</li>
+          <li>Capt. Wayne Davis later admits Harper gave the phone to a bystander, per Roark</li>
+          <li>Jun 2024 — over a year later, department had released no information</li>
+          <li>Jones publicly accuses the department of stonewalling: "a good-ole system"</li>
+          <li>Fincher's response: "classified as a personnel case"</li>
+          <li>Officer Samuel Kanode named as failing to seek medical attention or file a report</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Martinsville Bulletin, Feb 2023 (Bill Wyatt) and Jun 2024 · Star News TV</div>
+    </div>
 
-      <a href="chapter-01-the-origin.html" class="chapter-card">
-        <div class="chapter-number">Chapter One</div>
-        <div class="chapter-title">The Origin</div>
-        <div class="chapter-subtitle">Whistleblower · ARPA · Duncanville, TX Pattern</div>
-        <p class="chapter-desc">A city CFO sends a letter. A Texas audit report surfaces. The pattern had already been documented before Martinsville knew to look for it.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Stanfield whistleblower letter — April 13, 2025</li>
-          <li>Duncanville, TX forensic audit — March 20, 2024</li>
-          <li>ARPA fund irregularities documented</li>
-        </ul></div>
+    <h3 style="font-size:20px;margin:32px 0 14px;">The Office Break-In, and the Erased Computer</h3>
+    <p>In early February 2025, City Manager Aretha Ferrell-Benavides's office was broken into and her computer rummaged through. Eric Payne discovered law enforcement had not been informed, and personally contacted Fincher to start a criminal investigation, which came to include a Virginia State Police investigator.</p>
+    <div class="doc-quote">
+      "Unfortunately, when the investigator arrived, a member of the city manager's staff had erased the computer and all forensic data that would have supported or debunked a computer breach."
+      <div class="doc-quote-source">— Eric Payne, reported by the Martinsville Bulletin, August 2025</div>
+    </div>
+    <p>Mayor Jones called for a review of building security camera footage and data key card logs to determine who had entered and departed, and when. Payne said he was unclear what, if any, investigative action followed.</p>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Who was the city manager's staff member who erased the computer? Was this person ever identified, questioned, or disciplined? Did the camera/key-card review Jones requested ever happen? None of these are answered in the public record found so far.</p>
+    </div>
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">FINCHER-BREAKIN</span>
+        <span class="exhibit-title">February 2025 Office Break-In — Key Facts</span>
+        <span class="exhibit-date">Feb 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Early Feb 2025 — Ferrell-Benavides's office broken into, computer rummaged through</li>
+          <li>Law enforcement not initially informed — Eric Payne brought it to Fincher directly</li>
+          <li>Fincher initiates criminal investigation, VSP investigator becomes involved</li>
+          <li>Evidence (the computer/forensic data) erased by a city manager's staff member AFTER the investigator arrived on scene</li>
+          <li>Jones calls for camera footage and key-card log review — outcome unknown</li>
+          <li>Predates Ferrell-Benavides's leaves, raise, and termination by several months</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Martinsville Bulletin, Bill Wyatt, August 7, 2025</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows — Era One</div>
+      <p>Twice during Fincher's tenure as Police Chief, his department's handling of an incident involving the city's own communications or records became a matter of public dispute. In one case, the mayor himself called the department's silence "a good-ole system." In the other, the central piece of evidence was destroyed by a city employee after a state investigator had already arrived. Neither matter has a public resolution on record.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-interim">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">Interim City Manager</div>
+    <div class="era-dates">August 2025 – March 2026</div>
+
+    <p>Following Ferrell-Benavides's termination, the council appointed Fincher Interim City Manager. He had not contemplated a job in city management.</p>
+    <div class="doc-quote">
+      "Last month my career took an unexpected turn. I was asked by the City Council to serve as the Interim City Manager. After 31 years in law enforcement I was looking at retiring and possibly starting a new career. I had never contemplated a job in city management, but God will sometimes open doors that you least expect. Taking the job (although it is temporary) was not an easy decision as there are many changes that need to be made and restoring the public's trust in government is not an easy task."
+      <div class="doc-quote-source">— Robert Fincher, LinkedIn, September 2025</div>
+    </div>
+    <p>It was during this period that Fincher discovered the March 18, 2025 offer letter — bearing Jones's sole signature — sitting in Ferrell-Benavides's city email draft folder. That discovery became central to the Sands Anderson investigation and the case against Jones. (Full detail: Chapter 4.)</p>
+    <p>Ordinary city business continued alongside the turmoil. Fincher, Vice Mayor Kathy Lawson, and Councilman Julian Mei toured the nearly-complete Aaron Mills Apartments — 52 units of affordable senior housing on Aaron Street, developed by Landmark Development, with rents from $542 to $800 monthly.</p>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows — Era Two</div>
+      <p>Fincher's own words describe taking the interim role as unexpected and difficult, with "restoring the public's trust" already identified by him as the central task — months before the cyberattack and before his own permanent appointment made that task his directly, not just an inherited problem.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-manager">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">City Manager</div>
+    <div class="era-dates">March 11, 2026 – Present</div>
+
+    <p>The Martinsville City Council formally appointed Fincher permanent City Manager on March 11, 2026, ending his interim status. Vice Mayor Kathy Lawson: "Rob's leadership during the interim period has exceeded all expectations."</p>
+    <p>Two weeks later, the city experienced its most serious documented crisis of his tenure.</p>
+
+    <h3 style="font-size:20px;margin:32px 0 14px;">The Cyberattack, and the Walk-Back</h3>
+    <p><strong>March 25, 2026</strong> — the city announces a cyberattack, contained the same day. Officials state plainly: <strong>"no consumer or citizen information has been compromised."</strong></p>
+    <p><strong>April 7, 2026</strong> — nearly two weeks later, systems remain down. Fincher, to the Bulletin: <strong>"I hate being so short and not giving you much information, but due to the active investigation, we cannot share any details at this time."</strong></p>
+    <p><strong>April 9, 2026</strong> — city says services are "fully operational again." The "no information compromised" claim is repeated.</p>
+    <p><strong>Later</strong> — the city's own website posts a formal "Notice of Cyber Incident," offering free identity monitoring, credit freeze guidance, and fraud alert instructions, with a dedicated assistance line active through August 31, 2026.</p>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows — The Contradiction</div>
+      <p>A city does not offer free credit monitoring, credit freeze guidance, and fraud alert instructions for an incident where "no consumer or citizen information was compromised." Those are the standard remedies for a confirmed exposure of personal information. The city's early public statements and its own later formal notice are not reconcilable as written.</p>
+    </div>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Whose job was cybersecurity at the City of Martinsville? No named IT security officer or contracted security vendor has been identified in the public record so far. Worth checking against existing bank statement research (recurring IT-adjacent vendor charges already documented elsewhere in this hub) to see if any named vendor maps to security specifically.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows — Era Three, Overall</div>
+      <p>Fincher's permanent tenure was two weeks old when the most significant documented crisis of his career as City Manager began. The city's public messaging about that crisis shifted from outright denial of any data compromise to, eventually, a formal notice offering breach-specific remedies — the same basic pattern of public statement followed by quiet contradiction that recurs throughout this record.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-01-the-origin.html" class="cl-item">
+        <div class="cl-name">Chapter 1: The Origin</div>
+        <div class="cl-context">Stanfield whistleblower context</div>
       </a>
-
-      <a href="chapter-02-the-relationship.html" class="chapter-card">
-        <div class="chapter-number">Chapter Two</div>
-        <div class="chapter-title">The Relationship</div>
-        <div class="chapter-subtitle">Hot Tub · Airfare · Employment · Legal Advice</div>
-        <p class="chapter-desc">Four undisclosed benefits. None on the official record — until they were.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Hot tub delivery — December 12, 2024</li>
-          <li>Las Vegas airfare — $544.71, city card</li>
-          <li>Petersburg employment attempt — Spring 2025</li>
-          <li>Attorney Verbena Askew — shared representation</li>
-        </ul></div>
+      <a href="chapter-02-the-relationship.html" class="cl-item">
+        <div class="cl-name">Chapter 2: The Relationship</div>
+        <div class="cl-context">Discovers the March 18 offer letter</div>
       </a>
-
-      <a href="chapter-03-the-ejection.html" class="chapter-card">
-        <div class="chapter-number">Chapter Three</div>
-        <div class="chapter-title">The Ejection</div>
-        <div class="chapter-subtitle">March 25 · Keen · The Nod · The Pay Raise Letter</div>
-        <p class="chapter-desc">A council member speaks against a pay raise he didn't know had already been signed. A deputy sheriff moves on a nonverbal signal.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>March 25, 2025 — Rawls removed from chambers</li>
-          <li>Two camera angles, three city manager statements</li>
-          <li>March 18 offer letter already signed</li>
-          <li>Rawls learns via news media — April 30</li>
-        </ul></div>
+      <a href="chapter-04-the-firing.html" class="cl-item">
+        <div class="cl-name">Chapter 4: The Firing</div>
+        <div class="cl-context">Named interim city manager</div>
       </a>
-
-      <a href="chapter-04-the-firing.html" class="chapter-card">
-        <div class="chapter-number">Chapter Four</div>
-        <div class="chapter-title">The Firing</div>
-        <div class="chapter-subtitle">Two Leaves · A Raise · 4-1 Vote · Sands Anderson</div>
-        <p class="chapter-desc">Two separate leaves in one summer. A raise in between. The investigation begins.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>August 7, 2025 — Ferrell-Benavides fired, 4-1</li>
-          <li>Jones: sole dissenting vote</li>
-          <li>EEOC complaint filed before termination</li>
-          <li>Fincher appointed interim city manager</li>
-        </ul></div>
+      <a href="chapter-10-the-actors.html" class="cl-item">
+        <div class="cl-name">Chapter 10: The Actors</div>
+        <div class="cl-context">Full actor entry, federal defendant status</div>
       </a>
-
-      <a href="chapter-05-the-audit.html" class="chapter-card hold">
-        <div class="chapter-number">Chapter Five</div>
-        <div class="chapter-title">The Audit</div>
-        <div class="chapter-subtitle">Brown Edwards · $10M · Named Individuals</div>
-        <p class="chapter-desc">The forensic audit exists. 1.6 gigabytes of records. The public has received a summary only. The full report holds for publication.</p>
-        <span class="chapter-status hold">⏸ Publishes July 14–24, 2026</span>
-        <div class="chapter-key-facts"><ul>
-          <li>$10M in unauthorized budget amendments</li>
-          <li>Full release expected: July 14–24, 2026</li>
-          <li>1.6 GB of records — FOIA denied</li>
-        </ul></div>
-      </a>
-
-      <a href="chapter-06-the-petition.html" class="chapter-card">
-        <div class="chapter-number">Chapter Six</div>
-        <div class="chapter-title">The Petition</div>
-        <div class="chapter-subtitle">Signature Drive · Three-Way Threshold Dispute</div>
-        <p class="chapter-desc">Citizens gather signatures. Three officials cite three different numbers. Judge Brinks rules on which one is correct.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Workman: 375 — Hall: 571 — Brinks: 682</li>
-          <li>375+ valid signatures collected</li>
-          <li>Did not reach court threshold</li>
-        </ul></div>
-      </a>
-
-      <a href="chapter-07-the-legal-chain.html" class="chapter-card">
-        <div class="chapter-number">Chapter Seven</div>
-        <div class="chapter-title">The Legal Chain</div>
-        <div class="chapter-subtitle">Special Prosecutors · AG · Suspension · Reinstatement</div>
-        <p class="chapter-desc">Three special prosecutors. One AG who met the mayor at a campaign stop and declined without explanation. One suspension. One reinstatement.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Jones suspended — February 2026</li>
-          <li>Reinstated — April 21, 2026</li>
-          <li>Collins III appointed — April 28, 2026</li>
-          <li>VSP investigation — still active</li>
-        </ul></div>
-      </a>
-
-      <a href="chapter-08-the-dismissal.html" class="chapter-card">
-        <div class="chapter-number">Chapter Eight</div>
-        <div class="chapter-title">The Dismissal</div>
-        <div class="chapter-subtitle">May 15, 2026 · $40K · "Total Vindication"</div>
-        <p class="chapter-desc">CL26-011 dismissed with prejudice. Jones declares total vindication. The audit is still sealed. Two new federal lawsuits filed 25 days later.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Dismissed with prejudice — May 15, 2026</li>
-          <li>$40K taxpayer prosecution cost</li>
-          <li>Audit still sealed at dismissal</li>
-          <li>Two new federal suits — June 9, 2026</li>
-        </ul></div>
-      </a>
-
-      <a href="chapter-09-the-lawsuits.html" class="chapter-card">
-        <div class="chapter-number">Chapter Nine</div>
-        <div class="chapter-title">The Lawsuits</div>
-        <div class="chapter-subtitle">Five Active Cases · Taxpayer Exposure</div>
-        <p class="chapter-desc">Five active federal cases. One city. Documented taxpayer exposure exceeding $760,000 before any judgment or settlement.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Rawls complaint: Case 4:25-cv-00028</li>
-          <li>F-B seeks $220,000+ unpaid severance</li>
-          <li>Jones/F-B suits: filed June 9, 2026</li>
-          <li>Total exposure: $760,000+ documented minimum</li>
-        </ul></div>
-      </a>
-
-      <a href="chapter-10-the-actors.html" class="chapter-card">
-        <div class="chapter-number">Chapter Ten</div>
-        <div class="chapter-title">Martinsville Remembers</div>
-        <div class="chapter-subtitle">The Actors · Community · What's Next</div>
-        <p class="chapter-desc">Every named actor. Every community member who spoke, signed, or was silenced. What the public record says now.</p>
-        <span class="chapter-status done">✓ Published</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Full cast documented</li>
-          <li>Community response on record</li>
-          <li>VSP investigation: active</li>
-          <li>Audit: Chapter 5 publishes July 14–24</li>
-        </ul></div>
-      </a>
-
     </div>
   </div>
 </section>
 
-<section class="chapters-section" style="padding-top:0;">
-  <div class="chapters-inner">
-    <div class="section-header">
-      <span class="section-header-label">Person Records — Full Career, One Page</span>
-      <div class="section-header-rule"></div>
-    </div>
-    <div class="chapter-grid">
-
-      <a href="fincher.html" class="chapter-card person">
-        <div class="chapter-number">Person Record</div>
-        <div class="chapter-title">Robert Fincher</div>
-        <div class="chapter-subtitle">Police Chief → Interim → City Manager</div>
-        <p class="chapter-desc">His full career in one place — the Roark phone-slap dispute, the office break-in, and the cyberattack walk-back.</p>
-        <span class="chapter-status person">◆ New Format</span>
-        <div class="chapter-key-facts"><ul>
-          <li>Three documented eras, 2023–present</li>
-          <li>Two open questions still unanswered</li>
-          <li>First page of this kind on the Record</li>
-        </ul></div>
-      </a>
-
-    </div>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Robert Fincher</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">FINCHER-ROARK</td><td>Martinsville Bulletin — phone-slap dispute</td><td>Feb 2023 – Jun 2024</td><td>Confirmed in hand. Jones "good-ole system" quote.</td></tr>
+        <tr><td class="src-id">FINCHER-BREAKIN</td><td>Martinsville Bulletin (Bill Wyatt) — office break-in</td><td>Aug 7, 2025</td><td>Confirmed in hand. Erased evidence, per Eric Payne.</td></tr>
+        <tr><td class="src-id">FINCHER-LINKEDIN</td><td>Robert Fincher, LinkedIn post</td><td>Sep 2025</td><td>Confirmed in hand. His own words on taking the interim role.</td></tr>
+        <tr><td class="src-id">FINCHER-PERMANENT</td><td>City of Martinsville / WDBJ7 — permanent appointment</td><td>Mar 11, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">FINCHER-CYBER</td><td>WFXR, Martinsville Bulletin, city website Notice of Cyber Incident</td><td>Mar 25 – Apr 9, 2026 + later notice</td><td>Confirmed in hand. The walk-back sequence.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 10</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<section class="watch-section">
-  <div class="watch-inner">
-    <div class="watch-label">▸ Active Watch Items</div>
-    <div class="watch-grid">
-      <div class="watch-item">
-        <div class="watch-date">July 14–24, 2026</div>
-        <div class="watch-event">Brown Edwards Forensic Audit — Full Public Release</div>
-        <div class="watch-note">Chapter 5 publishes on this date.</div>
-      </div>
-      <div class="watch-item">
-        <div class="watch-date">July 23, 2026</div>
-        <div class="watch-event">Rayshaun O'Shea Gravely — Court Date</div>
-        <div class="watch-note">Martinsville GDC. Driving on suspended license, expired inspection.</div>
-      </div>
-      <div class="watch-item">
-        <div class="watch-date">Filed June 9, 2026</div>
-        <div class="watch-event">Jones v. Rawls &amp; Sands Anderson</div>
-        <div class="watch-note">WDVA Roanoke Division. Docket pending PACER.</div>
-      </div>
-      <div class="watch-item">
-        <div class="watch-date">Filed June 9, 2026</div>
-        <div class="watch-event">Ferrell-Benavides v. City, Rawls &amp; Sands Anderson</div>
-        <div class="watch-note">$220,000+ severance claim. Docket pending PACER.</div>
-      </div>
-      <div class="watch-item">
-        <div class="watch-date">Active</div>
-        <div class="watch-event">VSP Investigation — Ongoing</div>
-        <div class="watch-note">Confirmed active April 21, 2026. No charges announced.</div>
-      </div>
-      <div class="watch-item">
-        <div class="watch-date">November 3, 2026</div>
-        <div class="watch-event">Martinsville City Council Election</div>
-        <div class="watch-note">Two seats. Mayor Jones has announced he will seek reelection while suspended and awaiting jury trial. Rawls not seeking re-election. Mei, Lawson, and Gravely terms expire 2028.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-tagline"><strong>"The Public Record Is The Public Record. Martinsville Remembers."</strong></div>
-  <div class="footer-note">Justin Press VA &nbsp;·&nbsp; Justin Case, Reporter &nbsp;·&nbsp; Martinsville &amp; Henry County, Virginia &nbsp;·&nbsp; justinpressva@proton.me</div>
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
 </footer>
-<script data-goatcounter="https://martinsville-record.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
 </body>
 </html>
