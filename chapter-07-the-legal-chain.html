@@ -54,6 +54,8 @@
   .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
   .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
   .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 18px 20px; margin: 28px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 10px; }
   .prosecutor-block { background: var(--ink-deep); border: 1px solid #333; padding: 28px; margin: 32px 0; }
   .prosecutor-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
   .prosecutor-row { padding: 14px 0; border-bottom: 1px solid #1e1e1e; }
@@ -92,11 +94,12 @@
     <div class="banner-chapter-num">Chapter Seven</div>
     <h1 class="banner-title">The Legal Chain</h1>
     <div class="banner-subtitle">Special Prosecutors · Attorney General · Suspension · Reinstatement</div>
-    <p class="banner-summary">Three special prosecutors. One attorney general who met the mayor at a campaign stop and declined without public explanation. One suspension. One reinstatement. The formal removal petition against Mayor LC Jones moved through the legal system from January through May 2026 — and ended with a dismissal with prejudice on May 15, 2026.</p>
+    <p class="banner-summary">A citizen's petition, a sitting prosecutor recused by a judge who then retired mid-case, an Attorney General who declined to step in over a technicality, and two special prosecutors after him before the third one dismissed the case. The removal petition against Mayor LC Jones moved through five different officials before it ever reached a jury.</p>
     <div class="banner-meta">
       <div class="banner-meta-item"><strong>Case</strong>CL26-011</div>
-      <div class="banner-meta-item"><strong>Prosecutors</strong>Nance · Harrison · Collins III</div>
-      <div class="banner-meta-item"><strong>Suspended</strong>February 2026</div>
+      <div class="banner-meta-item"><strong>Petition Filed</strong>Jan 13, 2026</div>
+      <div class="banner-meta-item"><strong>Special Prosecutors</strong>Harrison, then Collins III</div>
+      <div class="banner-meta-item"><strong>Suspended</strong>Feb 18, 2026</div>
       <div class="banner-meta-item"><strong>Reinstated</strong>April 21, 2026</div>
       <div class="banner-meta-item"><strong>Dismissed</strong>May 15, 2026</div>
     </div>
@@ -104,114 +107,99 @@
 </header>
 <article class="body-section">
   <div class="body-label">The Record</div>
-  <p>Virginia Code 24.2-235 governs the removal of local elected officials from office. When a removal petition is filed, the Commonwealth's Attorney of the jurisdiction handles prosecution — unless a conflict exists, in which case a special prosecutor is appointed. In the case of Commonwealth v. Jones, Case CL26-011, the conflict question produced a chain of three prosecutors before the case reached trial.</p>
-  <p>The case alleged violations of the Virginia Conflict of Interests Act and bribery statute against Mayor LC Jones, based on the four undisclosed benefits documented in Chapter 2. It ended on May 15, 2026, dismissed with prejudice — before the Brown Edwards forensic audit was publicly released, and while the Virginia State Police investigation remained active.</p>
+  <p>Virginia Code 24.2-235 governs the removal of local elected officials from office. When a citizen's petition is filed, the sitting Commonwealth's Attorney is legally required to review it — and may ask the court to appoint a special prosecutor if a conflict exists. In Commonwealth v. Jones, Case CL26-011, that single question — who would actually handle the case — took four months, five officials, and a request to the Virginia Attorney General before the case ever reached a substantive hearing.</p>
+  <p>The case alleged violations of the Virginia Conflict of Interests Act and the bribery statute against Mayor LC Jones, based on the four undisclosed benefits documented in Chapter 2. It ended on May 15, 2026, dismissed with prejudice — not on the merits of those allegations, but on a signature-threshold question, detailed in Chapter 6 and Chapter 8.</p>
   <hr class="section-rule">
-  <h2>The Three Special Prosecutors</h2>
-  <div class="prosecutor-block">
-    <div class="prosecutor-label">CL26-011 — Special Prosecutor Chain</div>
-    <div class="prosecutor-row">
-      <div class="prosecutor-name">Andy Hall</div>
-      <div class="prosecutor-role">Commonwealth's Attorney — Martinsville</div>
-      <div class="prosecutor-detail">Initial CA on the removal petition. Cited 571-signature threshold on citizen petition. Subsequently recused or replaced. Connection to petition process documented in Chapter 6.</div>
+  <h2>The Petition and the First Recusal Fight</h2>
+  <p>On January 13, 2026, Martinsville resident Patti Covington filed a citizen's petition seeking Jones's removal, ultimately certified with 401 valid signatures. Patrick Flinn — who had just taken office as Commonwealth's Attorney, succeeding Andy Hall — was legally required to review it. His first act was to ask then-Circuit Judge G. Carter Greer to appoint a special prosecutor in his place, citing his own professional and personal relationships with city council members, staff, and potential witnesses. <strong>Greer denied the motion on January 15, 2026.</strong></p>
+  <p>With no special prosecutor appointed, Flinn proceeded to review the petition himself. On February 17, 2026, he filed formal notice that valid grounds existed for the case to move forward. The next day, Greer ordered a recall trial and suspended Jones pending its outcome.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH7-DENIAL</span>
+      <span class="exhibit-title">Greer Denies Flinn's First Recusal Request</span>
+      <span class="exhibit-date">Jan 15, 2026</span>
     </div>
-    <div class="prosecutor-row">
-      <div class="prosecutor-name">Wes Nance</div>
-      <div class="prosecutor-role">First Special Prosecutor Appointed</div>
-      <div class="prosecutor-detail">Appointed following Hall's departure from the case. Proceeded with investigation through initial phases. Subsequently withdrew.</div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Flinn cited professional and personal relationships with council members, staff, and potential witnesses as grounds for recusal</li>
+        <li>Judge G. Carter Greer denied the motion — no public reason given at the time</li>
+        <li>Flinn proceeded to personally review the petition, as the law required absent a special prosecutor</li>
+        <li>February 17, 2026 — Flinn files notice: valid grounds exist to proceed</li>
+        <li>February 18, 2026 — Greer suspends Jones, orders recall trial</li>
+      </ul>
     </div>
-    <div class="prosecutor-row">
-      <div class="prosecutor-name">Bethany Harrison</div>
-      <div class="prosecutor-role">Second Special Prosecutor — Lynchburg CA</div>
-      <div class="prosecutor-detail">Lynchburg Commonwealth's Attorney. Appointed as second special prosecutor. WDBJ7 reported on Harrison's public profile during this period. Subsequently withdrew from CL26-011.</div>
+    <div class="exhibit-source">Source: Cardinal News, Martinsville Bulletin, confirmed in hand</div>
+  </div>
+  <hr class="section-rule">
+  <h2>Andy Hall's Separate, Earlier Connection</h2>
+  <p>Andy Hall, Flinn's predecessor, was never part of the CL26-011 prosecutor chain — his term had already ended by the time the petition was filed. Hall's connection to this case is earlier and separate: in September 2025, while still in office, he referred the criminal investigation into city spending under Ferrell-Benavides to Bedford County Commonwealth's Attorney Wes Nance, citing his own appearance of a conflict. Nance's investigation and the civil removal petition were not formally combined until Bethany Harrison was appointed to both in April 2026 — at which point Flinn described them as "combined at the hip." Full detail on Hall's role is in his person-page.</p>
+  <hr class="section-rule">
+  <h2>A Judge Retires Mid-Case</h2>
+  <p>Greer retired shortly after suspending Jones. The Virginia General Assembly appointed Stephanie Vipperman to his seat on the 21st Judicial Circuit, with her term beginning May 1, 2026. From this point forward, a rotation of substitute judges — including James McGarry and Marcus Brinks — handled the case's remaining proceedings.</p>
+  <hr class="section-rule">
+  <h2>The Attorney General — Declined Over a Technicality</h2>
+  <p>By March 2026, Nance had been elevated to a circuit court judgeship, leaving the criminal investigation without a prosecutor at the same time Flinn was still seeking relief from the civil case. On March 13, 2026, Flinn formally requested that Attorney General Jay Jones be appointed special prosecutor for both the criminal and civil matters, and separately asked Governor Abigail Spanberger's office to facilitate the request. Flinn told reporters his message to the Governor's office was never returned.</p>
+  <p>On March 20, 2026, the Attorney General's office declined. According to a spokesperson, the office considered Flinn's request procedurally deficient — he had sent an email rather than submitting the formal request required to go through the Governor's office. The decision was not framed as a ruling on the merits of the case.</p>
+  <div class="doc-quote">
+    "The Attorney General has formally declined to assist the City of Martinsville. As I explained in my previous press release, in which I requested the Attorney General step in, the Code of Virginia effectively limits criminal investigations of elected officials and political subdivisions to the Attorney General, the Governor, or..."
+    <div class="doc-quote-source">— Patrick Flinn, public statement, March 20, 2026</div>
+  </div>
+  <p>Separately, Jones himself had also pushed for outside review — his attorneys filed pre-trial motions which Jones certified were copied to the Attorney General's office, and at one point asked the court to order the Attorney General to appear. Jones had publicly stated more than once that he wanted an outside agency to review the city's matters. Both the prosecutor seeking to recuse himself and the defendant facing removal wanted the Attorney General involved — for different reasons.</p>
+  <hr class="section-rule">
+  <h2>Harrison — Appointed to Both Cases, Then Withdraws</h2>
+  <p>With the Attorney General's office unwilling to step in, Flinn renewed his motion to be relieved from the civil case. On April 1, 2026, substitute Judge James McGarry granted it, appointing Lynchburg Commonwealth's Attorney Bethany Harrison as special prosecutor — covering both the civil removal petition and Nance's former role overseeing the criminal investigation into the audit.</p>
+  <p>On April 21, 2026, substitute Judge Marcus Brinks reinstated Jones to the city council pending trial. Harrison, appearing in the case for the only time since her appointment, offered no objection to the reinstatement — but told the court of a possible conflict that might prevent her from continuing.</p>
+  <p>One week later, on April 28, 2026, Harrison moved to withdraw, stating she had done so "due to a material conflict and after consulting with the Virginia State Bar Ethics Hotline." She declined to specify the conflict. The court appointed Alfred Gray Collins III, Commonwealth's Attorney for Colonial Heights, as her replacement that same day — covering both the civil petition and the criminal investigation, as Harrison had.</p>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH7-HARRISON</span>
+      <span class="exhibit-title">Bethany Harrison — Appointment and Withdrawal</span>
+      <span class="exhibit-date">Apr 1 – Apr 28, 2026</span>
     </div>
-    <div class="prosecutor-row">
-      <div class="prosecutor-name">Alfred Gray Collins III</div>
-      <div class="prosecutor-role">Third Special Prosecutor — Appointed April 28, 2026</div>
-      <div class="prosecutor-detail">Appointed April 28, 2026 — seven days after Jones was reinstated. Prosecutor of record when CL26-011 was dismissed with prejudice May 15, 2026. Seventeen days elapsed between appointment and dismissal.</div>
+    <div class="exhibit-body">
+      <ul>
+        <li>Appointed April 1, 2026 by substitute Judge James McGarry — covering both the civil removal petition and the criminal/audit investigation</li>
+        <li>Appeared once in the case — the April 21 hearing reinstating Jones — and raised no objection to reinstatement</li>
+        <li>Councilman Aaron Rawls publicly criticized Harrison during this period, calling on her at a press conference to "be a better voice for the people of Martinsville" and later calling for Jones to be re-suspended</li>
+        <li>Withdrew April 28, 2026, citing a "material conflict" after consulting the VA State Bar Ethics Hotline — did not specify the conflict</li>
+        <li>Replaced same day by Alfred Gray Collins III</li>
+      </ul>
     </div>
+    <div class="exhibit-source">Source: Cardinal News, Martinsville Bulletin, WSET, confirmed in hand</div>
   </div>
   <div class="finding">
     <div class="finding-label">What The Record Shows</div>
-    <p>The removal petition against Jones required three separate special prosecutors before reaching its conclusion. The case was dismissed with prejudice seventeen days after the third prosecutor was appointed — while the VSP investigation remained active and the forensic audit remained sealed.</p>
+    <p>Five officials touched this case before it reached a hearing on the merits: Greer (the judge who suspended Jones and then retired), Flinn (recused, twice tried, once denied), the Attorney General's office (declined on a technicality), Harrison (appointed, then withdrew over an undisclosed conflict), and Collins III (the prosecutor of record at dismissal). Two of those five — Greer's retirement and Harrison's conflict — were never publicly explained in detail. The case was ultimately decided on a question that had nothing to do with any of this: whether the petition had enough valid signatures.</p>
   </div>
   <hr class="section-rule">
-  <h2>The Attorney General — Declined Without Explanation</h2>
-  <p>At some point in the prosecution chain, the matter was referred to the Virginia Attorney General's office. The AG declined to take on the prosecution. No public explanation was given.</p>
-  <p>The documented context: the Attorney General had met Mayor LC Jones during a campaign stop prior to the declination. The meeting is part of the documented record. The AG's office did not provide a stated reason for declining.</p>
-  <div class="warning-box">
-    <div class="warning-label">AG Declination — No Public Explanation</div>
-    <p>The Virginia Attorney General's office declined to prosecute CL26-011. No public explanation was provided. The AG had met Mayor Jones at a campaign event prior to the declination. These are the documented facts. The record does not state a reason — because no reason was publicly stated.</p>
-  </div>
-  <hr class="section-rule">
-  <h2>The Suspension — February 2026</h2>
-  <p>In February 2026, Mayor LC Jones was suspended from office pending the jury trial in CL26-011. The suspension was a procedural consequence of the removal petition reaching the trial stage under Virginia Code 24.2-235.</p>
+  <h2>The Suspension and Reinstatement</h2>
   <div class="exhibit">
     <div class="exhibit-header">
       <span class="exhibit-id">CH7-SUSPENSION</span>
-      <span class="exhibit-title">Jones Suspended From Office — February 2026</span>
-      <span class="exhibit-date">Feb 2026</span>
+      <span class="exhibit-title">Jones Suspended, Then Reinstated</span>
+      <span class="exhibit-date">Feb 18 – Apr 21, 2026</span>
     </div>
     <div class="exhibit-body">
       <ul>
-        <li>Jones suspended from mayoral duties — February 2026</li>
-        <li>Suspension pending jury trial in CL26-011</li>
-        <li>Statutory basis: Virginia Code 24.2-235</li>
-        <li>Jones not removed — suspended pending outcome</li>
-        <li>City operations continued under council during suspension period</li>
+        <li>February 18, 2026 — Judge Greer suspends Jones from mayoral duties, orders recall trial, statutory basis Va. Code 24.2-235</li>
+        <li>Jones challenged the suspension as unconstitutional, arguing the statute requires a speedy trial that took priority over other proceedings</li>
+        <li>April 21, 2026 — substitute Judge Marcus Brinks reinstates Jones to the city council pending trial</li>
+        <li>Patti Covington — the same Martinsville resident who filed the original petition (Chapter 6) — publicly confirmed the same day that the Virginia State Police investigation remained active</li>
       </ul>
     </div>
-    <div class="exhibit-source">Source: Martinsville Research Hub · CL26-011 case record</div>
-  </div>
-  <hr class="section-rule">
-  <h2>The Reinstatement — April 21, 2026</h2>
-  <p>On April 21, 2026, Jones was reinstated to office by the circuit court before the case reached jury trial. Patti Covington — the same Martinsville resident who organized and administered the citizen removal petition documented in Chapter 6 — confirmed on April 21, 2026 that the Virginia State Police investigation remained active as of that date.</p>
-  <div class="exhibit">
-    <div class="exhibit-header">
-      <span class="exhibit-id">CH7-REINSTATEMENT</span>
-      <span class="exhibit-title">Jones Reinstated — April 21, 2026</span>
-      <span class="exhibit-date">Apr 21, 2026</span>
-    </div>
-    <div class="exhibit-body">
-      <ul>
-        <li>Jones reinstated to mayoral office by circuit court — April 21, 2026</li>
-        <li>Reinstated before case reached jury trial</li>
-        <li>Seven days later — April 28 — Collins III appointed as third special prosecutor</li>
-        <li>Covington confirms VSP investigation active as of April 21, 2026 — same Covington who organized the citizen petition (Chapter 6)</li>
-        <li>VSP investigation status: active — no charges announced as of publication</li>
-      </ul>
-    </div>
-    <div class="exhibit-source">Source: Martinsville Research Hub · Covington public statement April 21, 2026</div>
-  </div>
-  <hr class="section-rule">
-  <h2>Bethany Harrison — Lynchburg Commonwealth's Attorney</h2>
-  <div class="exhibit">
-    <div class="exhibit-header">
-      <span class="exhibit-id">CH7-A</span>
-      <span class="exhibit-title">WDBJ7 — Bethany Harrison / Lynchburg CA Profile</span>
-      <span class="exhibit-date">2026</span>
-    </div>
-    <div class="exhibit-body">
-      <ul>
-        <li>WDBJ7 Facebook post — Lynchburg CA Bethany Harrison releases statement on Virginia gun legislation</li>
-        <li>Community comments praising Harrison's prosecutorial record</li>
-        <li>Harrison serving as Lynchburg CA during same period as CL26-011 appointment</li>
-        <li>Confirms Harrison's public profile and standing as prosecutor during her CL26-011 role</li>
-      </ul>
-    </div>
-    <div class="exhibit-source">Source: CH7-A — WDBJ7 Facebook screenshot, confirmed in hand</div>
+    <div class="exhibit-source">Source: WDBJ7, Cardinal News, confirmed in hand</div>
   </div>
   <hr class="section-rule">
   <h2>What Parties Refused to Do</h2>
-  <p>Commonwealth's Attorney Patrick Flinn noted in the case record that Jones and Ferrell-Benavides refused to cooperate with the investigation. Flinn stated he relied only on willing witnesses.</p>
-  <p>The subpoena list for CL26-011 includes: LC Jones, Nikima Robinson, Eric Payne, Karen Roberts, Richard Stanfield, Peyton Niblett, Robert Fincher, Kathy Lawson, Julian Mei, Rayshaun Gravely, and Aaron Rawls.</p>
+  <p>Flinn noted in his case review that Jones and Ferrell-Benavides refused to cooperate with the investigation, writing that he was "frustrated by the refusal of parties involved to cooperate" and that many of those involved "have 'lawyered up.'" He proceeded on willing witnesses only.</p>
+  <p>The subpoena list for CL26-011 includes: LC Jones, Nikima Robinson, Eric Payne, Karen Roberts, Richard Stanfield, Peyton Nibblett, Robert Fincher, Kathy Lawson, Julian Mei, Rayshaun Gravely, and Aaron Rawls.</p>
   <div class="finding">
     <div class="finding-label">What The Record Shows</div>
-    <p>The two subjects of the removal petition refused to cooperate with the investigation. The prosecutor proceeded on willing witnesses only. Eleven individuals were subpoenaed to testify. The case was dismissed with prejudice before the jury heard the evidence.</p>
+    <p>The two subjects of the removal petition refused to cooperate with the investigation. The prosecutor proceeded on willing witnesses only, while cautioning that anyone implicated is presumed innocent and that a separate special prosecutor had already been appointed to handle any criminal investigation specifically. Eleven individuals were subpoenaed to testify. The case was dismissed with prejudice before a jury heard any of it.</p>
   </div>
   <hr class="section-rule">
   <h2>The VSP Investigation</h2>
-  <p>Separate from CL26-011, the Virginia State Police opened a criminal investigation into Martinsville governance matters. The dismissal of CL26-011 on May 15, 2026 did not close the VSP investigation. No charges have been announced. The investigation is ongoing as of this publication.</p>
+  <p>Separate from CL26-011, the Virginia State Police opened a criminal investigation into Martinsville governance matters, growing out of the same spending allegations against Ferrell-Benavides. The dismissal of CL26-011 on May 15, 2026 did not close the VSP investigation. No charges have been announced. The investigation is ongoing as of this publication.</p>
   <div class="warning-box">
     <div class="warning-label">VSP Investigation — Active</div>
     <p>The Virginia State Police investigation remains active as of April 21, 2026 — the last confirmed public documentation, via Patti Covington's statement. The dismissal of CL26-011 did not close the VSP investigation. These are separate proceedings. No charges have been announced.</p>
@@ -220,44 +208,54 @@
   <h2>The Legal Chain Timeline</h2>
   <div class="timeline">
     <div class="timeline-entry">
-      <div class="timeline-date">Late 2025</div>
-      <div class="timeline-event">CL26-011 Filed</div>
-      <div class="timeline-detail">Patrick Flinn files formal removal petition. Alleges Conflict of Interests Act violations and bribery.</div>
+      <div class="timeline-date">September 2025</div>
+      <div class="timeline-event">Hall Refers Criminal Investigation to Nance</div>
+      <div class="timeline-detail">Separate from CL26-011. Andy Hall, still in office, requests a special prosecutor for the spending investigation, citing his own appearance of conflict.</div>
     </div>
     <div class="timeline-entry">
-      <div class="timeline-date">Late 2025 – Early 2026</div>
-      <div class="timeline-event">Hall, Then Nance</div>
-      <div class="timeline-detail">Andy Hall then Wes Nance handle early prosecution phases. Both exit case before trial.</div>
+      <div class="timeline-date">January 13, 2026</div>
+      <div class="timeline-event">Petition Filed</div>
+      <div class="timeline-detail">Patti Covington files the citizen removal petition. Patrick Flinn, newly in office, is legally required to review it.</div>
     </div>
     <div class="timeline-entry">
-      <div class="timeline-date">Early 2026</div>
-      <div class="timeline-event">AG Declines — No Explanation</div>
-      <div class="timeline-detail">Virginia AG's office declines to prosecute. AG had met Jones at campaign event. No public reason given.</div>
+      <div class="timeline-date">January 15, 2026</div>
+      <div class="timeline-event">Greer Denies Flinn's Recusal Request</div>
+      <div class="timeline-detail">Flinn cites conflicts; Judge Greer denies the motion. Flinn must review the petition himself.</div>
     </div>
     <div class="timeline-entry">
-      <div class="timeline-date">Early 2026</div>
-      <div class="timeline-event">Bethany Harrison Appointed</div>
-      <div class="timeline-detail">Lynchburg CA appointed as second special prosecutor. Subsequently withdraws.</div>
+      <div class="timeline-date">February 17–18, 2026</div>
+      <div class="timeline-event">Valid Grounds Found, Jones Suspended</div>
+      <div class="timeline-detail">Flinn finds valid grounds to proceed. Greer suspends Jones and orders a recall trial the next day.</div>
     </div>
     <div class="timeline-entry">
-      <div class="timeline-date">February 2026</div>
-      <div class="timeline-event">Jones Suspended</div>
-      <div class="timeline-detail">Suspended from mayoral duties pending jury trial.</div>
+      <div class="timeline-date">March 2026</div>
+      <div class="timeline-event">Greer Retires; Nance Elevated to Judgeship</div>
+      <div class="timeline-detail">Stephanie Vipperman appointed to Greer's seat. Nance's elevation leaves the criminal investigation without a prosecutor.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">March 13–20, 2026</div>
+      <div class="timeline-event">Attorney General Declines</div>
+      <div class="timeline-detail">Flinn formally requests AG Jay Jones take over both cases. AG's office declines March 20, citing a procedural deficiency in how the request was filed.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 1, 2026</div>
+      <div class="timeline-event">Harrison Appointed</div>
+      <div class="timeline-detail">Substitute Judge McGarry grants Flinn's renewed motion, appoints Bethany Harrison to both the civil and criminal matters.</div>
     </div>
     <div class="timeline-entry">
       <div class="timeline-date">April 21, 2026</div>
       <div class="timeline-event">Jones Reinstated</div>
-      <div class="timeline-detail">Circuit court reinstates Jones. Covington confirms VSP investigation active same date.</div>
+      <div class="timeline-detail">Substitute Judge Brinks reinstates Jones. Harrison raises no objection but flags a possible conflict. Covington confirms VSP investigation still active same date.</div>
     </div>
     <div class="timeline-entry">
       <div class="timeline-date">April 28, 2026</div>
-      <div class="timeline-event">Collins III Appointed</div>
-      <div class="timeline-detail">Third special prosecutor — seven days after reinstatement.</div>
+      <div class="timeline-event">Harrison Withdraws, Collins III Appointed</div>
+      <div class="timeline-detail">Harrison cites a "material conflict" after consulting the VA Bar Ethics Hotline. Collins III appointed same day to both matters.</div>
     </div>
     <div class="timeline-entry">
       <div class="timeline-date">May 15, 2026</div>
       <div class="timeline-event">CL26-011 Dismissed With Prejudice</div>
-      <div class="timeline-detail">Seventeen days after Collins III appointed. Audit still sealed. VSP still active. Chapter 8.</div>
+      <div class="timeline-detail">Seventeen days after Collins III appointed. Dismissed on signature-threshold grounds, not the underlying allegations. Audit still sealed. VSP still active. Chapter 8.</div>
     </div>
     <div class="timeline-entry">
       <div class="timeline-date">June 9, 2026</div>
@@ -274,10 +272,12 @@
         <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — Martinsville Circuit Court</td><td>2026</td><td>Full case record. Three prosecutors. Dismissed with prejudice May 15, 2026.</td></tr>
-        <tr><td class="src-id">CH7-A</td><td>WDBJ7 — Bethany Harrison / Lynchburg CA</td><td>2026</td><td>Confirmed in hand. Documents Harrison public profile during CL26-011 role.</td></tr>
+        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — Martinsville Circuit Court</td><td>2026</td><td>Full case record. Dismissed with prejudice May 15, 2026.</td></tr>
+        <tr><td class="src-id">CH7-DENIAL</td><td>Cardinal News, Martinsville Bulletin — Greer denies Flinn's recusal motion</td><td>Jan 15, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">CH7-AG</td><td>WDBJ7, WSET — Flinn's AG request and declination</td><td>Mar 13–20, 2026</td><td>Confirmed in hand. Direct Flinn quote on AG declination.</td></tr>
+        <tr><td class="src-id">CH7-HARRISON</td><td>Cardinal News, Martinsville Bulletin, WSET — Harrison appointment and withdrawal</td><td>Apr 1–28, 2026</td><td>Confirmed in hand. Direct Harrison quote on withdrawal.</td></tr>
         <tr><td class="src-id">CH1-E</td><td>Aaron Rawls Sworn Affidavit</td><td>Jan 12, 2026</td><td>Subpoena list and investigation cooperation refusal documented.</td></tr>
-        <tr><td class="src-id">COVINGTON-STMT</td><td>Patti Covington public statement</td><td>Apr 21, 2026</td><td>VSP investigation confirmed active as of reinstatement date. Covington's petition role documented in Chapter 6.</td></tr>
+        <tr><td class="src-id">COVINGTON-STMT</td><td>Patti Covington public statement</td><td>Apr 21, 2026</td><td>VSP investigation confirmed active as of reinstatement date. See Chapter 6.</td></tr>
         <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>Full prosecutor chain, AG declination, suspension and reinstatement dates.</td></tr>
       </tbody>
     </table>
