@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andy Hall — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Andy Hall</h1>
+    <div class="banner-roles">Commonwealth's Attorney, City of Martinsville — December 2017 to January 2026</div>
+    <p class="banner-summary">Two terms as Martinsville's top prosecutor, a federal jury still deciding whether he violated a former employee's family-leave rights, and a public dispute with his own registrar over a number that turned out not to matter to the case it was attached to. This page pulls together what's documented about Hall, across the full arc of his tenure.</p>
+    <div class="era-tabs">
+      <a href="#era-tenure" class="era-tab t1">The Tenure — 2017–2026</a>
+      <a href="#era-mook" class="era-tab t2">The Mook Case — 2021–Present</a>
+      <a href="#era-jones" class="era-tab t3">The Jones Case — 2025–2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-tenure">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Tenure</div>
+    <div class="era-dates">December 2017 – January 2026</div>
+
+    <p>Hall served as Martinsville's Commonwealth's Attorney for two full terms, succeeding Clay Gravely, who resigned for health reasons in December 2017. In January 2026, Hall announced he would not seek reelection, explicitly endorsing his own Deputy Commonwealth's Attorney, Patrick Flinn, as his successor. Flinn had worked in the office since 2021; Hall described him as likely to be "a career prosecutor."</p>
+
+    <h3>Handing Off, Not Walking Away</h3>
+    <p>Hall's decision not to seek reelection came before either of the two major matters documented on this page reached their conclusion — the Mook litigation was still active in federal court, and the Jones removal case was still in its early stages, having just been referred to a special prosecutor a few months earlier. Flinn inherited both threads directly upon taking office.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Tenure — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Took office</span><span class="fact-value">December 2017, succeeding Clay Gravely</span></div>
+      <div class="fact-row"><span class="fact-item">Terms served</span><span class="fact-value">Two full terms</span></div>
+      <div class="fact-row"><span class="fact-item">Reelection announcement</span><span class="fact-value">January 2026 — will not seek a third term</span></div>
+      <div class="fact-row"><span class="fact-item">Endorsed successor</span><span class="fact-value">Patrick Flinn, Deputy CA since 2021</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-mook">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Mook Case</div>
+    <div class="era-dates">2021 – Present, Unresolved</div>
+
+    <p>Years before the Jones case began, Hall's office was already the subject of federal litigation entirely unrelated to city governance — a former assistant prosecutor's family-leave rights, and whether Hall's office violated them.</p>
+
+    <h3>The November 2021 Leave Request</h3>
+    <p>Daniel P. Mook, an Assistant Commonwealth's Attorney in Hall's office since April 2018, requested temporary family care leave in November 2021 to care for his ailing mother. He was given a blank FMLA medical certification form. On November 12, 2021, Mook filled out the form himself, took his mother to her doctor, and presented it to a nurse, who signed it after stepping out of the room. Mook emailed the completed form to Hall's office and to the city's Human Resources department.</p>
+
+    <div class="contested">
+      <div class="contested-label">What Happened Next — Disputed at Trial</div>
+      <p><strong>The city's position:</strong> HR flagged the form immediately. Hall's office called the doctor's office to confirm it had been filled out there. The doctor's office told Hall that no one there had filled out the form, and that the doctor had not authorized anyone to sign on her behalf. Hall communicated this to Mook on November 18, 2021. Mook was subsequently terminated.</p>
+      <p><strong>Mook's position:</strong> He has admitted to filling out the form himself and seeking the nurse's signature, but disputes that he deceived the nurse about why he needed it signed. He alleges the city's actions interfered with his right to take family care leave under federal law, and that he should have been given notice and an opportunity to correct any deficiency in the form before being terminated.</p>
+    </div>
+
+    <h3>The Lawsuit</h3>
+    <p>Mook filed suit in November 2023 in the U.S. District Court for the Western District of Virginia, seeking $500,000 in damages, reinstatement, and attorney's fees, naming both the City of Martinsville and Hall personally as defendants.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">MOOK-FED</span>
+        <span class="exhibit-title">Mook v. Hall / City of Martinsville — Case 4:23-cv-00028</span>
+        <span class="exhibit-date">Filed Nov 16, 2023</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>U.S. District Court, Western District of Virginia, Danville Division — Judge Thomas T. Cullen</li>
+          <li>Hall argued his office is not an "employer" within the meaning of the FMLA — court rejected this, holding a Commonwealth's Attorney's office is an agency of the city</li>
+          <li>Hall sought qualified immunity — court denied it, finding the relevant FMLA regulation was clearly established</li>
+          <li>June 5, 2025: court denied Hall's motion for summary judgment — case proceeds to a jury on disputed facts, including whether the stated reason for termination was genuine or pretextual</li>
+          <li>December 2024: Hall filed a motion for sanctions against Mook over discovery disputes</li>
+          <li>As of this writing, no jury verdict has been reached — case remains active</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: MOOK-FED — CourtListener/PACER docket, Virginia Lawyers Weekly case summary, Martinsville Bulletin reporting, confirmed in hand</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>A federal judge has already ruled, as a matter of law, that Hall is not entitled to qualified immunity and that his office is bound by federal family-leave law the same as any other city agency. That ruling resolves a legal question, not the facts — whether Mook's termination was a legitimate response to a falsified document or retaliation dressed up as one is still disputed and headed to a jury. This case predates the Jones matter by years and is entirely unconnected to it.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-jones">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Jones Case</div>
+    <div class="era-dates">2025 – 2026</div>
+
+    <p>Hall's involvement in the Jones matter falls into two distinct moments: requesting the special prosecutor who began the criminal investigation, and a later public dispute with the city registrar over a signature-threshold figure that, in the end, did not turn out to be the number the court actually used.</p>
+
+    <h3>Requesting Nance — September 2025</h3>
+    <p>After City Council fired Ferrell-Benavides in August 2025 and directed Sands Anderson's investigative findings to his office, Hall said his office had difficulty getting evidence, receiving only a heavily redacted report. Rather than proceed himself, Hall's office filed paperwork requesting a special prosecutor, citing the appearance of a conflict of interest. Bedford County Commonwealth's Attorney Wes Nance was appointed in early September 2025.</p>
+
+    <div class="doc-quote">
+      "I know of this gentleman, I've never actually met him... What I'm concerned with is perhaps the evidence is slanted one way or the other. It's difficult for me to comment on the evidence without seeing it in whole, without seeing it placed in a proper context."
+      <div class="doc-quote-source">— Andy Hall, on requesting a special prosecutor, September 2025</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Hall's own public framing at the time was notably cautious — he described it as "irresponsible" to comment on evidence he hadn't seen in full, and stepped back from the investigation rather than press forward on a redacted record. Whatever else is disputed about Hall, this specific decision reads as procedurally careful, not evasive.</p>
+    </div>
+
+    <h3>The Threshold Dispute — Spring 2026</h3>
+    <p>Eight months before the Jones removal petition was even filed, Hall gave the Deputy Registrar's office his legal interpretation of how to calculate signature thresholds for removal petitions: use the turnout from each officer's own specific election year. For council members elected in 2022 — Aaron Rawls and Jones — that meant 3,749 voters. For those elected in 2024, it meant 5,708.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">EL-B1</span>
+        <span class="exhibit-title">Grace Pryor (Deputy Registrar) Email to Hall</span>
+        <span class="exhibit-date">May 16, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Confirms a phone call that morning in which Hall and Pryor agreed on the election-year-specific framework</li>
+          <li>Explicitly separates Rawls and Jones (2022 electees, 3,749 turnout) from Lawson, Mei, and Gravely (2024 electees, 5,708 turnout)</li>
+          <li>Under Hall's own stated framework, Jones's seat falls in the 2022 bucket — the same bucket Registrar Sara Workman later used for her public 375 figure</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: EL-B1 — Grace Pryor email, confirmed in hand</div>
+    </div>
+
+    <p>Despite this, Hall publicly associated himself with a 571-signature figure once the petition became contentious, and in May 2026 disputed Registrar Workman's account of his guidance in a series of escalating Star News TV posts headlined "Hall Fights Back."</p>
+
+    <div class="contested">
+      <div class="contested-label">Hall vs. Workman — Both Sides Shown</div>
+      <p><strong>Workman's position (May 22, 2026 press release):</strong> She consulted Hall because she lacks legal qualification herself, and her 375 figure followed his guidance, applied to the 2022 election that elected Jones.</p>
+      <p><strong>Hall's position (Star News TV, May 2026):</strong> "Sarah gives an inaccurate assessment of how I told her to proceed with the petition." Separately, escalating further: "I don't believe Sarah wrote the press release!" Hall has also said he does not want Workman to lose her job over the dispute.</p>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Hall's own documented framework from May 2025 places Jones's threshold in the same 2022 bucket Workman used — meaning there may be no actual substantive disagreement between them over Jones's specific number. What exactly Hall believes was misrepresented remains unclear from the public record: it may concern process, attribution, or something said about the 2024-elected council members rather than Jones's figure itself. The Electoral Board has formally backed Workman's account.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>None of the three publicly cited figures — Workman's 375, Hall's associated 571, or the court's eventual 682 — turned out to be identical, but the court's ruling rested on yet a different measure entirely: total votes cast across a multi-candidate ballot, not voter turnout at all. The public dispute between Hall and Workman played out over a number that, in the end, was not the one the case actually turned on.</p>
+    </div>
+
+    <h3>Gravely's Felony Reduction — A Third, Earlier Connection</h3>
+    <p>Hall's office held jurisdiction continuously through 2022, when council member Rayshaun Gravely's felony Strangle/Wound/Injury charge was reduced to a misdemeanor. This is not evidence Hall personally handled the case — Commonwealth's Attorneys routinely delegate individual matters to deputies — but it places his office at the center of three separate threads in this record: the Gravely reduction, the Jones removal case, and the office's own succession to Patrick Flinn, who filed CL26-011 against Jones.</p>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">Three-way threshold dispute, full detail</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The removal case Hall's office initiated</div></a>
+      <a href="gravely.html" class="cl-item"><div class="cl-name">Rayshaun Gravely</div><div class="cl-context">Felony reduction under Hall's tenure</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">The firing that triggered the Nance referral</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Andy Hall</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">HALL-TENURE</td><td>Martinsville Bulletin / Henry County Enterprise — tenure dates, Flinn endorsement</td><td>2017–2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">MOOK-FED</td><td>Mook v. Hall, 4:23-cv-00028, W.D. Va. — docket, court opinion, news coverage</td><td>2021–2025</td><td>Confirmed via CourtListener/PACER, Virginia Lawyers Weekly, Martinsville Bulletin. Case active, no verdict yet.</td></tr>
+        <tr><td class="src-id">NANCE-APPT</td><td>WSLS, WDBJ7, Cardinal News — Hall requests special prosecutor</td><td>Sep 2025</td><td>Confirmed in hand. Direct Hall quotes on redacted evidence.</td></tr>
+        <tr><td class="src-id">EL-B1</td><td>Grace Pryor email to Hall</td><td>May 16, 2025</td><td>Confirmed in hand. Hall's election-year-specific framework.</td></tr>
+        <tr><td class="src-id">EL-B2</td><td>Sara Workman press release</td><td>May 22, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">EL-B3–B7</td><td>Star News TV "Hall Fights Back" graphics</td><td>May 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GRAVELY-HALL</td><td>Court record, Case GC22001064-00</td><td>2022</td><td>Confirmed in hand. Office tenure overlap, not personal involvement.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 10</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
