@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: The Audits — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-deep: #0d0d0d;
+    --paper: #f5f2eb;
+    --paper-dark: #ede9df;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --green: #1e7e34;
+    --amber: #d4a017;
+    --rule: #2c2c2c;
+    --muted: #5a5a5a;
+    --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .chapter-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-chapter-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-title { font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--paper); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-subtitle { font-family: var(--sans); font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .banner-meta { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid #222; padding-top: 20px; }
+  .banner-meta-item { font-family: var(--mono); font-size: 11px; color: #555; }
+  .banner-meta-item strong { color: #888; display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .body-section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+  .body-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
+  .body-section h2 { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.25; margin: 48px 0 18px; letter-spacing: -0.01em; }
+  .body-section h3 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; }
+  .body-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .body-section p strong { color: var(--red-dark); }
+  .section-rule { border: none; border-top: 2px solid var(--paper-dark); margin: 44px 0; }
+  .part-divider { background: var(--ink-deep); color: var(--paper); padding: 28px 24px; margin: 48px -24px; text-align: center; }
+  .part-divider-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .part-divider-title { font-size: 26px; font-weight: 700; }
+  .part-divider-status { font-family: var(--mono); font-size: 11px; color: #999; margin-top: 8px; }
+  .exhibit { margin: 36px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 20px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 8px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 24px; margin: 36px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .finding p { font-size: 15px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 18px 20px; margin: 28px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 10px; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 28px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .warning-box { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 20px; margin: 32px 0; }
+  .warning-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .warning-box p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 20px; margin: 32px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 0; }
+  .timeline { margin: 36px 0; position: relative; padding-left: 20px; border-left: 2px solid var(--paper-dark); }
+  .timeline-entry { margin-bottom: 28px; position: relative; }
+  .timeline-entry::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; left: -25px; top: 6px; }
+  .timeline-date { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+  .timeline-event { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+  .timeline-detail { font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .timeline-detail strong { color: var(--ink); }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .chapter-nav { background: #111; padding: 32px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e1e1e; gap: 16px; flex-wrap: wrap; }
+  .chapter-nav a { font-family: var(--mono); font-size: 12px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+  .chapter-nav a:hover { color: var(--red); }
+  @media (max-width: 600px) { .chapter-banner { padding: 36px 16px 30px; } .body-section { padding: 36px 16px; } .source-section { padding: 36px 16px; } .chapter-nav { padding: 24px 16px; } .part-divider { margin: 40px -16px; padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<header class="chapter-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-chapter-num">Chapter Five</div>
+    <h1 class="banner-title">The Audits</h1>
+    <div class="banner-subtitle">Two Documents, Not One · One Released · One Still Held</div>
+    <p class="banner-summary">This record held this chapter for months waiting on a single audit. There were always two. The financial forensic audit has been substantially public since April 14, 2026, with real findings now on record. A separate workplace investigation into the same former city manager has been delayed repeatedly since August 2025, and was most recently pushed to a planned July 14, 2026 release the very week Mayor Jones returned to council. This chapter documents both, precisely separated.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item"><strong>Financial Audit</strong>Brown Edwards — Released Apr 14, 2026</div>
+      <div class="banner-meta-item"><strong>Workplace Investigation</strong>Sands Anderson — Holds for Jul 14, 2026</div>
+      <div class="banner-meta-item"><strong>VSP Investigation</strong>Active, separate, ongoing</div>
+    </div>
+  </div>
+</header>
+<article class="body-section">
+  <div class="body-label">The Record</div>
+  <p>For months, this record treated "the audit" as a single document — sealed, expected sometime in mid-July 2026. That framing was wrong, and worth correcting plainly rather than quietly: there are two separate documents, conducted by different parties, examining different things, on two different release timelines. Conflating them made it impossible to report accurately on either one. This chapter separates them.</p>
+  <div class="open-question">
+    <div class="oq-label">A Note On Attribution</div>
+    <p>One news report from January 2026 describes the financial audit as "conducted by the law firm Sands Anderson," while the actual April 14, 2026 release is explicitly attributed to accounting firm Brown Edwards. The most plausible read is that Sands Anderson, the city's retained law firm, coordinated multiple workstreams — the financial audit, the separate workplace investigation below, and general legal counsel — while Brown Edwards performed the actual forensic accounting. That is this record's best read of the available reporting, not a confirmed fact, and is presented as such.</p>
+  </div>
+  <hr class="section-rule">
+  <div class="part-divider">
+    <div class="part-divider-label">Part One</div>
+    <div class="part-divider-title">The Financial Audit</div>
+    <div class="part-divider-status">Brown Edwards · Released April 14, 2026</div>
+  </div>
+  <p>The financial forensic audit examined Aretha Ferrell-Benavides's use of a city-issued purchasing card from February 2024 through June 2025 — 307 separate purchases in total. On March 30, 2026, council voted 5-0 to take a formal step toward releasing it. On April 14, 2026, council voted to release it, while Jones remained suspended and former mayor Michael Teague held his seat.</p>
+  <h3>What The Audit Found</h3>
+  <div class="exhibit">
+    <div class="exhibit-header">
+      <span class="exhibit-id">CH5-AUDIT</span>
+      <span class="exhibit-title">Brown Edwards Forensic Audit — Key Findings</span>
+      <span class="exhibit-date">Apr 2026</span>
+    </div>
+    <div class="exhibit-body">
+      <ul>
+        <li>307 purchases reviewed on Ferrell-Benavides's city purchasing card, Feb 2024 – June 2025</li>
+        <li>68 of those 307 — about 22 percent — were never reviewed by anyone besides Ferrell-Benavides herself; the remainder were approved by an employee reporting directly to her, not an impartial official</li>
+        <li>$96,613 spent without proper approval, per one published summary of the audit's findings</li>
+        <li>Separately reported: more than $15,000 in charges where auditors could find no business purpose at all</li>
+        <li>Overspent the $45/day meal per diem by $1,730 across 16 months; overspent hotel budget by $18,409</li>
+        <li>Cited examples: a lunch exceeding $100 at Fontaine Blue in Las Vegas; a Washington, DC Marriott stay exceeding $2,000</li>
+        <li>Travel was not approved in advance until April 2025, a violation of city code requiring prior approval</li>
+        <li>$169,180 transferred from the Martinsville-Henry County Economic Development Corporation to help fund City Manager's Office salaries and travel, without that department's input</li>
+        <li>247 additional purchases by other employees reviewed separately; auditors found it "impossible to conclude whether the transactions tested have a legitimate business purpose" for many of them</li>
+        <li>Audit's own language: "inadequate or non-existent internal controls," transactions "in direct violation of the City's purchasing card policy"</li>
+      </ul>
+    </div>
+    <div class="exhibit-source">Source: Cardinal News, WSET, WDBJ7, RealClearInvestigations/WND, confirmed in hand</div>
+  </div>
+  <div class="doc-quote">
+    "There is no crime. There is no fraud. There is no money missing. There is no bribery."
+    <div class="doc-quote-source">— Paul Goldman, attorney for Aretha Ferrell-Benavides, on the audit's findings</div>
+  </div>
+  <p>Goldman called the process a "witch hunt," and said Ferrell-Benavides was not given an opportunity to respond to the findings and was not contacted during the review. He noted that not all of the flagged charges were personally connected to her.</p>
+  <div class="doc-quote">
+    "It was the worst aspects of government I expected to see, and they were there."
+    <div class="doc-quote-source">— Councilman Aaron Rawls, on the audit's findings</div>
+  </div>
+  <p>Rawls said he had received complaints from staff about travel expenses and a lack of oversight well before the audit's release. Current City Manager Robert Fincher said safeguards are now in place — including the purchasing-card elimination already documented on his person-page — to prevent similar spending going forward.</p>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>The financial audit's findings are now public and substantiated by multiple independent outlets: undisclosed personal-feeling spending, minimal internal review, and a six-figure inter-departmental transfer that funded a salary increase without the affected department's input. Ferrell-Benavides's own attorney does not dispute the spending occurred — he disputes that it amounts to a crime. Whether it does remains a separate, open question, tied to the still-active VSP investigation below, not to anything in this audit itself.</p>
+  </div>
+  <hr class="section-rule">
+  <div class="part-divider">
+    <div class="part-divider-label">Part Two</div>
+    <div class="part-divider-title">The Workplace Investigation</div>
+    <div class="part-divider-status">Sands Anderson · Holds for July 14, 2026</div>
+  </div>
+  <p>Separately, Sands Anderson conducted a workplace investigation into Ferrell-Benavides's conduct as city manager — distinct from the financial audit above, and the document this record was actually waiting on, even when it was filed under the wrong name. This is the report whose July 14–24, 2026 hold date has anchored this record's publishing strategy for months.</p>
+  <h3>A Pattern Of Delay</h3>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-date">August 2025</div>
+      <div class="timeline-event">First Release Vote Fails</div>
+      <div class="timeline-detail">A vote to release the workplace investigation fails 2-2, with Jones abstaining.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">January 2026</div>
+      <div class="timeline-event">Rawls and Jones Clash Publicly</div>
+      <div class="timeline-detail">Jones opposes release, citing risk of defamation suits against city employees named in the report. Rawls accuses Jones of being "conflicted... in writing," and calls Jones a crude name during the meeting.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">February 2026</div>
+      <div class="timeline-event">Jones Suspended</div>
+      <div class="timeline-detail">Separately, Jones is suspended from office pending the CL26-011 removal trial (Chapter 7).</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">March 30, 2026</div>
+      <div class="timeline-event">Closed Session Added</div>
+      <div class="timeline-detail">Council adds a closed session specifically to discuss the workplace investigation. No indication given that findings will be made public.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 21, 2026</div>
+      <div class="timeline-event">Jones Reinstated</div>
+      <div class="timeline-detail">Circuit court ends Jones's suspension (Chapter 7).</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 23, 2026</div>
+      <div class="timeline-event">Rawls Predicts The Delay</div>
+      <div class="timeline-detail">"I don't think we're going to have it coming out now because you have three bad people in the majority. Again, we were only able to get out the first investigation because you had a decent person filling in for the mayor."</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 28, 2026</div>
+      <div class="timeline-event">Jones's First Meeting Back</div>
+      <div class="timeline-detail">Council goes into closed session again on the workplace investigation. Jones steps out of portions of the session himself.</div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">April 28–29, 2026</div>
+      <div class="timeline-event">Council Votes To Postpone Until July 14</div>
+      <div class="timeline-detail">Same meeting where a roughly $4 million budget deficit and proposed tax increases were announced. Rawls, separately: "You supported fools, and your taxes are going up. Congratulations."</div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">What The Record Shows</div>
+    <p>Five days before the postponement vote, Rawls predicted almost exactly what happened — explicitly tying it to Jones's reinstatement. Whether that reflects genuine foresight, a self-fulfilling public pressure campaign, or simply an accurate read of where the council's votes stood, this record does not resolve. The prediction and the outcome are both on the record, in that order.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>The Virginia State Police Investigation</h2>
+  <p>Separate from both documents above, the Virginia State Police opened a criminal investigation into Martinsville governance matters, tied to the same spending allegations against Ferrell-Benavides. As of the most recent public confirmation, the investigation remains active.</p>
+  <div class="warning-box">
+    <div class="warning-label">VSP Investigation — Active, Timeline Uncertain</div>
+    <p>"A Virginia State Police investigation is ongoing. How or when that will end is uncertain." This record's last confirmed public update on the VSP investigation's status is April 21, 2026, via Patti Covington's statement (Chapter 7). No charges have been announced as of this publication.</p>
+  </div>
+  <hr class="section-rule">
+  <h2>What's Still Sealed</h2>
+  <p>The financial audit's published findings are summary-level reporting on the city's prepared materials, not the complete underlying record. The full 1.6 gigabytes of supporting documentation — receipts, full ledgers, and related backup files — remains the subject of a denied FOIA request, separate from the summary findings now public. Whether that underlying documentation is released alongside or separately from the workplace investigation in July is not yet known.</p>
+</article>
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Chapter 5</div>
+    <table class="source-table">
+      <thead>
+        <tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="src-id">CH5-AUDIT</td><td>Cardinal News, WSET, WDBJ7 — Brown Edwards audit findings</td><td>Apr 14–21, 2026</td><td>Confirmed in hand. Primary findings, direct quotes.</td></tr>
+        <tr><td class="src-id">RCI-WND</td><td>RealClearInvestigations / WorldNetDaily — audit figures summary</td><td>Apr 28, 2026</td><td>Confirmed in hand. $96,613 figure, EDC transfer detail.</td></tr>
+        <tr><td class="src-id">WFXR-JAN6</td><td>WFXR — early council tension, Sands Anderson attribution</td><td>Jan 6, 2026</td><td>Confirmed in hand. Source of the Sands Anderson/Brown Edwards attribution ambiguity, flagged above.</td></tr>
+        <tr><td class="src-id">WSET-WORKPLACE</td><td>WSET — Rawls/Jones clash over workplace investigation release</td><td>Jan 10, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">WDBJ-APR21</td><td>WDBJ7 — Jones reinstatement, Rawls's prediction</td><td>Apr 21–23, 2026</td><td>Confirmed in hand. Direct Rawls quote.</td></tr>
+        <tr><td class="src-id">WSLS-APR29</td><td>WSLS — council votes to postpone workplace investigation to July 14</td><td>Apr 29, 2026</td><td>Confirmed in hand. Direct confirmation of the July 14 hold date's actual source document.</td></tr>
+        <tr><td class="src-id">COVINGTON-STMT</td><td>Patti Covington public statement</td><td>Apr 21, 2026</td><td>VSP investigation status, last confirmed. See Chapter 7.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Notion</td><td>Ongoing</td><td>Full two-document distinction documented and tracked.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<nav class="chapter-nav">
+  <a href="chapter-04-the-firing.html">← Chapter 4: The Firing</a>
+  <div><a href="index.html">↑ Full Dossier Index</a></div>
+  <a href="chapter-06-the-petition.html">Chapter 6: The Petition →</a>
+</nav>
+<script data-goatcounter="https://martinsville-record.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
