@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrick Flinn — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Patrick Flinn</h1>
+    <div class="banner-roles">Commonwealth's Attorney, City of Martinsville — January 2026 to Present</div>
+    <p class="banner-summary">A deputy prosecutor handed the most contested case in the office's recent history within weeks of taking the job — by a judge who told him, unusually, that his declared conflict wasn't good enough to get him out of it. This page documents Flinn's full record: how he got the job, what happened when he tried to hand off the Jones case, and where things stood when he finally succeeded.</p>
+    <div class="era-tabs">
+      <a href="#era-succession" class="era-tab t1">The Succession — 2021–2026</a>
+      <a href="#era-review" class="era-tab t2">The Review — Jan–Feb 2026</a>
+      <a href="#era-search" class="era-tab t3">The Search — Mar–Apr 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-succession">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Succession</div>
+    <div class="era-dates">2021 – 2026</div>
+
+    <p>Flinn came to Martinsville in 2021 after studying at George Mason University and Liberty University School of Law, settling there as an assistant commonwealth's attorney under Andy Hall. He was promoted to deputy commonwealth's attorney and worked in the office continuously from 2021 onward.</p>
+
+    <p>In mid-2025, Hall announced he would not seek a third term, explicitly endorsing Flinn as his successor.</p>
+
+    <div class="doc-quote">
+      "I had Patrick in the office and waiting in the wings... I think he'll probably be a career prosecutor."
+      <div class="doc-quote-source">— Andy Hall, on endorsing Flinn, mid-2025</div>
+    </div>
+
+    <p>Flinn ran as an independent in a contested November 2025 race against Lynda Hartsell, also running as an independent. His campaign emphasized transparency and community outreach, and he specifically flagged what he called the biggest challenge facing local law enforcement.</p>
+
+    <div class="doc-quote">
+      "...the lack of cooperation with victims and witnesses... they do not want to talk to the prosecutors when a crime is charged."
+      <div class="doc-quote-source">— Patrick Flinn, campaign statement, September 2025</div>
+    </div>
+
+    <p>That theme would become directly relevant within months of taking office. Flinn won the November 2025 election and took office in January 2026 — just as the Jones removal petition was about to be filed.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Tenure — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Joined office</span><span class="fact-value">2021, assistant CA under Hall</span></div>
+      <div class="fact-row"><span class="fact-item">Promoted</span><span class="fact-value">Deputy Commonwealth's Attorney</span></div>
+      <div class="fact-row"><span class="fact-item">Elected CA</span><span class="fact-value">November 2025, defeated Lynda Hartsell</span></div>
+      <div class="fact-row"><span class="fact-item">Took office</span><span class="fact-value">January 2026</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-review">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Review</div>
+    <div class="era-dates">January – February 2026</div>
+
+    <p>On January 13, 2026, Martinsville resident Patti Covington filed the citizen petition seeking Jones's removal. Flinn, newly in office, was legally required to review it. His first act was to ask Circuit Judge G. Carter Greer to appoint a special prosecutor in his place, citing his own professional and personal relationships with city council members, staff, and potential witnesses — a conflict declaration that is, per longtime local court coverage, close to automatic in cases like this.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Greer denied the motion on January 15, 2026. Cardinal News, which has covered Virginia removal-petition cases for years, called this specifically unusual: "The commonwealth's attorney always cites a conflict, and a special prosecutor from out of town is named. In this case, though, the judge overruled Flinn and told him to proceed with the case. I've never heard of a judge telling a prosecutor who has declared a conflict to carry on with the case." Whatever else is true about how this case unfolded, Flinn did not choose to be the one investigating it — he tried to hand it off immediately, and was told no.</p>
+    </div>
+
+    <p>With no special prosecutor appointed, Flinn proceeded to personally review the petition. On February 17, 2026, he filed formal notice that valid grounds existed to move forward, citing specific allegations: undisclosed gifts from Ferrell-Benavides to Jones or his significant other (the hot tub and Las Vegas airfare documented in Chapter 2), Jones negotiating Ferrell-Benavides's pay raise without disclosing the conflict, and Jones attempting to remain in a closed session discussing her EEOC complaint over other councilors' objections. Greer suspended Jones the next day, February 18, 2026.</p>
+
+    <p>Flinn was candid about the difficulty of the review itself, stating that his effort to "find the truth" was "frustrated" by limited cooperation, noting that many people involved "have lawyered up." He also cautioned that any individuals implicated remain presumed innocent, and that a separate special prosecutor had already been appointed to handle any criminal investigation specifically — a careful distinction between the civil removal question he was reviewing and any criminal exposure, which was never his to decide.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Review Findings — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Jan 15, 2026</span><span class="fact-value">Greer denies recusal — called unusual by Cardinal News</span></div>
+      <div class="fact-row"><span class="fact-item">Feb 17, 2026</span><span class="fact-value">Flinn files notice: valid grounds exist</span></div>
+      <div class="fact-row"><span class="fact-item">Feb 18, 2026</span><span class="fact-value">Greer suspends Jones, orders recall trial</span></div>
+      <div class="fact-row"><span class="fact-item">Underlying allegation</span><span class="fact-value">Bribery — Class 4 felony, 2–10 yrs, up to $100K fine</span></div>
+    </div>
+    <p style="font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: -8px;">Jones has never been criminally indicted on this or any related charge.</p>
+  </section>
+
+  <section class="era-section" id="era-search">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Search For A Special Prosecutor</div>
+    <div class="era-dates">March – April 2026</div>
+
+    <p>By March 2026, Wes Nance — the special prosecutor handling the separate criminal investigation into city spending — had been elevated to a circuit court judgeship, leaving that investigation without a prosecutor at the same time Flinn was still trying to get free of the civil case. On March 13, 2026, Flinn formally requested that Attorney General Jay Jones be appointed special prosecutor for both matters, and separately asked Governor Abigail Spanberger's office to facilitate the request, later telling reporters his message to the Governor's office was never returned.</p>
+
+    <p>On March 20, 2026, the Attorney General's office declined — according to a spokesperson, on a procedural technicality: Flinn had sent an email rather than the formal request required to go through the Governor's office.</p>
+
+    <div class="doc-quote">
+      "The Attorney General has formally declined to assist the City of Martinsville. As I explained in my previous press release, in which I requested the Attorney General step in, the Code of Virginia effectively limits criminal investigations of elected officials and political subdivisions to the Attorney General, the Governor, or..."
+      <div class="doc-quote-source">— Patrick Flinn, public statement, March 20, 2026</div>
+    </div>
+
+    <p>Flinn renewed his motion to be relieved from the civil case. On April 1, 2026, substitute Judge James McGarry granted it, appointing Lynchburg Commonwealth's Attorney Bethany Harrison to both matters.</p>
+
+    <div class="doc-quote">
+      "After an extensive search, Bethany Harrison, Commonwealth's Attorney for the City of Lynchburg, has agreed to serve as Special Prosecutor for both the Criminal Investigation and pending Civil Removal Petition. The Court granted my renewed motion to withdraw and has appointed her as Special Prosecutor for both matters."
+      <div class="doc-quote-source">— Patrick Flinn, public statement, April 1, 2026</div>
+    </div>
+
+    <p>He had previously described the civil and criminal threads as "combined at the hip." After Harrison's appointment, Flinn said he would not provide further comment.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Flinn spent roughly two and a half months — from his first recusal attempt in mid-January to Harrison's appointment April 1 — trying to get out of a case a judge had ordered him to keep. He pursued every available channel: the original motion, the Attorney General, the Governor's office, and finally a renewed motion that succeeded only once a different judge was on the bench. Once free of it, he made no further public statements on the matter.</p>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Flinn's January 25, 2026 public statement included this line: "Additionally, for the Chief Law Enforcement Officer to now be involved reviewing an issue that is related to the electoral process, requires careful and thorough consideration." Two separate search passes have not identified who this refers to or what specific electoral-process matter is meant. This remains unresolved and should not be assumed to refer to any specific person until a source clarifies it.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">The threshold dispute Flinn's review touched on</div></a>
+      <a href="chapter-07-the-legal-chain.html" class="cl-item"><div class="cl-name">Chapter 7: The Legal Chain</div><div class="cl-context">Full prosecutor-chain detail</div></a>
+      <a href="hall.html" class="cl-item"><div class="cl-name">Andy Hall</div><div class="cl-context">Predecessor, endorsed Flinn as successor</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The subject of Flinn's review and the eventual case</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Patrick Flinn</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">FLINN-BIO</td><td>Cardinal News — candidate profile, Hall endorsement</td><td>Sep 2025</td><td>Confirmed in hand. Background, campaign quotes.</td></tr>
+        <tr><td class="src-id">CH7-DENIAL</td><td>Cardinal News — Greer denies Flinn's recusal motion, called unusual</td><td>Jan 15 &amp; Apr 23, 2026</td><td>Confirmed in hand. Direct reporter analysis quote.</td></tr>
+        <tr><td class="src-id">FLINN-REVIEW</td><td>Cardinal News, Martinsville Bulletin — valid-grounds finding, allegations</td><td>Feb 17, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">CH7-AG</td><td>WDBJ7, WSET, Martinsville Today — AG request and decline</td><td>Mar 13–20, 2026</td><td>Confirmed in hand. Direct Flinn quote.</td></tr>
+        <tr><td class="src-id">CH7-HARRISON</td><td>WDBJ7 — Flinn's full statement on Harrison's appointment</td><td>Apr 1, 2026</td><td>Confirmed in hand. Complete quote.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 6 through 8</td><td>2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
