@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charles Roark — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--amber); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--green); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Charles Roark</h1>
+    <div class="banner-roles">Founder, Cable 6 / Star News TV — 1990 to Present</div>
+    <p class="banner-summary">A felony theft conviction, prison time, and a few thousand saved dollars built the station that has since covered every figure in this record. Thirty-five years before any of them held office, Roark was already telling people exactly who he was: "my background's not too good, but here I am." This page documents the full arc — not to discredit the coverage, but because the man behind the camera has his own extensively documented record, and this Record holds everyone to the same standard.</p>
+    <div class="era-tabs">
+      <a href="#era-origin" class="era-tab t1">The Origin — 1985–1990</a>
+      <a href="#era-wars" class="era-tab t2">The Cable Wars &amp; The Verdict — 1994–2005</a>
+      <a href="#era-now" class="era-tab t3">Star News Today</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-origin">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Origin</div>
+    <div class="era-dates">1985 – 1990</div>
+
+    <p>Before Cable 6 existed, Roark had already been convicted of theft four times across multiple Virginia jurisdictions. In December 1985, he was convicted in Campbell County of stealing $35 worth of property from a Brookneal lumber company — a suspended 10-day jail term, a $100 fine, and restitution. Less than a week later, he was arrested at a Madison Heights Kroger for taking videotapes, pleading guilty to shoplifting in January 1986. In October 1992, he was convicted of stealing two Martinsville Bulletin newspapers from a coin-operated rack — fined $300, given a suspended three-month jail term, with a separate resisting-arrest charge dismissed after video evidence showed he hadn't been given a fair chance to set down his camera peacefully.</p>
+
+    <p>The most serious conviction was a felony: grand larceny for stealing $100,000 in television equipment from a station in Asheville, North Carolina. Roark served time for it.</p>
+
+    <div class="doc-quote">
+      "I'm Charles Roark and my background's not too good, but here I am."
+      <div class="doc-quote-source">— Charles Roark, on starting Cable 6, as recounted in a 1994 newspaper profile</div>
+    </div>
+
+    <p>He came home to Martinsville in 1990 and started the town's first cable-access TV station with a few thousand dollars he'd saved — a one-man operation at first. By 1994, four years in, Cable 6 had grown to nine full-time staff and reached an estimated 19,000 households across Henry County and Martinsville from its base in Collinsville.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Confirmed Theft Record, Pre-Cable 6</div>
+      <div class="fact-row"><span class="fact-item">Dec 1985</span><span class="fact-value">Brookneal lumber co. theft — suspended 10 days, $100 fine</span></div>
+      <div class="fact-row"><span class="fact-item">Jan 1986</span><span class="fact-value">Madison Heights Kroger shoplifting — $50 fine</span></div>
+      <div class="fact-row"><span class="fact-item">Pre-1990</span><span class="fact-value">Felony grand larceny — $100K TV equipment, Asheville NC — served time</span></div>
+      <div class="fact-row"><span class="fact-item">Oct 1992</span><span class="fact-value">Martinsville Bulletin newspaper theft — $300 fine, suspended 3 mo.</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Roark has never hidden this history — he stated it himself, in his own words, at the very start of his career. The pattern is documented across multiple independent jurisdictions and time periods, not a single incident. It is presented here factually, the same way this Record documents every other figure's history, positive or negative.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-wars">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Cable Wars and the Verdict</div>
+    <div class="era-dates">1994 – 2005</div>
+
+    <h3>The Channel 57 Rivalry</h3>
+    <p>In May 1994, a rival operation — Channel 57 (W57BZ), backed by Southern Broadcasting Corp. and businessman Bill Wyatt — launched as a self-described "community-oriented" alternative to Cable 6's reputation for sensationalism. The two stations spent the following months digging into each other's staff. Cable 6 exposed an affair between Wyatt and a Channel 57 saleswoman, Ramona Hines, who lost her job as a result; Channel 57 in turn investigated a Cable 6 on-air contributor's own legal troubles.</p>
+
+    <div class="doc-quote">
+      "Like it or not, smut sells."
+      <div class="doc-quote-source">— Charles Roark, on his own approach, 1994</div>
+    </div>
+
+    <p>Henry County Sheriff Frank Cassell, a frequent target of Cable 6's coverage, was blunt about the toll it took on his department.</p>
+
+    <div class="doc-quote">
+      "The No. 1 problem we have in Henry County is drugs, and No. 2 is Cable 6."
+      <div class="doc-quote-source">— Sheriff Frank Cassell, 1994</div>
+    </div>
+
+    <p>Roark maintained the station had never been sued over this period, attributing it to a willingness to air corrections. "We admit when we do something wrong, and we don't have a problem with it," he said at the time.</p>
+
+    <h3>The Ziglar Defamation Judgment</h3>
+    <p>That claim didn't hold indefinitely. In February 2002, Martinsville Commonwealth's Attorney Joan Ziglar sued Roark and his company — by then operating as Media 6 — for $3 million, after his tabloid publication, <em>Buzz</em>, printed a letter from a jailed murder suspect accusing her of encouraging a witness to lie to a grand jury and alleging an affair with his sister. At trial, Ziglar's sister testified there had been no such relationship, and the underlying accusation was never substantiated.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>A Roanoke jury found in Ziglar's favor and awarded her $75,000 — far less than the $3 million sought, but a real, adjudicated defamation judgment against Roark's operation, not just an allegation. <em>Buzz</em> ceased publication in 2002. Roark's defense — "it's not our words, it's their words" — describes routine practice for any outlet that quotes inmates or anonymous sources: it does not exempt an outlet from liability for defamatory content it chooses to publish.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-now">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Star News Today</div>
+    <div class="era-dates">Present</div>
+
+    <p>Cable 6 evolved through Media 6 and Cable 18 into Star News TV, operating today as Star News Corp. Roark remains the central on-camera figure, with Star News Creative Services crediting editors Doug Talbot and Jonathan Herring. The station's modern-era incidents involving Roark himself — the 2023 Northview phone confrontation and the 2024 Tequila's assault — are documented in full on Robert Fincher's person-page, since they intersect directly with Fincher's tenure as Police Chief.</p>
+
+    <h3>A Documented Pattern of Overlap</h3>
+    <p>Star News's role in this record isn't limited to neutral coverage. Vice Mayor Kathy Lawson was photographed standing with Roark at a Star News-covered Christmas Parade in October 2025 — the same month Rico Johnson's lawsuit against Fincher and Rawls was filed. Separately, Star News has been the platform of record for several contested moments already documented elsewhere in this Record — Krudys's public statements blaming Rawls, Jennifer Bowles's post-hearing commentary, and the "fake page" labeling pattern documented in Chapter 6.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">WGSR-BUCHANAN</span>
+        <span class="exhibit-title">A Parallel Case Study — Debra Buchanan</span>
+        <span class="exhibit-date">Ongoing</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Debra Buchanan has served as Henry County's Horsepasture District Supervisor continuously since 1996 — currently in her fifth term, running through December 2027</li>
+          <li>Simultaneously identified as a Senior Sales Executive at WGSR and an on-air personality on "Good Morning Southside" — the same station family as Star News/Cable 6</li>
+          <li>Not presented as misconduct by Buchanan or Roark — documented as a clear, real example of the kind of overlapping media/government relationships that recur throughout this region's information ecosystem</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Henry County official site, Visit Martinsville tourism profile, confirmed in hand</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Star News has at various points described itself publicly as the region's leading news source. Whether that claim reflects an independently verifiable audience metric or is simply self-characterization has not been confirmed either way and should not be repeated as fact without that verification.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Star News TV has been a genuine public service in this community for over three decades, and its coverage is cited extensively throughout this entire Record as primary source material — that value is real and shouldn't be minimized. It has also operated, at points in its history, with a documented defamation judgment against it and a founder with an extensive prior theft record he disclosed himself. Both things are true. Readers relying on Star News as a source — as this Record does, constantly — should have both in view.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">The 2023 and 2024 Roark incidents, full detail</div></a>
+      <a href="lawson.html" class="cl-item"><div class="cl-name">Kathy Lawson</div><div class="cl-context">Photographed with Roark, Oct 2025</div></a>
+      <a href="bowles.html" class="cl-item"><div class="cl-name">Jennifer Bowles</div><div class="cl-context">Star News as her platform of record</div></a>
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">"Fake page" labeling pattern on Star News threads</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Charles Roark</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">ROARK-INDICTED</td><td>Martinsville Bulletin — "Roark indicted," full prior conviction history</td><td>Reported 2024, covers 1985–1992</td><td>Confirmed in hand. Cites Bulletin archives and former CA J. Randolph Smith.</td></tr>
+        <tr><td class="src-id">ROARK-WAPO</td><td>Washington Post — "In Small Va. Town, Scandal Now Playing on Cable"</td><td>Aug 29, 1994</td><td>Confirmed in hand. Felony NC conviction, 1990 founding, "background's not too good" quote.</td></tr>
+        <tr><td class="src-id">ROARK-ROATIMES</td><td>Roanoke Times — Cable 6 felony-to-misdemeanor reduction</td><td>Mar 1993</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ROARK-CABLEWAR</td><td>Roanoke Times — "Forget Oprah," Channel 57 rivalry, Cassell quote</td><td>Aug 14, 1994</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ZIGLAR-DEFAMATION</td><td>Roanoke Times — Ziglar v. Roark/Media 6, $75,000 verdict</td><td>2005 (filed 2002)</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ROARK-DEFENSE</td><td>Henry County Enterprise — "In Defense of Charles Roark"</td><td>May 30, 2024</td><td>Confirmed in hand. Balanced personal account, post-Tequila's.</td></tr>
+        <tr><td class="src-id">WGSR-BUCHANAN</td><td>Henry County official site, Visit Martinsville — Debra Buchanan bio</td><td>Ongoing</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapter 6, Fincher/Lawson/Bowles pages</td><td>2024–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
