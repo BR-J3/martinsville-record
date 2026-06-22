@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rico Johnson — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017; --slate: #3a5a8c;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .era-tab.t4 { border-left: 3px solid var(--slate); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Arc</div>
+    <h1 class="banner-name">Rico Johnson</h1>
+    <div class="banner-roles">Owner, Kornna Kitchen (Uptown Martinsville, 2022–2025) &amp; Kafe Da'Ville (Danville, 2025–Present)</div>
+    <p class="banner-summary">A restaurateur who once stood before City Council asking the police chief to help protect his newly licensed business is now the plaintiff in a $2 million lawsuit against that same chief. In between: two felony arrests four days apart, twenty total counts, an on-camera statement calling his treatment "a racial issue," and a relaunch sixty miles north. This page documents the full arc — the cooperative years, the crisis, and the lawsuit that followed.</p>
+    <div class="era-tabs">
+      <a href="#era-restaurant" class="era-tab t1">The Restaurant — 2022–2024</a>
+      <a href="#era-arrests" class="era-tab t3">The Arrests — Nov 2024</a>
+      <a href="#era-reckoning" class="era-tab t2">The Reckoning — Dec 2024–May 2025</a>
+      <a href="#era-lawsuit" class="era-tab t4">The Lawsuit — Oct 2025–Present</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-restaurant">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Restaurant</div>
+    <div class="era-dates">November 2022 – October 2024</div>
+
+    <p>Johnson, originally from Washington, D.C., became a master barber by 17 and owned his first barbershop at 19. He later ran a hot dog stand business out of the Foggy Bottom Metro station starting in 1994, sold it in 1997, and grew the proceeds into ownership of 15 tractor-trailers. He holds a business degree from Howard University and is the father of five. His recipes — and the restaurant's name — trace to his mother, Paulette Smith-Duckett, whom he has called his best friend and closest influence.</p>
+
+    <h3>From Henry County To Uptown</h3>
+    <p>Johnson opened the original Kornna Kitchen at 41 Stones Dairy Road in Henry County around Thanksgiving 2022. By September 2023, he had relocated to uptown Martinsville, taking over the former Shindig Restaurant space at 37 East Main Street. He described his goal as building a "community restaurant," framing the move explicitly around the idea that the space wasn't his alone — it belonged to the city.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Johnson filed for Chapter 13 bankruptcy in U.S. Bankruptcy Court in Greensboro, North Carolina, on February 1, 2023 — roughly seven months before the uptown relocation. A scheduled creditors' meeting was postponed twice (to September 23, then October 28, 2023), and the outcome has not been confirmed in any source reviewed so far. Whether the bankruptcy and the uptown expansion were connected, or simply overlapped in time, isn't established.</p>
+    </div>
+
+    <h3>Free Lunches And A Council Ally</h3>
+    <p>Through 2024, Johnson built a visible record of civic goodwill: free lunches for city employees, teachers, bus drivers, and local charities, framed by Johnson as part of the city's broader "evolution." On August 14, 2024, he appeared before City Council to request stricter anti-loitering regulations near the restaurant, citing a recent incident in which an officer and a suspect crashed through a plate-glass window during a crowd-dispersal effort on Main Street, injuring both. In the same appearance, Johnson personally appealed to Police Chief Robert Fincher not to close Main Street to traffic, explaining that doing so could hurt the alcohol business he'd just gained the right to operate under a newly acquired ABC license.</p>
+
+    <div class="doc-quote">
+      "We need laws that protect our businesses and ensure the safety of our community."
+      <div class="doc-quote-source">— Rico Johnson, Martinsville City Council, August 14, 2024</div>
+    </div>
+
+    <div class="exhibit">
+      <div class="exhibit-id">JOHNSON-COUNCIL</div>
+      <div class="exhibit-header">
+        <span class="exhibit-id">JOHNSON-COUNCIL</span>
+        <span class="exhibit-title">Star News TV — Council Appearance, Loitering &amp; ABC License</span>
+        <span class="exhibit-date">Aug 14, 2024</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Plate-glass window incident: officer and suspect both injured, treated and released; suspect held at city jail</li>
+          <li>Johnson requests stricter loitering regulations specifically near Kornna Kitchen</li>
+          <li>Johnson separately appeals directly to Chief Fincher: requests police not close Main Street, citing impact on his newly acquired ABC license</li>
+          <li>Council deliberation on Johnson's proposals described as pending "in the coming weeks"</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: JOHNSON-COUNCIL — Star News TV, screenshots confirmed in hand</div>
+    </div>
+
+    <p>Two weeks later, on August 31, 2024, Johnson hosted a "Seafood &amp; Music Block Party" outside the restaurant, with city crews visibly assisting in street preparation — barricades, cones, and equipment trucks documented moving into place along East Main Street. The post drew 194 reactions, 57 comments, and 29 shares, among the highest engagement of any Kornna Kitchen-related coverage reviewed.</p>
+
+    <h3>A Separate Controversy</h3>
+    <p>At some point during this same general period — the exact date is not yet confirmed — Johnson faced a different and unrelated controversy: an accusation, conveyed to him by message, that the restaurant did not treat white customers fairly. Johnson responded at length in a live Facebook video from the restaurant, describing his staff as six unpaid volunteers working long hours and framing the restaurant's mission around serving everyone regardless of background. The video drew 126 supportive comments.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>This incident is distinct from the racial-issue statement Johnson would later make about the city itself (Era Three) and from the racial-discrimination framing in his 2025 lawsuit (Era Four). The three should not be merged into a single narrative — they involve different accusers, different directions, and, as far as the record shows, no stated connection between them.</p>
+    </div>
+
+    <div class="fact-block">
+      <div class="fact-label">Era One — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Opens Stones Dairy Rd location</span><span class="fact-value">~Thanksgiving 2022, Henry County</span></div>
+      <div class="fact-row"><span class="fact-item">Chapter 13 bankruptcy filed</span><span class="fact-value">Feb 1, 2023, Greensboro NC</span></div>
+      <div class="fact-row"><span class="fact-item">Relocates uptown</span><span class="fact-value">~Sept 2023, 37 E. Main St.</span></div>
+      <div class="fact-row"><span class="fact-item">Council appearance / Fincher appeal</span><span class="fact-value">Aug 14, 2024</span></div>
+      <div class="fact-row"><span class="fact-item">Block party, city-assisted setup</span><span class="fact-value">Aug 31, 2024</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-arrests">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Arrests</div>
+    <div class="era-dates">November 2024</div>
+
+    <p>Just before 1 a.m. on Saturday, November 23, 2024, a man named Fulcher and a woman identified in court filings only as Ms. Hall — unrelated to then-Commonwealth's Attorney Andy Hall — walked across the street to Kornna Kitchen to speak with Johnson about comments he'd made on Facebook Live. According to Martinsville Police Officer Ryan O'Hara's later courtroom testimony, Johnson's response, made both in person and live on the restaurant's Facebook page, escalated quickly.</p>
+
+    <div class="doc-quote">
+      "He told them 'I'll drop you dead' multiple times and said, 'Your days are numbered,' and 'I've got my gun.'"
+      <div class="doc-quote-source">— Officer Ryan O'Hara, testifying in Martinsville General District Court, on Johnson's recorded statements</div>
+    </div>
+
+    <p>The entire exchange was captured on video and shared on Kornna Kitchen's own Facebook page. Johnson was arrested on two felony counts of threats of death or bodily injury. Four days later, on November 27, 2024, he was arrested again — this time on nine felony counts of obtaining money by false pretense and nine felony counts of larceny by bad check, each tied to amounts of $1,000 or more, with alleged incidents spanning June 20, 24, and 25; September 24; October 2 (twice); October 4; October 9; and October 18.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">JOHNSON-CHARGES</span>
+        <span class="exhibit-title">Two Arrests, Twenty Felony Counts</span>
+        <span class="exhibit-date">Nov 23 &amp; 27, 2024</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Nov 23: 2 felony counts, threats of death or bodily injury</li>
+          <li>Nov 27: 9 felony counts, obtaining money by false pretense</li>
+          <li>Nov 27: 9 felony counts, larceny by bad check</li>
+          <li>Total: 20 felony counts across both arrests</li>
+          <li>Johnson appeared in Martinsville General District Court for arraignment on the threats charges, stating he intended to retain his own attorney</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: JOHNSON-CHARGES — Martinsville Bulletin, BTW21, confirmed in hand</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>The uptown area around Kornna Kitchen had independently seen a rise in violent incidents in the months before these arrests — two unrelated beatings, gunshots fired nearby, and the August 14 plate-glass window injury documented in Era One. None of that activity is tied to Johnson personally; it's separate context about the surrounding blocks, not evidence bearing on his own charges. The two arrests below are documented entirely on their own terms.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-reckoning">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Reckoning</div>
+    <div class="era-dates">December 2024 – May 2025</div>
+
+    <p>At some point following the arrests, Johnson returned to a Martinsville City Council meeting and addressed members directly in a Star News TV segment titled "Rico Johnson Wants Answers From The City of Martinsville," which drew 91 reactions, 80 comments, and 21 shares. In it, Johnson made the most direct public statement of his entire documented arc:</p>
+
+    <div class="doc-quote">
+      "It is a racial issue here in Martinsville, it is definitely a racial issue, here in Martinsville."
+      <div class="doc-quote-source">— Rico Johnson, Martinsville City Council, "Wants Answers" segment</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>The exact date of this statement is not yet confirmed, and Johnson did not specify on camera what particular treatment he was calling a racial issue — whether the loitering dispute, the building departure described below, the arrests themselves, or something else entirely. Logged precisely as stated, with no characterization added about what he was referencing.</p>
+    </div>
+
+    <p>By May 12, 2025, Johnson had vacated the 37 East Main Street buildings. Star News TV reported the restaurant's Facebook page then listed it as "temporarily closed," and quoted the building's owner, Will Pearson, offering his own account of why.</p>
+
+    <div class="contested">
+      <div class="contested-label">Why The Restaurant Closed — Two Framings</div>
+      <p><strong>Building owner Will Pearson's account (May 12, 2025):</strong> Pearson said Johnson wanted to leave — framing the departure as Johnson's own choice.</p>
+      <p><strong>Later court-case framing (October 2025 Bulletin coverage):</strong> Subsequent reporting on Johnson's lawsuit refers more simply to Kornna Kitchen having "closed" in May, without attributing the decision to either side. The record does not yet resolve whether the departure was voluntary, pressured, or some combination — both framings are shown rather than one chosen.</p>
+    </div>
+
+    <p>Two weeks later, on May 26–27, 2025, Johnson resurfaced sixty miles north. A Kafe Da'Ville Facebook page went live with Johnson on camera, and Star News TV confirmed the relaunch with a short post: "Rico IS BACK!" The name is a direct play on "Café Danville."</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Era Three — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">"Wants Answers" council statement</span><span class="fact-value">Date unconfirmed, post-arrest</span></div>
+      <div class="fact-row"><span class="fact-item">Vacates uptown building</span><span class="fact-value">May 12, 2025</span></div>
+      <div class="fact-row"><span class="fact-item">Kafe Da'Ville relaunch, Danville</span><span class="fact-value">May 26–27, 2025</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-lawsuit">
+    <div class="era-label">Era Four</div>
+    <div class="era-title">The Lawsuit</div>
+    <div class="era-dates">October 2025 – Present</div>
+
+    <p>On October 12, 2025, Johnson filed a $2 million lawsuit against Interim City Manager Robert Fincher and Council Member Aaron Rawls, alleging their actions caused Kornna Kitchen to close. The suit frames the restaurant explicitly through Johnson's own racial identity — describing him, as an African-American business owner, building a place meant to welcome everyone — and seeks civil damages for what it calls unwarranted and nefarious conduct by the two officials.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">JOHNSON-LAWSUIT</span>
+        <span class="exhibit-title">Johnson v. Fincher &amp; Rawls</span>
+        <span class="exhibit-date">Filed Oct 12, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Damages sought: $2,000,000</li>
+          <li>Defendants: Robert Fincher (Interim City Manager), Aaron Rawls (Council Member)</li>
+          <li>Core allegation: defendants' conduct caused Kornna Kitchen's closure</li>
+          <li>Suit explicitly frames Johnson's race as part of his original vision for the restaurant</li>
+          <li>This case is separate from, and not legally connected to, the June 9, 2026 federal lawsuits involving Ferrell-Benavides and the broader governance crisis — different court, different plaintiff, different defendants</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: JOHNSON-LAWSUIT — Martinsville Bulletin, confirmed in hand</div>
+    </div>
+
+    <p>The lawsuit's timing creates a documented irony: an undated letter Fincher had previously written to the Virginia Alcoholic Beverage Control Authority described Kornna Kitchen as going "beyond just being a fine restaurant" — language that reads, in hindsight, as supportive of the same business Fincher is now being sued over. Whether that letter predates or postdates the souring of the relationship isn't established, and it should be read with that caution rather than as proof of any specific motive on Fincher's part.</p>
+
+    <p>Rawls responded to the suit directly and dismissively, on the record.</p>
+
+    <div class="doc-quote">
+      "One would think the last place this guy wants to be is back in a courtroom after being indicted on felony charges, including larceny and threatening the lives of Martinsville citizens on video. Rico... ruined his own business. It's time for him to act his age and take accountability for his bad behavior."
+      <div class="doc-quote-source">— Aaron Rawls, on Johnson's lawsuit, October 2025</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>The same restaurateur who once asked Chief Fincher, in person, to help protect his liquor license from a street closure is now suing Fincher for allegedly destroying that same business. Whatever the merits of the underlying claims, the relationship's full arc — cooperative appeal, then lawsuit — is itself part of the record. As of this writing, the case remains active with no trial date or resolution confirmed.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">Case 5 — full criminal and civil detail</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">Co-defendant; the ABC letter and the council exchange</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Co-defendant; on-record response to the suit</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Rico Johnson</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">JOHNSON-OPEN</td><td>Martinsville Bulletin — relocation, Stones Dairy Rd to uptown</td><td>2022–2023</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">JOHNSON-BANKRUPTCY</td><td>U.S. Bankruptcy Court, Greensboro NC — Chapter 13 filing</td><td>Feb 1, 2023</td><td>Confirmed in hand via BTW21 reporting. Outcome of creditors' meeting not confirmed.</td></tr>
+        <tr><td class="src-id">JOHNSON-HCE</td><td>Henry County Enterprise — "Kornna Kitchen Prioritizes Community Focus"</td><td>Sep 27, 2024</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">JOHNSON-COUNCIL</td><td>Star News TV — council appearance, loitering &amp; ABC license appeal to Fincher</td><td>Aug 14, 2024</td><td>Confirmed in hand via Jordan's screenshots.</td></tr>
+        <tr><td class="src-id">JOHNSON-BLOCKPARTY</td><td>Star News TV — Seafood &amp; Music Block Party</td><td>Aug 31, 2024</td><td>Confirmed in hand via Jordan's screenshots.</td></tr>
+        <tr><td class="src-id">JOHNSON-CRITICISM</td><td>Martinsville Bulletin — Johnson responds to fair-treatment criticism</td><td>Date unconfirmed</td><td>Confirmed in hand. Distinct from Era Three/Four racial framing — not merged.</td></tr>
+        <tr><td class="src-id">JOHNSON-ARREST1</td><td>Martinsville Bulletin — "Kornna Kitchen proprietor arrested," threats charges</td><td>Nov 23, 2024 (reported Dec 3)</td><td>Confirmed in hand. Officer O'Hara testimony.</td></tr>
+        <tr><td class="src-id">JOHNSON-ARREST2</td><td>BTW21 — second arrest, financial felony charges</td><td>Nov 27, 2024 (reported Dec 6)</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">JOHNSON-INDICT</td><td>Martinsville Bulletin — grand jury indictment, full charge breakdown</td><td>2024–2025</td><td>Confirmed in hand. Source for 9+9+2=20 count total.</td></tr>
+        <tr><td class="src-id">JOHNSON-ANSWERS</td><td>Star News TV Reel — "Rico Johnson Wants Answers," racial-issue statement</td><td>Date unconfirmed</td><td>Confirmed in hand via Jordan's screenshots. Exact date and referent not established.</td></tr>
+        <tr><td class="src-id">JOHNSON-VACATE</td><td>Star News TV — vacates uptown building, Will Pearson quote</td><td>May 12, 2025</td><td>Confirmed in hand via Jordan's screenshots.</td></tr>
+        <tr><td class="src-id">JOHNSON-DANVILLE</td><td>Star News TV / Kafe Da'Ville Facebook — Danville relaunch</td><td>May 26–27, 2025</td><td>Confirmed in hand via Jordan's screenshots.</td></tr>
+        <tr><td class="src-id">JOHNSON-LAWSUIT</td><td>Martinsville Bulletin — Johnson v. Fincher &amp; Rawls, $2M suit</td><td>Oct 12, 2025</td><td>Confirmed in hand. Rawls quote, Fincher ABC letter.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapter 9</td><td>2024–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
