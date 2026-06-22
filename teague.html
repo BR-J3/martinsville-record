@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Gene Teague — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Michael Gene Teague</h1>
+    <div class="banner-roles">City Council 1994–2018, Mayor 2002–2018 · Court-Appointed Council Member, Feb–Apr 2026</div>
+    <p class="banner-summary">Eight years after leaving office voluntarily to "give someone else a chance," Gene Teague was called back to the same council chambers by a circuit court judge — not to run for anything, but to occupy a vacant seat during the most contested suspension in the city's modern history. He accepted, and declined to be paid for it.</p>
+    <div class="era-tabs">
+      <a href="#era-mayor" class="era-tab t1">The Mayor — 1994–2018</a>
+      <a href="#era-return" class="era-tab t2">The Return — Feb–Apr 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-mayor">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Mayor</div>
+    <div class="era-dates">1994 – 2018</div>
+
+    <p>Teague — a University of Virginia graduate who built his career in textiles management at Tultex, VF Imagewear, and later Nautica's Martinsville distribution center — was first appointed to Martinsville City Council in 1994, then elected in his own right in 1995 and again in 2000. He became Mayor in 2002 and held the seat continuously through 2018, making him, for most of that period, the longest-serving active member of council. Outside city government, he was active for years with the Collinsville Jaycees, serving as president, vice president, and chairman of the board.</p>
+
+    <p>In June 2018, Teague announced he would not seek reelection, ending 21 years on council, including 16 as Mayor.</p>
+
+    <div class="doc-quote">
+      "I am going to stay involved in the community. I've been born and raised here; lived here pretty much all of my life so I'll still be involved in other ways and I'm involved on other boards and commissions now, but I'll continue to do some of that stuff... in other angles."
+      <div class="doc-quote-source">— Gene Teague, announcing he would not seek reelection, June 2018</div>
+    </div>
+
+    <p>He framed the decision as making room for new voices rather than any dispute or controversy — "I've decided to give someone else a chance to be on the board" was his stated reasoning at the time.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Tenure — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">First appointed</span><span class="fact-value">1994</span></div>
+      <div class="fact-row"><span class="fact-item">Elected in own right</span><span class="fact-value">1995, 2000</span></div>
+      <div class="fact-row"><span class="fact-item">Became Mayor</span><span class="fact-value">2002</span></div>
+      <div class="fact-row"><span class="fact-item">Total council tenure</span><span class="fact-value">21 years (1994–2018)</span></div>
+      <div class="fact-row"><span class="fact-item">Years as Mayor</span><span class="fact-value">16 years</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-return">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Return</div>
+    <div class="era-dates">February – April 2026</div>
+
+    <p>Teague's name resurfaced in city governance months before his actual return, in an October 2024 council work session on charter reform. Discussing a proposed council term-limit rule, Vice Mayor Kathy Lawson — who would later serve alongside Teague during his 2026 appointment — cited him by name as her argument against the idea.</p>
+
+    <div class="doc-quote">
+      "The longer you are in, the more you learn. I think about [former mayor] Gene Teague. His experience as a longtime member of council was invaluable."
+      <div class="doc-quote-source">— Kathy Lawson, Martinsville City Council work session, October 2024</div>
+    </div>
+
+    <p>On February 23, 2026, Circuit Court Judge G. Carter Greer ordered Teague's appointment to the council seat vacated by Mayor LC Jones's suspension, acting under Virginia Code §24.2-236, which permits a court to appoint a "suitable person" to act in a suspended officer's place. Teague accepted the appointment and declined to accept payment for his time on council.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Appointment — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Appointed by</span><span class="fact-value">Judge G. Carter Greer, Feb 23, 2026</span></div>
+      <div class="fact-row"><span class="fact-item">Legal basis</span><span class="fact-value">Va. Code §24.2-236</span></div>
+      <div class="fact-row"><span class="fact-item">Compensation</span><span class="fact-value">Declined</span></div>
+      <div class="fact-row"><span class="fact-item">Served until</span><span class="fact-value">Jones's reinstatement, late April 2026</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Teague occupied the seat for roughly two months, through the period when council twice considered releasing the Sands Anderson workplace investigation and continued routine budget work amid the broader crisis. No source reviewed documents Teague taking any contested position, casting any notable vote, or commenting publicly on the underlying allegations against Jones during this period — his presence reads, on the available record, as caretaking rather than active participation in the dispute itself.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="lawson.html" class="cl-item"><div class="cl-name">Kathy Lawson</div><div class="cl-context">Cited his tenure during the 2024 term-limits debate</div></a>
+      <a href="chapter-07-the-legal-chain.html" class="cl-item"><div class="cl-name">Chapter 7: The Legal Chain</div><div class="cl-context">Jones's suspension and the appointment that followed</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The seat Teague occupied during the suspension</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Michael Gene Teague</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">TEAGUE-2004RES</td><td>Virginia General Assembly House Joint Resolution — biography, tenure, career</td><td>2004</td><td>Confirmed in hand. UVA, Tultex/VF Imagewear/Nautica career, Collinsville Jaycees.</td></tr>
+        <tr><td class="src-id">TEAGUE-2017</td><td>WSET — sworn in as Mayor, council history (1994, elected 1995/2000)</td><td>Jan 2017</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">TEAGUE-2018</td><td>WSET — announces no reelection bid, 21 years/4 as mayor</td><td>Jun 2018</td><td>Confirmed in hand. Direct quote.</td></tr>
+        <tr><td class="src-id">LAWSON-CHARTER</td><td>Martinsville Bulletin — charter work session, Lawson's Teague quote</td><td>Oct 2024</td><td>Confirmed in hand. Direct quote, predates his 2026 appointment.</td></tr>
+        <tr><td class="src-id">TEAGUE-APPT</td><td>City of Martinsville / WSET / WFXR — Feb 23, 2026 court appointment</td><td>Feb 23–25, 2026</td><td>Confirmed in hand. Va. Code §24.2-236, declined payment.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapter 7</td><td>2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
