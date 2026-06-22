@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reva Keen — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--amber); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Account</div>
+    <h1 class="banner-name">Reva Keen</h1>
+    <div class="banner-roles">Henry County Deputy Sheriff — Assigned to City Council Security</div>
+    <p class="banner-summary">Keen has not made any public statement about the events on this page. Nearly everything documented about her role comes from one party's account in an active federal lawsuit, not from her own words or an independent finding. This page is written with that limitation deliberately kept visible throughout, rather than treating one side's complaint as settled fact.</p>
+    <div class="era-tabs">
+      <a href="#era-ejection" class="era-tab t1">The Ejection — March 25, 2025</a>
+      <a href="#era-lawsuit" class="era-tab t2">The Federal Defendant — June 2025–Present</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-ejection">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Ejection</div>
+    <div class="era-dates">March 25, 2025</div>
+
+    <p>Keen is a Henry County Deputy Sheriff, not a Martinsville city police officer — assigned to provide security at Martinsville City Council meetings. On March 25, 2025, during a council meeting, she physically removed Council Member Aaron Rawls from chambers. What follows is drawn almost entirely from Rawls's own federal complaint, filed two months later — it is his account, not an adjudicated record of what happened.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">RAWLS-COMPLAINT</span>
+        <span class="exhibit-title">Rawls v. Keen &amp; Ferrell-Benavides — Allegations Regarding Keen's Conduct</span>
+        <span class="exhibit-date">As alleged, filed Jun 2, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Per the complaint: by the time Keen reached Rawls's chair, his exchange with Mayor Jones had already ended, and another council member had begun speaking</li>
+          <li>Per the complaint: Rawls was not attempting to continue speaking or interrupt anyone when Keen approached</li>
+          <li>Per the complaint: Keen physically seized Rawls, required him to leave his chair, and told him, "Outside. Go on outside."</li>
+          <li>Per the complaint: at no point did Mayor Jones or anyone else verbally direct Keen to remove Rawls</li>
+          <li>Per the complaint: Keen acted on a non-verbal signal from City Manager Ferrell-Benavides, visible on the meeting recording</li>
+          <li>The complaint characterizes this as a "pre-conceived plan" between Keen and Ferrell-Benavides — this is the plaintiff's characterization, not a court finding</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Rawls federal complaint, Case 4:25-cv-00028, confirmed in hand. Allegations only.</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Keen has not filed a public response describing the incident in her own words, and no source reviewed includes any statement from her about her own reasoning, instructions she believed she had received, or her understanding of her authority in that moment. Whether she was in fact directed by Ferrell-Benavides, acted on her own judgment, or understood the situation differently than the complaint describes is not established by anything other than the opposing party's filing.</p>
+    </div>
+
+    <p>The complaint also notes that minutes after Rawls was removed, Ferrell-Benavides spoke to the remaining council, praising her own performance and stating she was underpaid relative to peer city managers — a moment Rawls was not present for, since he had already been escorted out.</p>
+  </section>
+
+  <section class="era-section" id="era-lawsuit">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Federal Defendant</div>
+    <div class="era-dates">June 2025 – Present</div>
+
+    <p>Rawls filed suit against Keen and Ferrell-Benavides, both in their personal capacities, on June 2, 2025, in the U.S. District Court for the Western District of Virginia, Danville Division — Case 4:25-cv-00028. The complaint brings four counts under 42 U.S.C. §1983: First Amendment viewpoint discrimination, Fourth Amendment unreasonable seizure, deprivation of liberty, and Fourteenth Amendment equal protection.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Case 4:25-cv-00028 — Confirmed Docket Details</div>
+      <div class="fact-row"><span class="fact-item">Filed</span><span class="fact-value">June 2, 2025</span></div>
+      <div class="fact-row"><span class="fact-item">Plaintiff</span><span class="fact-value">Aaron Rawls</span></div>
+      <div class="fact-row"><span class="fact-item">Defendants</span><span class="fact-value">Reva Keen, Aretha Ferrell-Benavides (personal capacity)</span></div>
+      <div class="fact-row"><span class="fact-item">Counts</span><span class="fact-value">Four — all 42 U.S.C. §1983 claims</span></div>
+      <div class="fact-row"><span class="fact-item">Relief sought</span><span class="fact-value">Injunction, compensatory and punitive damages, jury trial</span></div>
+    </div>
+
+    <div class="contested">
+      <div class="contested-label">The Signal — Disputed</div>
+      <p><strong>Rawls's position:</strong> Ferrell-Benavides gave Keen a non-verbal signal, visible on video, directing the removal — part of a coordinated plan between the two of them.</p>
+      <p><strong>Ferrell-Benavides's position (response filed July 2025):</strong> Her legal team has formally denied that any such signal was given.</p>
+      <p>As of the most recent filing reviewed, Keen had not yet filed her own response to the complaint. Her position on what happened — whether she received any signal, verbal or otherwise, and from whom — is not independently on the record.</p>
+    </div>
+
+    <p>Keen has also been subpoenaed to testify in the now-dismissed CL26-011 removal proceeding, in connection with the broader events of that period.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Keen is a named defendant in active federal litigation over a specific, video-recorded incident — that much is fact. What remains genuinely unresolved is intent and instruction: whether she was directed, by whom, and what she understood her own authority to be in that moment. Absent her own account or a court ruling, this page documents the allegation clearly as an allegation, not as settled history.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-03-the-ejection.html" class="cl-item"><div class="cl-name">Chapter 3: The Ejection</div><div class="cl-context">Full account of March 25, 2025</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Plaintiff, source of the complaint's allegations</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">Co-defendant; disputes the "signal" allegation</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Reva Keen</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">RAWLS-COMPLAINT</td><td>Rawls v. Keen &amp; Ferrell-Benavides, Case 4:25-cv-00028 — full 15-page complaint</td><td>Filed Jun 2, 2025</td><td>Confirmed in hand. Plaintiff's allegations only — not adjudicated.</td></tr>
+        <tr><td class="src-id">FB-RESPONSE</td><td>Ferrell-Benavides's formal response — denial of signal allegation</td><td>Jul 2025</td><td>Confirmed in hand via Chapter 9 sourcing (BTW21/Cardinal News).</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 3, 9</td><td>2025–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
