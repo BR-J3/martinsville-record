@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J. Richard Stanfield — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Account</div>
+    <h1 class="banner-name">J. Richard Stanfield</h1>
+    <div class="banner-roles">Chief Financial Officer, City of Martinsville — September 2024 to Present</div>
+    <p class="banner-summary">Almost everything documented elsewhere in this record — the audit, the $10 million in unapproved budget changes, the federal lawsuits — traces back to one CPA's decision to send a confidential letter on a Sunday night from his personal email, after refusing to backdate a federal grant document. This page documents Stanfield's own account, in his own words, from the documents he signed.</p>
+    <div class="era-tabs">
+      <a href="#era-warnings" class="era-tab t1">The First Warnings — Sept 2024–Mar 2025</a>
+      <a href="#era-letter" class="era-tab t2">The Whistleblower Letter — April 2025</a>
+      <a href="#era-insubordination" class="era-tab t3">"Open Insubordination" — July 2025</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-warnings">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The First Warnings</div>
+    <div class="era-dates">September 2024 – March 2025</div>
+
+    <p>Stanfield is a CPA and CGMA with 30 years of experience. He joined the city as a financial consultant on September 30, 2024, brought in specifically to help complete an overdue annual audit, and was hired as full Chief Financial Officer on January 1, 2025. Media coverage on August 5, 2025 misidentified him as "James Stanfield" — his legal name on every signed document is J. Richard Stanfield, CPA, CGMA; he goes by Richard.</p>
+
+    <p>His first formal written warning to city leadership came March 13, 2025 — a signed internal memo to City Manager Aretha Ferrell-Benavides and Chief Operating Officer Edena Reese-Atmore, raising seven distinct concerns.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">RS-S1</span>
+        <span class="exhibit-title">March 13, 2025 Internal Memo to Ferrell-Benavides &amp; Reese-Atmore</span>
+        <span class="exhibit-date">Mar 13, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>134 credit cards issued across a staff of roughly 350 — recommends limiting cards and using vendor accounts instead</li>
+          <li>Recommends mandatory purchase orders for purchases over $2,000</li>
+          <li>Flags overuse of signature stamps — items rubber-stamped without due attention</li>
+          <li>Timesheet practices inconsistent; flags the Munis Time and Attendance module as too complicated for staff</li>
+          <li>Requests no further changes to account structure until the audit is complete and finances stabilized</li>
+          <li>Flags ARPA risk directly: some projects not encumbered, quarterly filings not done since June 30, 2024 — "this has been previously mentioned and needs to be made a priority"</li>
+          <li>States the prior-year audit is still incomplete: "I'm not talking small amounts, they are all material to the financial statements"</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: RS-S1 — signed internal memo, confirmed in hand</div>
+    </div>
+
+    <p>The memo closes on a notably professional, non-confrontational note, offering continued cooperation rather than escalation.</p>
+
+    <div class="doc-quote">
+      "I appreciate the faith you have placed in me and stand ready and able to work to address and correct these issues."
+      <div class="doc-quote-source">— J. Richard Stanfield, closing line, March 13, 2025 memo</div>
+    </div>
+
+    <p>One month later, none of the seven points had been meaningfully addressed — and Stanfield had personally discovered something far more serious in the interim: a $4.4 million ARPA obligation deadline the city had already missed.</p>
+  </section>
+
+  <section class="era-section" id="era-letter">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Whistleblower Letter</div>
+    <div class="era-dates">April 2025</div>
+
+    <p>On Sunday, April 13, 2025, at 10:55 PM, Stanfield sent a confidential letter to Sands Anderson attorney Steve Durbin from his personal Gmail account — not his city email. The cover note alone signals how seriously he took the retaliation risk.</p>
+
+    <div class="doc-quote">
+      "Martinsville, VA has become Duncanville, Tx 2.0. Please keep this away from the city manager and chief operating officer if you can because they are already being very difficult to deal with and I have no doubts once they are aware of this letter they will do anything in their power to get rid of me or try to destroy my character and reputation."
+      <div class="doc-quote-source">— J. Richard Stanfield, cover email to Steve Durbin, April 13, 2025, 10:55 PM</div>
+    </div>
+
+    <p>The reference to Duncanville was not abstract — Reese-Atmore had previously worked with Ferrell-Benavides there, where, per Stanfield's letter, "issues almost identical to the City of Martinsville happened."</p>
+
+    <h3>The $4.4 Million Near-Miss</h3>
+    <p>The letter's most consequential disclosure concerned ARPA funding. Stanfield had asked Reese-Atmore about the grant repeatedly from October through December 2024 and was assured it was being handled. He discovered the city had failed to obligate the remaining $4.4 million in ARPA funds by the December 31, 2024 deadline. On March 10, 2025, in a 5:30 PM phone call, Reese-Atmore suggested backdating memoranda of understanding in place of purchase orders to retroactively obligate the funds.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Stanfield refused to backdate the documents — by his own account, this would have meant falsifying records tied to federal funds. Instead, on March 31, 2025, he contacted Delegate Eric Phillips directly, who contacted Congressman Morgan Griffith's office, who contacted the U.S. Treasury. On April 7, 2025, Treasury reopened the December 31 reporting window for 24 hours. Stanfield obligated the remaining $4.4 million within that window. By his own description, had he failed, the city would have been required to return the full $4.4 million to the federal government.</p>
+    </div>
+
+    <p>The letter also documents that this was not his only finding: the prior year's audit remained incomplete past its legal deadline (Virginia Code requires council approval by December 31 each year); a separate consulting firm's workpapers had been uploaded without review; and Stanfield records Reese-Atmore responding, laughing, that auditors would catch any errors in those workpapers "because she hadn't looked at them."</p>
+
+    <h3>Retaliation, Already Underway</h3>
+    <p>The letter documents retaliation that preceded its own writing. On March 12, 2025, Stanfield was summoned to the City Manager's office over his "communication style." On March 17, he was summoned again — this time with HR Director Travis Hodge present — and told he wasn't a good fit, was "too negative," and was warned he could be named in the newspaper. Separately, Ferrell-Benavides told him she had stopped texting or emailing because of FOIA exposure.</p>
+
+    <div class="doc-quote">
+      "I feel my job is at risk and each and every day is a minefield to navigate with constant fear of retribution and termination and assassination of my character."
+      <div class="doc-quote-source">— J. Richard Stanfield, closing of the April 13, 2025 letter</div>
+    </div>
+
+    <div class="fact-block">
+      <div class="fact-label">April 2025 Letter — Confirmed Contents</div>
+      <div class="fact-row"><span class="fact-item">ARPA funds at risk</span><span class="fact-value">$4.4 million, saved within a 24-hour window</span></div>
+      <div class="fact-row"><span class="fact-item">Requested action</span><span class="fact-value">Independent investigation; 12-month credit card and travel review</span></div>
+      <div class="fact-row"><span class="fact-item">Requested confidentiality</span><span class="fact-value">Name disclosed only to council if necessary</span></div>
+      <div class="fact-row"><span class="fact-item">This letter's role</span><span class="fact-value">Initiated the Sands Anderson investigation documented in Ch. 1</span></div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-insubordination">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">"Open Insubordination"</div>
+    <div class="era-dates">July 2025</div>
+
+    <p>By July 2025, Ferrell-Benavides had formally notified staff that Reese-Atmore was no longer to be involved in finance, budget, or procurement, effective May 20. On July 10, Stanfield discovered Reese-Atmore was still actively adding funds and making changes inside the city's Munis financial system — a day after her access was supposed to have ended.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">RS-S3</span>
+        <span class="exhibit-title">July 10, 2025 Email Chain — "Clarification Regarding Edena's Involvement"</span>
+        <span class="exhibit-date">Jul 10, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>10:03 AM — Stanfield to Ferrell-Benavides, marked High Importance: Reese-Atmore's access "needs to be removed asap before more damage can be done"</li>
+          <li>10:15 AM — Ferrell-Benavides replies, CC'ing Jones, Lawson, Fincher, and outside counsel: claims Reese-Atmore is now with a consulting firm completing outstanding tasks</li>
+          <li>10:32 AM — Stanfield replies: if council is being copied, "let's be fair and include everyone," then lists his own accomplishments accomplished with little support — FY24 audit completed, ARPA fully caught up, FY26 budget loaded</li>
+          <li>10:34 AM — Ferrell-Benavides, copying HR Director Travis Hodge: "This message is inappropriate and will be documented in your Human Resources File as open insubordination."</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: RS-S3 — full email chain, confirmed in hand</div>
+    </div>
+
+    <p>Stanfield's own message in that chain is measured and factual — a list of completed work, not a personal attack. The "open insubordination" characterization is Ferrell-Benavides's own framing of that message, not an independent finding; it is documented here as part of the exchange, not adopted as accurate.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This exchange happened roughly two weeks before Ferrell-Benavides herself was placed on administrative leave on July 23–24, 2025, and about a month before her termination. Everything Stanfield flagged in March and April — the audit delays, the ARPA risk, the credit card controls — became the substance of the forensic audit Brown Edwards later confirmed publicly. The retaliation he predicted in his own letter, down to the specific fear of being formally written up, materialized almost exactly as he described it.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-01-the-origin.html" class="cl-item"><div class="cl-name">Chapter 1: The Origin</div><div class="cl-context">The whistleblower letter that started the investigation</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">Subject of Stanfield's concerns and the insubordination threat</div></a>
+      <a href="chapter-05-the-audit.html" class="cl-item"><div class="cl-name">Chapter 5: The Audits</div><div class="cl-context">Brown Edwards's findings confirm Stanfield's warnings</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — J. Richard Stanfield</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">RS-S1</td><td>Internal memo to Ferrell-Benavides &amp; Reese-Atmore</td><td>Mar 13, 2025</td><td>Confirmed in hand. Signed memo, seven points.</td></tr>
+        <tr><td class="src-id">RS-S2</td><td>Confidential whistleblower letter to Steve Durbin (Sands Anderson)</td><td>Apr 13, 2025</td><td>Confirmed in hand. Full letter and cover email reviewed.</td></tr>
+        <tr><td class="src-id">RS-S3</td><td>Email chain — Reese-Atmore's continued Munis access, insubordination threat</td><td>Jul 10, 2025</td><td>Confirmed in hand. Full three-email chain reviewed.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1, 4, 5</td><td>2024–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
