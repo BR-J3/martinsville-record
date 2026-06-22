@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kathy Lawson — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Term</div>
+    <h1 class="banner-name">Kathy Lawson</h1>
+    <div class="banner-roles">Vice Mayor, City of Martinsville — Term Expires 2028</div>
+    <p class="banner-summary">Of everyone documented in this record, Lawson is the one most often defined by what wasn't said or wasn't there — an absence that broke a tied vote, a compensation question she chose not to answer in specifics, and a quote about her own credibility that traces back through two other people before it ever reaches her. This page documents exactly what is, and isn't, established.</p>
+    <div class="era-tabs">
+      <a href="#era-vicemayor" class="era-tab t1">The Vice Mayor — 2025–Present</a>
+      <a href="#era-absence" class="era-tab t2">The Absence — Nov 2025</a>
+      <a href="#era-quote" class="era-tab t3">The Disputed Quote — May 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-vicemayor">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Vice Mayor</div>
+    <div class="era-dates">2025 – Present</div>
+
+    <p>Lawson holds one of three council seats — alongside Julian Mei and Rayshaun Gravely — with terms running through 2028, placing her outside the November 2026 election cycle entirely. Most of what's documented about her in this record is ordinary, procedural council business, set against the backdrop of the broader governance crisis rather than at its center.</p>
+
+    <p>During Robert Fincher's interim period as City Manager, Lawson joined him and Councilman Mei on a tour of the nearly-complete Aaron Mills Apartments — a 52-unit affordable senior housing development on Aaron Street. Logged here simply as evidence that routine city business continued through the crisis period, not as anything notable on its own.</p>
+
+    <p>When council formally appointed Fincher permanent City Manager in March 2026, Lawson offered a supportive, on-record quote.</p>
+
+    <div class="doc-quote">
+      "Rob's leadership during the interim period has exceeded all expectations."
+      <div class="doc-quote-source">— Kathy Lawson, on Robert Fincher's permanent appointment, March 2026</div>
+    </div>
+
+    <p>For petition-threshold purposes, Lawson falls into the same calculation bucket as Mei and Gravely under Andy Hall's own May 2025 framework — council members elected in 2024 use that year's 5,708-voter turnout figure. This distinction never mattered in practice, since the petition concerned Jones's seat specifically, governed by the earlier 2022 election instead.</p>
+  </section>
+
+  <section class="era-section" id="era-absence">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Absence</div>
+    <div class="era-dates">November 2025</div>
+
+    <p>On November 5, 2025, City Council took up a motion to fund the local NAACP chapter's community outreach and civic engagement programs. The vote deadlocked 2-2 — Jones and Gravely in favor, Rawls and Mei against — and failed for lack of a majority. Lawson was absent. Her absence is what produced the tie; with all five members present, the motion would have passed or failed outright rather than deadlocking.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">NAACP Funding Vote — Nov 5, 2025</div>
+      <div class="fact-row"><span class="fact-item">For</span><span class="fact-value">Jones, Gravely</span></div>
+      <div class="fact-row"><span class="fact-item">Against</span><span class="fact-value">Rawls, Mei</span></div>
+      <div class="fact-row"><span class="fact-item">Absent</span><span class="fact-value">Lawson — created the deadlock</span></div>
+      <div class="fact-row"><span class="fact-item">Aftermath</span><span class="fact-value">Rawls, Mei, Jones each pledged $500 personally — $1,500 combined</span></div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>No public explanation for the absence has surfaced in any source reviewed. An absence on its own — illness, a scheduling conflict, any number of ordinary reasons — shouldn't be read as deliberate or political without further evidence. It's documented here because of its effect on the outcome, not because a motive has been established.</p>
+    </div>
+
+    <p>Separately, in a Star News TV interview, Charles Roark asked Lawson about Robert Fincher's compensation under his new permanent City Manager contract. Lawson declined to discuss specific figures, though she indicated the contract includes a clause allowing Fincher to remain in the role indefinitely, provided he gives advance notice before leaving. Aaron Rawls, asked a comparable question separately, answered more directly.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Declining to discuss a colleague's specific compensation figures in a press interview is not unusual practice for an elected official, and shouldn't automatically be read as evasiveness. The contrast with Rawls's more direct answer on the same general topic is worth noting as documented, but the exact contract language has not been independently confirmed, and no inference beyond that contrast is drawn here.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-quote">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Disputed Quote</div>
+    <div class="era-dates">May 2026</div>
+
+    <p>At the May 15, 2026 hearing that ultimately dismissed CL26-011, Jones's attorney Mark Krudys argued in open court that he'd received an email from special prosecutor Collins referencing an earlier statement Aaron Rawls had reportedly made about Lawson.</p>
+
+    <div class="doc-quote">
+      "You'd have a better chance of getting a confession out of Jones than the truth out of Lawson."
+      <div class="doc-quote-source">— Attributed by Krudys, in open court, to a statement by Aaron Rawls referenced in an email from special prosecutor Collins</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>This quote reaches the public record through three layers of attribution — Krudys's in-court characterization, of an email from Collins, describing a statement attributed to Rawls. Lawson has made no public response to it. It is documented here because it is now part of the official court record of the May 15 hearing, not because it has been independently verified as something Rawls actually said, or because it reflects anything established about Lawson's honesty.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Krudys raised this specific statement to argue that Rawls was one of two people — alongside Eric Payne — with a personal stake in the outcome, not as a freestanding claim about Lawson's character. Its purpose in the courtroom was to undercut Rawls's credibility as a source for the case against Jones. Read in that context, it says more about the dispute between Krudys and Rawls than it does about Lawson, who was not present to respond to it and has not commented on it since.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-08-the-dismissal.html" class="cl-item"><div class="cl-name">Chapter 8: The Dismissal</div><div class="cl-context">Krudys's full courtroom argument, May 15, 2026</div></a>
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">Threshold-bucket framework Lawson falls under</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Source of the disputed quote about Lawson</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">Permanent appointment Lawson publicly supported</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Kathy Lawson</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">LAWSON-NAACP</td><td>Star News TV — NAACP funding vote, 2-2 deadlock (CH6-M1)</td><td>Nov 5, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">LAWSON-MILLS</td><td>Aaron Mills Apartments tour — Fincher, Mei, Lawson</td><td>2025 (Interim period)</td><td>Confirmed in hand. Routine business, non-controversial.</td></tr>
+        <tr><td class="src-id">LAWSON-FINCHER-APPT</td><td>City of Martinsville — Fincher permanent appointment, Lawson quote</td><td>Mar 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">LAWSON-FINCHER-PAY</td><td>Star News TV — Charles Roark interview, contract pay question</td><td>2026, exact date unconfirmed</td><td>Confirmed in hand via paraphrase. Exact contract language not independently confirmed.</td></tr>
+        <tr><td class="src-id">LAWSON-KRUDYS</td><td>Star News TV — Krudys courtroom video reel (CH8-V1)</td><td>May 15, 2026</td><td>Confirmed in hand. Three-layer attribution, not independently verified.</td></tr>
+        <tr><td class="src-id">EL-B1</td><td>Grace Pryor email to Andy Hall — threshold framework</td><td>May 16, 2025</td><td>Confirmed in hand. Places Lawson in 2024-elected bucket.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 6, 8, 10</td><td>2025–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
