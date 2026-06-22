@@ -15,28 +15,28 @@
   body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
   .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
   .banner-inner { max-width: 860px; margin: 0 auto; }
-  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; margin-bottom: 24px; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
   .banner-nav a { color: #555; text-decoration: none; }
   .banner-nav a:hover { color: var(--red); }
   .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
-  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; margin-bottom: 12px; }
-  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 28px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
   .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
-  .body-wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
-  .section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 28px; }
-  .body-wrap h3 { font-size: 20px; margin: 32px 0 14px; }
-  .body-wrap p { font-size: 17px; line-height: 1.75; margin-bottom: 20px; }
-  .body-wrap p strong { color: var(--red-dark); }
-  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
-  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
-  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
-  .correction { background: #f0f7ff; border: 1px solid #2c5fa3; border-left: 5px solid #2c5fa3; padding: 18px; margin: 24px 0; }
-  .correction-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #2c5fa3; margin-bottom: 10px; }
-  .correction p { font-size: 14.5px; line-height: 1.6; margin-bottom: 0; }
-  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
-  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
-  .oq-label::before { content: '? '; }
-  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--red); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--green); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
   .exhibit { margin: 28px 0; border: 1px solid #ccc; }
   .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
@@ -46,6 +46,23 @@
   .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
   .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
   .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .contested { background: #fff5f5; border: 1px solid var(--red); border-left: 5px solid var(--red); padding: 18px; margin: 22px 0; }
+  .contested-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .contested p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .contested p:last-child { margin-bottom: 0; }
+  .correction { background: #f0f7ff; border: 1px solid #2c5fa3; border-left: 5px solid #2c5fa3; padding: 18px; margin: 24px 0; }
+  .correction-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #2c5fa3; margin-bottom: 10px; }
+  .correction p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .correction p:last-child { margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
   .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
   .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
   .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
@@ -71,6 +88,7 @@
   .page-footer { background: #111; padding: 32px 24px; text-align: center; }
   .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
   .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
 </style>
 </head>
 <body>
@@ -80,67 +98,151 @@
     <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
     <div class="banner-label">Person Record · Full Career</div>
     <h1 class="banner-name">Rayshaun Gravely</h1>
-    <div class="banner-roles">Martinsville City Council Member — 2022–Present · Term expires 2028</div>
-    <p class="banner-summary">A felony charge reduced to a misdemeanor before conviction. A name spelled differently across different eras of his public record. A council vote where he sided with Jones and personally paid out of pocket anyway. This page documents Gravely's record precisely — correcting an inaccurate community claim along the way, not just repeating it.</p>
+    <div class="banner-roles">Martinsville City Council Member — 2022–Present · Term Expires 2028</div>
+    <p class="banner-summary">A felony case that ended in a full jury acquittal, not the quiet plea deal an earlier version of this page described. A campaign where his own legal history became the subject of a council member's pointed remark about race — independently sourced nearly two years before that same remark became part of a federal lawsuit. This page corrects what needed correcting and documents the rest precisely.</p>
+    <div class="era-tabs">
+      <a href="#era-case" class="era-tab t1">The Case — 2021–2023</a>
+      <a href="#era-campaign" class="era-tab t2">The Campaign — 2024</a>
+      <a href="#era-council" class="era-tab t3">On Council — 2025–Present</a>
+    </div>
   </div>
 </header>
 
 <div class="body-wrap">
-  <div class="section-label">The Record</div>
 
-  <h3>The Felony Reduction — Case GC22001064-00</h3>
-  <p>Court records confirm: filed April 20, 2022, offense date June 6, 2021. <strong>Original charge: Strangle/Wound/Injury, Va. Code §18.2-51.6 — a Class 6 felony.</strong> The charge was amended to Disorderly Conduct under §18.2-415, a misdemeanor. Gravely pleaded nolo contendere; the disposition was guilty on the amended charge. Sentence: 90 days, fully suspended, plus $250 in fines and $101 in costs, paid February 20, 2025. The complainant is named in court records as T.J. Brown.</p>
+  <section class="era-section" id="era-case">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Case</div>
+    <div class="era-dates">2021 – 2023</div>
 
-  <div class="correction">
-    <div class="correction-label">Correcting a Common Community Claim</div>
-    <p>A frequent public criticism holds that Gravely "should have lost his voting rights" given the original felony charge. <strong>This is not factually accurate as stated.</strong> Virginia law strips voting rights upon felony <em>conviction</em> — and Gravely was never convicted of a felony in this case. The charge was amended to a misdemeanor before conviction, which is precisely why no voting-rights consequence applies. The accurate, and arguably stronger, version of this concern is different: the original charge was serious — felony-level, alleging strangulation and wounding — and the case resolved as a misdemeanor with a fully suspended sentence. That is a significant reduction in severity, not a circumvention of the law. This record states the precise version because it holds up to scrutiny; the imprecise version does not.</p>
-  </div>
-
-  <h3>Andy Hall's Office Handled the Case</h3>
-  <p>Andy Hall served as Martinsville Commonwealth's Attorney continuously from December 2017 through January 2026, when he announced he would not seek reelection. That means Hall's office held jurisdiction throughout 2022, when Gravely's felony charge was reduced and resolved. <strong>This confirms Hall's office handled the matter — it does not confirm Hall personally argued or signed off on this specific case</strong>, since Commonwealth's Attorneys routinely delegate individual cases to deputies.</p>
-  <div class="finding">
-    <div class="finding-label">What The Record Shows</div>
-    <p>Andy Hall is not a new name in this record. He cited the disputed 571-signature petition threshold (Chapter 6) and is a named defendant in the Mook v. Hall federal case. Hall's office handling Gravely's felony reduction three years before the petition dispute adds a third, earlier connection — the same office, under Hall and his successor Patrick Flinn, touches both the Gravely matter and the Jones removal case.</p>
-  </div>
-
-  <h3>Other Court Record Activity</h3>
-  <div class="fact-block">
-    <div class="fact-label">Vehicle/Registration Cases — Confirmed</div>
-    <div class="fact-row"><span class="fact-item">GT23002197-00</span><span class="fact-value">Fail to Have Vehicle Inspected — Guilty, $30 + $76 costs</span></div>
-    <div class="fact-row"><span class="fact-item">GT23002198-00</span><span class="fact-value">Fail to Obtain Registration/Title — Guilty, no fine</span></div>
-    <div class="fact-row"><span class="fact-item">GT26001411-00 / GT26001412-00</span><span class="fact-value">Driving Under Suspension + Expired Registration — hearing July 23, 2026</span></div>
-  </div>
-  <div class="open-question">
-    <div class="oq-label">Open Question</div>
-    <p>Court records show inconsistent name spellings across filings ("Rayshaun," "Rayshawn," "O'Shea," "Oshea," "Junio," "Jumon"). One observation from this research, not yet independently verified: one spelling format may have been used consistently during Gravely's prior employment as a Henry County Sheriff's Deputy, with a different format appearing in his current council-era records. This pattern has not been confirmed against dated records from each period and should not be treated as established until it is. Separately, a criminal defense attorney based on Church Street, Martinsville, is believed — not yet confirmed — to have represented Gravely during these 2021–2023 proceedings.</p>
-  </div>
-  <p><strong>Caution:</strong> Henry County's court index lists several unrelated Gravely family members (Orlando Marquis, Pryor Deshazo, Ronald Keith, Ryan Marquis, Romante Novarius, Shakina Lavette) with entirely separate cases. Only Rayshaun O'Shea-variant filings are attributed to the council member on this page.</p>
-
-  <h3>The NAACP Funding Vote — November 5, 2025</h3>
-  <p>Council deadlocked 2-2 on a motion to fund the local NAACP chapter's community outreach programs. <strong>Gravely voted for the funding, alongside Mayor Jones.</strong> Rawls and Mei voted against. Vice Mayor Kathy Lawson was absent, which created the deadlock.</p>
-  <div class="exhibit">
-    <div class="exhibit-header">
-      <span class="exhibit-id">CH6-M1</span>
-      <span class="exhibit-title">NAACP Funding Vote — Aftermath</span>
-      <span class="exhibit-date">Nov 5, 2025</span>
+    <div class="correction">
+      <div class="correction-label">Correction to an Earlier Version of This Page</div>
+      <p>An earlier version of this page described Gravely's case as a felony charge amended to a misdemeanor disorderly conduct conviction, citing a specific case number (GC22001064-00) with a nolo contendere plea and a fine paid in February 2025. <strong>That account does not match contemporaneous press reporting and has not been independently verified against an actual court docket.</strong> Multiple news outlets — and Commonwealth's Attorney Andy Hall himself — confirm a different outcome: a full jury trial and acquittal on all charges. This page now reflects that confirmed outcome. The earlier framing is retracted, not repeated.</p>
     </div>
-    <div class="exhibit-body">
-      <ul>
-        <li>Motion failed 2-2: Jones and Gravely for; Rawls and Mei against; Lawson absent</li>
-        <li>Despite voting against city funding, Rawls and Mei each personally pledged $500 to the NAACP</li>
-        <li>Jones personally pledged $500 as well</li>
-        <li>Combined $1,500 in personal donations followed the failed public funding vote</li>
-      </ul>
-    </div>
-    <div class="exhibit-source">Source: Star News TV, November 5, 2025, confirmed in hand</div>
-  </div>
-  <div class="finding">
-    <div class="finding-label">What The Record Shows</div>
-    <p>This is the same Jones/Gravely versus Rawls/Mei factional split visible throughout the broader governance crisis — but the aftermath cuts against a simple villain narrative. All three council members present found their own way to support the same cause personally, regardless of how they voted publicly. That doesn't erase the rest of this record. It's simply also true, and belongs in it.</p>
-  </div>
 
-  <h3>The Affidavit — A Different Role Than Jones's</h3>
-  <p>Rawls's sworn affidavit places Gravely in two specific moments. On May 13, 2025, when Jones approached Rawls aggressively during a public meeting, <strong>Gravely physically intercepted Jones</strong> before police arrived. On November 12, 2025, Gravely was one of four council members present for the closed session on the forensic audit's preliminary findings. Neither moment attributes disputed conduct to Gravely himself — in the May 13 incident specifically, the affidavit describes him acting to de-escalate, not provoke.</p>
+    <h3>The Incident and the Charges</h3>
+    <p>On June 6, 2021, at a birthday party at the Sportsman's Club in Martinsville, a woman — also a Henry County Sheriff's Office deputy, and Gravely's on-and-off girlfriend — alleged that Gravely became angry after seeing her talking to another man, grabbed her arm and twisted it behind her back, pushed her against his car, and choked her. She did not report it at the time.</p>
+
+    <p>Nearly a year later, on April 16, 2022, Gravely was arrested in Charlotte, North Carolina on a separate allegation of domestic assault against the same woman. During that investigation, she disclosed the 2021 Martinsville incident. She sought a protective order in Virginia; a magistrate directed her instead to file a police report, which led to Virginia charges. Gravely turned himself in days later and was charged with strangulation, abduction by force or intimidation, assault and battery of a family member, and malicious wounding.</p>
+
+    <p>The Henry County Sheriff's Office fired Gravely within days of the Virginia charges being filed.</p>
+
+    <div class="doc-quote">
+      "In our administration of the Henry County Sheriff's Office, we have always expressed to every employee our expectation to conduct themselves as an example of actions and trust to our community. We have never tolerated any wrongful conduct if this expectation has not been upheld. In this, Rayshaun Gravely is no longer employed with the office."
+      <div class="doc-quote-source">— Henry County Sheriff's Office, public statement, April 2022</div>
+    </div>
+
+    <h3>Bond and the Community That Showed Up</h3>
+    <p>Gravely was held without bond initially, then granted $50,000 bond, later reduced to $25,000 at an appeal hearing before Circuit Court Judge G. Carter Greer. The courtroom drew roughly 30 spectators, including local pastors. Three people spoke on his behalf, offering to serve as custodians under the court's conditions: <strong>Sheila Turner</strong> of Spencer, who said she'd been like a "second mother" to Gravely since he was 14, and <strong>Lenny Noel</strong> of Rich Acres, who knew him from Martinsville Middle School. Bond conditions included a 7 p.m.–7 a.m. curfew, a prohibition on leaving Virginia except for supervised North Carolina court dates, required residence under his mother's supervision, mandatory employment, no alcohol or firearms, and continued GPS monitoring.</p>
+
+    <h3>The Verdict</h3>
+    <p>On October 10, 2023, a Martinsville Circuit Court jury took approximately 35 minutes to find Gravely not guilty on all four Virginia charges — assault and battery, strangulation with injury, malicious wounding, and abduction by force or intimidation. Commonwealth's Attorney Andy Hall confirmed the verdict directly to press at the time.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Virginia Case — Confirmed Outcome</div>
+      <div class="fact-row"><span class="fact-item">Charges</span><span class="fact-value">Strangulation, Abduction, A&amp;B (family member), Malicious Wounding</span></div>
+      <div class="fact-row"><span class="fact-item">Verdict</span><span class="fact-value">Not guilty, all charges — Oct 10, 2023</span></div>
+      <div class="fact-row"><span class="fact-item">Jury deliberation</span><span class="fact-value">~35 minutes</span></div>
+      <div class="fact-row"><span class="fact-item">Confirmed by</span><span class="fact-value">Commonwealth's Attorney Andy Hall</span></div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>The separate North Carolina case — a felony fugitive-extradition charge and a misdemeanor assault-on-a-female charge in Mecklenburg County — does not have a confirmed outcome in any source reviewed. It should not be assumed dropped, dismissed, or resolved either way until that's actually established.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Andy Hall's office did not just hold jurisdiction during this case in some passive sense — Hall personally confirmed the acquittal to the press. This is a direct, named connection between Hall and Gravely, three years before either man's name appeared in the petition-threshold dispute documented in Chapter 6.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-campaign">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Campaign</div>
+    <div class="era-dates">2024</div>
+
+    <p>Gravely ran for one of three open council seats in the November 2024 election. He was open about his legal history during the campaign. The Henry County Enterprise's August 23, 2024 coverage of the race — "Differing opinions create tension among leaders" — is also the original, contemporaneous source for a quote that would resurface nearly two years later in a federal lawsuit.</p>
+
+    <h3>Jones Becomes a Mentor</h3>
+    <p>Jones told the Enterprise he was aware of Gravely's prior charges and described them, in his own words, as "dropped" — a looser characterization than the actual record, which shows a full jury trial and acquittal, not a dismissal.</p>
+
+    <div class="doc-quote">
+      "I think what really describes his character is how he went through those things, and it made him a better person and more ambitious to help other individuals."
+      <div class="doc-quote-source">— LC Jones, on Gravely, Henry County Enterprise, August 2024</div>
+    </div>
+
+    <p>Jones described becoming a "mentor" to Gravely in the political field, tracing it to a specific conversation with Rawls and then-City Manager Ferrell-Benavides while preparing candidate packets.</p>
+
+    <h3>The Exchange — Original Source for a 2026 Lawsuit Claim</h3>
+    <p>Per Jones's account in the same article: when the conversation turned to Gravely, Rawls said he wouldn't support him because of his legal history.</p>
+
+    <div class="contested">
+      <div class="contested-label">The "White Vote" Exchange — Both Accounts, From 2024</div>
+      <p><strong>Jones's account:</strong> Rawls told him he "wouldn't support him, and he was going to make sure that he wouldn't get a white vote, and nobody in the white community would support him."</p>
+      <p><strong>Rawls's response, same article, same date:</strong> Jones "tried to make it a race thing to cover up his agenda because he can't support it with substance." Rawls's stated objection was that Gravely has "zero translatable skills or experience to this job," adding, "LC knows better than anyone that this is not a job for amateurs at this point in time. We need real people to bring real solutions."</p>
+      <p>Rawls separately said: "When you have somebody like that in charge, because they don't know what they're doing, then taxpayers start to see their money disappearing really fast." He also said Gravely "has been arrested three times for hurting women."</p>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Only two arrests tied to domestic-violence allegations are independently confirmed anywhere in this record — the April 2022 Virginia charges and the separate April 2022 North Carolina charge, both stemming from the same underlying relationship. A third arrest is not established in any source reviewed. Rawls's "three times" is presented here as his own characterization, not a confirmed count.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This same exchange — Jones's account of Rawls's remark, and Rawls's denial of the racial framing — resurfaces nearly word-for-word in Jones's June 9, 2026 federal lawsuit against Rawls (documented in Chapter 9), filed almost two years later. That doesn't resolve which characterization is accurate. It does mean the claim isn't solely a product of 2026 litigation — both men were on the record with their respective positions in real time, in August 2024, well before any lawsuit existed.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-council">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">On Council</div>
+    <div class="era-dates">2025 – Present</div>
+
+    <h3>The NAACP Funding Vote — November 5, 2025</h3>
+    <p>Council deadlocked 2-2 on a motion to fund the local NAACP chapter's community outreach programs. Gravely voted for the funding, alongside Mayor Jones. Rawls and Mei voted against. Vice Mayor Kathy Lawson was absent, which created the deadlock.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">CH6-M1</span>
+        <span class="exhibit-title">NAACP Funding Vote — Aftermath</span>
+        <span class="exhibit-date">Nov 5, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Motion failed 2-2: Jones and Gravely for; Rawls and Mei against; Lawson absent</li>
+          <li>Despite voting against city funding, Rawls and Mei each personally pledged $500 to the NAACP</li>
+          <li>Jones personally pledged $500 as well</li>
+          <li>Combined $1,500 in personal donations followed the failed public funding vote</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Star News TV, November 5, 2025, confirmed in hand</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This is the same Jones/Gravely versus Rawls/Mei factional split visible throughout the broader governance crisis — but the aftermath cuts against a simple villain narrative. All three council members present found their own way to support the same cause personally, regardless of how they voted publicly.</p>
+    </div>
+
+    <h3>The Affidavit — A Different Role Than Jones's</h3>
+    <p>Rawls's sworn affidavit places Gravely in two specific moments. On May 13, 2025, when Jones approached Rawls aggressively during a public meeting, Gravely physically intercepted Jones before police arrived. On November 12, 2025, Gravely was one of four council members present for the closed session on the forensic audit's preliminary findings. Neither moment attributes disputed conduct to Gravely himself — in the May 13 incident specifically, the affidavit describes him acting to de-escalate, not provoke.</p>
+
+    <h3>Other Court Record Activity</h3>
+    <div class="fact-block">
+      <div class="fact-label">Vehicle/Registration Cases — Confirmed, Unrelated</div>
+      <div class="fact-row"><span class="fact-item">GT23002197-00</span><span class="fact-value">Fail to Have Vehicle Inspected — Guilty, $30 + $76 costs</span></div>
+      <div class="fact-row"><span class="fact-item">GT23002198-00</span><span class="fact-value">Fail to Obtain Registration/Title — Guilty, no fine</span></div>
+      <div class="fact-row"><span class="fact-item">GT26001411-00 / GT26001412-00</span><span class="fact-value">Driving Under Suspension + Expired Registration — hearing July 23, 2026</span></div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Court records show inconsistent name spellings across filings ("Rayshaun," "Rayshawn," "O'Shea," "Oshea," "Junio," "Jumon"). Whether this tracks a change between his sheriff's-deputy-era records and his council-era records has not been independently confirmed. Separately, a criminal defense attorney based on Church Street, Martinsville, is believed — not yet confirmed — to have represented Gravely during the 2021–2023 proceedings.</p>
+    </div>
+
+    <p><strong>Caution:</strong> Henry County's court index lists several unrelated Gravely family members (Orlando Marquis, Pryor Deshazo, Ronald Keith, Ryan Marquis, Romante Novarius, Shakina Lavette) with entirely separate cases. Only Rayshaun O'Shea-variant filings are attributed to the council member on this page.</p>
+  </section>
 
 </div>
 
@@ -149,8 +251,10 @@
     <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
     <div class="cl-grid">
       <a href="chapter-10-the-actors.html" class="cl-item"><div class="cl-name">Chapter 10: The Actors</div><div class="cl-context">Full actor entry</div></a>
-      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">NAACP vote, May 13 intervention</div></a>
-      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Sworn affidavit's account</div></a>
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">The 2026 lawsuit's version of the "white vote" claim</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">NAACP vote, the mentorship account</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Sworn affidavit's account, the 2024 denial</div></a>
+      <a href="hall.html" class="cl-item"><div class="cl-name">Andy Hall</div><div class="cl-context">Confirmed the 2023 acquittal directly</div></a>
     </div>
   </div>
 </section>
@@ -161,7 +265,11 @@
     <table class="source-table">
       <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td class="src-id">GC22001064-00</td><td>Henry/Martinsville court record — felony reduction</td><td>2022</td><td>Confirmed in hand, primary source.</td></tr>
+        <tr><td class="src-id">GRAVELY-INCIDENT</td><td>WDBJ7 — Sportsman's Club incident, charges filed</td><td>Apr 20, 2022</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GRAVELY-FIRED</td><td>WDBJ7 / WSET — Henry County Sheriff's Office statement, firing</td><td>Apr 20–22, 2022</td><td>Confirmed in hand. Full statement reviewed.</td></tr>
+        <tr><td class="src-id">GRAVELY-BOND</td><td>Martinsville Bulletin — bond appeal hearing, Turner/Noel testimony</td><td>2022</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GRAVELY-ACQUITTAL</td><td>WFXR / Martinsville Bulletin — not guilty verdict, Hall confirms</td><td>Oct 10–12, 2023</td><td>Confirmed in hand. Supersedes prior "felony reduced to misdemeanor" framing.</td></tr>
+        <tr><td class="src-id">HCE-TENSION</td><td>Henry County Enterprise — "Differing opinions create tension among leaders"</td><td>Aug 23, 2024</td><td>Confirmed in hand. Original source for the white-vote exchange, both men's quotes.</td></tr>
         <tr><td class="src-id">HALL-TENURE</td><td>Martinsville Bulletin/Henry County Enterprise — Hall tenure dates</td><td>2017–2026</td><td>Confirmed in hand.</td></tr>
         <tr><td class="src-id">CH6-M1</td><td>Star News TV — NAACP vote and personal donations</td><td>Nov 5, 2025</td><td>Confirmed in hand.</td></tr>
         <tr><td class="src-id">RAWLS-AFFIDAVIT</td><td>Aaron Rawls Sworn Affidavit, notarized</td><td>Jan 12, 2026</td><td>Confirmed in hand. May 13 intervention, Nov 12 session.</td></tr>
