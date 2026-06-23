@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travis Hodge — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--amber); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Travis Hodge</h1>
+    <div class="banner-roles">HR Generalist (2016) → HR Director (2019–2025) → Organizational Development Director (Current)</div>
+    <p class="banner-summary">A Martinsville native who came home in 2016 to run the city's own HR department, made a public remark in a heated council meeting that the press itself questioned as a breach of his role, left the city's employ months later, and has since returned under an expanded title. This page documents the full, real arc — not just the moment that made the news.</p>
+    <div class="era-tabs">
+      <a href="#era-career" class="era-tab t1">HR Director — 2016–2025</a>
+      <a href="#era-meeting" class="era-tab t2">The Heated Meeting and Departure — 2025</a>
+      <a href="#era-return" class="era-tab t3">The Return — Current</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-career">
+    <div class="era-label">Era One</div>
+    <div class="era-title">HR Director</div>
+    <div class="era-dates">2016 – 2025</div>
+
+    <p>Hodge was born and raised in Martinsville, attending Laurel Park High School before graduating among Magna Vista High School's first consolidated class. He earned a Bachelor of Science in Business Administration from Virginia State University, an HBCU, and built a career in North Carolina specializing in employment consulting, Trade Adjustment Assistance, human resources, staffing, and recruiting, earning certifications in employment law and risk management along the way.</p>
+
+    <p>In 2016, he returned to his hometown to work for the City of Martinsville, starting as an HR Generalist. He was promoted to Human Resources Director in 2019, overseeing recruitment, compensation, and benefits for a department serving over 350 city employees — a tenure that placed him squarely inside city government through the entire run-up to the Ferrell-Benavides governance crisis documented elsewhere in this record.</p>
+  </section>
+
+  <section class="era-section" id="era-meeting">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Heated Meeting and Departure</div>
+    <div class="era-dates">May – September 2025</div>
+
+    <p>On May 14, 2025, Star News TV reported that a Martinsville City Council meeting had grown heated, with a sharp exchange unfolding between Mayor LC Jones, Council Member Aaron Rawls, and Hodge himself, in his capacity as HR Director.</p>
+
+    <div class="doc-quote">
+      "This place has been a powder keg since a certain council member came on board."
+      <div class="doc-quote-source">— Travis Hodge, HR Director, during the May 14, 2025 council meeting</div>
+    </div>
+
+    <p>Star News TV's own coverage raised the question directly: is it appropriate for an HR director to publicly discuss internal workplace dynamics this way? The remark itself doesn't name who Hodge meant by "a certain council member," though the framing of the exchange — Jones, Rawls, and Hodge together — makes Rawls the plausible reference; this record does not treat that as confirmed.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">HODGE-MEETING</span>
+        <span class="exhibit-title">"Tensions Flare at Martinsville City Council Meeting"</span>
+        <span class="exhibit-date">May 14, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Three-way heated exchange: Mayor Jones, Council Member Rawls, HR Director Hodge</li>
+          <li>Hodge's "powder keg" remark made publicly, on camera, during the meeting</li>
+          <li>Star News TV's own coverage explicitly questioned the propriety of an HR director discussing internal workplace dynamics in public</li>
+          <li>Photo from the meeting shows a standoff in the well of the chamber requiring a uniformed officer to intervene</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Star News TV, May 14, 2025, confirmed in hand — screenshots verified</div>
+    </div>
+
+    <p>Just over four months later, on September 30, 2025, Star News TV published a "FLASHBACK" post stating plainly: "Former Human Resources Director Travis Hodge no longer works with the City of Martinsville." That is a definitive departure statement, in the past tense, from the same outlet that covered the May incident.</p>
+
+    <div class="open-question">
+      <div class="oq-label">A Separate, Unconfirmed Recollection</div>
+      <p>Separately, Jordan recalls a different moment from this period: an audience member became involved in a heavy dispute during a council meeting, Police Chief Fincher had to perform what Jordan describes as "room control" to settle the room, and Ferrell-Benavides herself got up and personally escorted the man out of the chamber. Jordan has stated plainly that he assumes this man was Hodge, but never knew him personally and isn't certain. This record cannot confirm whether this is the same May 14 incident viewed from a different moment in the footage, or a separate occurrence entirely. It is documented here exactly as what it is — an honestly flagged, unconfirmed personal recollection — not asserted as established fact.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Two things are independently confirmed by the same outlet, months apart: Hodge made a public remark about workplace tension that the press itself questioned as inappropriate for someone in his role, and he subsequently left the city's employ. Whether the remark caused the departure, or the two are simply close in time, isn't established by either post — both are stated as separate facts, and this record doesn't connect them beyond noting the sequence.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-return">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Return</div>
+    <div class="era-dates">Current</div>
+
+    <p>Hodge is listed today on the City of Martinsville's own staff directory as Organizational Development Director — an expanded role beyond his prior HR Director title. The city's current official biography describes his service as continuous, from HR Generalist in 2016 through his current title, without mentioning the 2025 departure independently confirmed above.</p>
+
+    <h3>The Hiring-Practices Audit — Flagged Raises</h3>
+    <p>Separate from the financial purchasing-card audit documented in Chapter 5, Brown Edwards's forensic review also examined the city's hiring and compensation practices specifically. The auditors found that of ten employees hired under Ferrell-Benavides who were tested, nine had no résumé or new-hire documents in their personnel files at all, and that the city could not produce an internal control narrative explaining how interviews, salary decisions, or candidate selection actually worked. Auditors stated plainly: "We could not determine whether or not the City's hiring practices were followed."</p>
+    <p>Hodge is individually named in this portion of the audit: he received <strong>five separate raises between December 2023 and August 2024, totaling approximately $22,000 — a 21.5% increase</strong> — attributed to a mix of "interim duties," performance evaluations, and cost-of-living adjustments. The audit's broader finding was that this pattern, across multiple named employees, lacked the documentation needed to establish a legitimate business purpose.</p>
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>The audit doesn't specify which of Hodge's five raises corresponded to which stated justification, or whether any of them coincided with periods when he was serving in an "interim" capacity beyond his HR Director title. This record does not have enough detail to characterize the raises further than the audit's own summary.</p>
+    </div>
+
+    <p>Beyond his city role, Hodge serves on the Board of Directors of the Harvest Foundation, one of the region's most significant philanthropic institutions, and as an Executive Board Member of the Martinsville-Henry County United Way. His professional affiliations include the National Forum for Black Public Administrators, the Public Sector Human Resources Association, and the Society for Human Resource Management.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Current Roles — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">City of Martinsville</span><span class="fact-value">Organizational Development Director</span></div>
+      <div class="fact-row"><span class="fact-item">Harvest Foundation</span><span class="fact-value">Board of Directors</span></div>
+      <div class="fact-row"><span class="fact-item">MHC United Way</span><span class="fact-value">Executive Board Member</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Hodge's current public-facing biography presents a clean, continuous narrative of public service. The independently confirmed 2025 departure doesn't appear in it. Both things can be true without contradiction — institutions and individuals routinely don't volunteer every chapter of their own history in a promotional bio — but the gap between the official narrative and the documented record is itself worth holding onto precisely, the same standard this record applies everywhere else.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">Party to the May 14, 2025 exchange</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Party to the May 14, 2025 exchange</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">The separate, unconfirmed escort recollection</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">The separate, unconfirmed room-control recollection</div></a>
+      <a href="chapter-05-the-audits.html" class="cl-item"><div class="cl-name">Chapter 5: The Audits</div><div class="cl-context">The hiring-practices portion of the audit</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Travis Hodge</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">HODGE-BIO</td><td>City of Martinsville official staff directory — Hodge biography</td><td>Current</td><td>Confirmed in hand. Presents continuous service, no gap mentioned.</td></tr>
+        <tr><td class="src-id">HODGE-MEETING</td><td>Star News TV — "Tensions Flare at Martinsville City Council Meeting"</td><td>May 14, 2025</td><td>Confirmed in hand. Full text and screenshots verified.</td></tr>
+        <tr><td class="src-id">HODGE-FLASHBACK</td><td>Star News TV — "FLASHBACK" departure confirmation</td><td>Sep 30, 2025</td><td>Confirmed in hand. Screenshots verified.</td></tr>
+        <tr><td class="src-id">AUDIT-HIRING</td><td>Star News TV — Brown Edwards hiring-practices audit findings</td><td>Apr 15, 2026</td><td>Confirmed in hand. Names Hodge's five raises specifically; see also Chapter 5.</td></tr>
+        <tr><td class="src-id">HODGE-HARVEST</td><td>The Harvest Foundation — Board of Directors</td><td>Current</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Jones, Rawls, Ferrell-Benavides, Fincher pages</td><td>2025–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
