@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Phillips — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Eric Phillips</h1>
+    <div class="banner-roles">Delegate, Virginia House District 48 — January 2024 to Present</div>
+    <p class="banner-summary">A Henry County small business owner who won a state legislative seat in a special election, then won it again twice more — while also chairing Martinsville's own economic development authority. Not a central figure in the Jones/Ferrell-Benavides governance crisis, but a real structural presence in the regional economic-development story this record is watching unfold next door.</p>
+    <div class="era-tabs">
+      <a href="#era-special" class="era-tab t1">The Special Election — Jan 2024</a>
+      <a href="#era-record" class="era-tab t2">The Legislative Record — 2024–2025</a>
+      <a href="#era-eda" class="era-tab t3">The EDA Chair — Ongoing</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-special">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Special Election</div>
+    <div class="era-dates">January 2024</div>
+
+    <p>Phillips, a Henry County native who owns and operates a small pickup-and-delivery trucking business, ran for the District 48 seat after Delegate Les Adams resigned December 12, 2023 to "make himself available for another position of service." District 48 covers parts of Henry and Pittsylvania counties and the entirety of the city of Martinsville.</p>
+
+    <p>The January 9, 2024 special election pitted Phillips against Democrat Melody Cartwright — a Martinsville native with over 25 years in public service as a graphic and exhibit designer for the Virginia Museum of Natural History. Phillips campaigned on agriculture, manufacturing, and higher education; Cartwright on women's rights, affordable housing, and education, citing her experience as a state employee rather than prior elected office.</p>
+
+    <div class="doc-quote">
+      "There's always a fight in any state, and particularly with our area, to get the money that we not only need but that we deserve. The taxpayers here pay taxes just like Northern Virginia, Richmond, and Hampton Roads."
+      <div class="doc-quote-source">— Eric Phillips, campaign statement, January 2024</div>
+    </div>
+
+    <div class="fact-block">
+      <div class="fact-label">January 9, 2024 — Special Election Results</div>
+      <div class="fact-row"><span class="fact-item">Eric J. Phillips (R)</span><span class="fact-value">69.6%</span></div>
+      <div class="fact-row"><span class="fact-item">Melody A. Cartwright (D)</span><span class="fact-value">30.3%</span></div>
+    </div>
+
+    <p>Phillips took office January 10, 2024. He has said the win felt "humbling," and that he wanted to "hopefully doing right by the citizens of the 48th District."</p>
+  </section>
+
+  <section class="era-section" id="era-record">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Legislative Record</div>
+    <div class="era-dates">2024 – 2025</div>
+
+    <p>Phillips and Cartwright faced each other again in the November 4, 2025 general election — this time a three-way race that also included independent Barbara Mayhew Hancock. Phillips won decisively a second time.</p>
+
+    <div class="doc-quote">
+      "I feel like it was good. It was a lot of hard work campaigning, but it's also a lot of hard work being a delegate. But I really enjoy it."
+      <div class="doc-quote-source">— Eric Phillips, on his 2025 re-election, November 2025</div>
+    </div>
+
+    <p>His current term runs through January 12, 2028. His stated legislative priorities have included regional infrastructure and energy grid reliability, support for the Blue Ridge Innovation Corridor as a vehicle for connecting Southside Virginia to broader economic growth, and closing what he's described as a persistent funding gap between rural Southside localities and Virginia's wealthier urban regions.</p>
+
+    <p>Phillips also serves as Western Vice Chair of the Republican Party of Virginia's State Executive Committee, and as a board member of Martinsville's Uptown Partnership.</p>
+  </section>
+
+  <section class="era-section" id="era-eda">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The EDA Chair</div>
+    <div class="era-dates">Ongoing</div>
+
+    <p>Separate from his legislative role, Phillips chairs the City of Martinsville's Industrial Development Authority — the body more commonly referred to locally as the city's Economic Development Authority. This is a city-level body, distinct from the Henry County Industrial Development Authority, which is the entity that actually conducted the May 2026 sale of the Bryant Property ("Patriot Centre II") to Appalachian Power.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question — Precision Matters Here</div>
+      <p>No source reviewed places Phillips in any direct role in the Patriot Centre II transaction itself — none of the officials quoted in coverage of that sale (Henry County Administrator Dale Wagoner, IDA Chairman Len Dillon, Supervisors Chairman Jim Adams, or Appalachian Power's Brian Abraham) mention him. The connection that does exist is structural, not transactional: Phillips simultaneously represents the district in the General Assembly, chairs a separate but related city economic-development body, and has publicly championed the Blue Ridge Innovation Corridor — the same regional development push the Patriot Centre II sale could plausibly feed into. That overlap is worth watching. It is not, as of this writing, evidence of any specific involvement in that specific deal.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Phillips is not a figure in the Jones/Ferrell-Benavides governance crisis that is the core of this record. He's documented here because his roles — state delegate for the district, chair of a city economic-development authority, and a public advocate for the same regional development corridor implicated in the AEP land deal — sit at exactly the kind of overlapping-office intersection this record tracks carefully elsewhere. The overlap is real and worth recording. Anything beyond that is speculation this record isn't willing to make.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="bowles.html" class="cl-item"><div class="cl-name">Jennifer Bowles</div><div class="cl-context">Shared consolidation/development context</div></a>
+      <a href="mei.html" class="cl-item"><div class="cl-name">Julian Mei</div><div class="cl-context">Cartwright's panic-attack comments, same era</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Eric Phillips</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">PHILLIPS-SPECIAL</td><td>Virginia Elections Database; WSET; Virginia Mercury — special election results and coverage</td><td>Jan 9–10, 2024</td><td>Confirmed in hand. 69.6%-30.3%, official VA Elections DB figure used; other outlets report 70.8% and 72%.</td></tr>
+        <tr><td class="src-id">PHILLIPS-2025</td><td>WSET; Ballotpedia — 2025 re-election, three-way race with Hancock</td><td>Nov 4, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">PHILLIPS-EDA</td><td>Ballotpedia — Martinsville Industrial Development Authority chairmanship</td><td>Ongoing</td><td>Confirmed in hand. City IDA, distinct from Henry County IDA.</td></tr>
+        <tr><td class="src-id">PATRIOT-CENTRE</td><td>Henry County official announcement; Henry County Enterprise; Virginia Business — Bryant Property/AEP sale</td><td>May 21, 2026</td><td>Confirmed in hand. No mention of Phillips in any official statement reviewed.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Bowles, Mei pages</td><td>2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
