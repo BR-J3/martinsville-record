@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark Krudys — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Mark Krudys</h1>
+    <div class="banner-roles">Counsel of Record, LC Jones — CL26-011 and Jones v. Rawls / Sands Anderson</div>
+    <p class="banner-summary">A Marine Corps judge advocate and former SEC enforcement attorney who built a 25-year practice almost entirely on suing Virginia government bodies over jail deaths and police shootings — most of it in wrongful-death and civil-rights cases that predate Martinsville by years. Star News TV framed his involvement here as cashing in on local taxpayers. This page documents the actual career that framing is built on, and lets readers judge the pattern for themselves.</p>
+    <div class="era-tabs">
+      <a href="#era-career" class="era-tab t1">The Career — 1985–Present</a>
+      <a href="#era-jails" class="era-tab t2">The Jail-Death Specialty</a>
+      <a href="#era-martinsville" class="era-tab t3">Martinsville — 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-career">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Career</div>
+    <div class="era-dates">1985 – Present</div>
+
+    <p>Krudys graduated from Baylor University School of Law in 1985 and was admitted to the bar in 1986. He joined the U.S. Marine Corps as a Judge Advocate, trying courts-martial and administrative hearings in Okinawa, Japan, before serving as a Legal Assistance Officer at Headquarters Marine Corps in Arlington. From 1990 to 1993, he worked in the Enforcement Division of the U.S. Securities and Exchange Commission in Washington, investigating insider trading, market manipulation, and accounting fraud, including cases against two well-known penny-stock promoters. He later served as a Special Assistant U.S. Attorney before joining a national firm representing a major brokerage house.</p>
+
+    <p>In 1999, Krudys left that firm to start his own practice, shifting his focus to representing individuals and small businesses rather than institutions. He has described being "drawn to the little guy."</p>
+
+    <div class="doc-quote">
+      "I'm drawn to the little guy. That is whom I generally represent."
+      <div class="doc-quote-source">— Mark Krudys, firm biography</div>
+    </div>
+
+    <p>He won a notable Virginia Supreme Court appeal in <em>Kellermann</em>, which for the first time recognized liability in Virginia for negligent supervision — a legal theory lower courts had consistently rejected. He has held Martindale-Hubbell's highest "AV" rating for roughly two decades, has been named to Super Lawyers' Civil Rights list every year from 2012 and continuously from 2014 through 2026, and describes himself as Virginia's only Civil Rights Super Lawyer. He chairs the Virginia Trial Lawyers Association's Business Litigation Committee and has spoken to that association's continuing-legal-education programs specifically on the trial of prisoner wrongful-death cases.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This is a long, independently documented, and professionally well-regarded legal career built specifically around suing institutions — sheriffs, jails, and government bodies — on behalf of individuals harmed by them. That specialty long predates his involvement in the Martinsville case and is the same specialty he was retained for here.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-jails">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Jail-Death Specialty</div>
+    <div class="era-dates">2020 – Present</div>
+
+    <p>Krudys's practice has produced a recurring pattern: representing the families of people who died in Virginia jail custody, alleging the same underlying failure — staff ignoring documented medical or psychiatric needs.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">HRRJ-PATTERN</span>
+        <span class="exhibit-title">Hampton Roads Regional Jail — A Documented Pattern</span>
+        <span class="exhibit-date">2015–Present</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Jail established 1998, serving Norfolk, Portsmouth, Hampton, Newport News, and later Chesapeake</li>
+          <li>DOJ investigation launched after the August 19, 2015 death of 24-year-old Jamycheal Mitchell; concluded December 2018 that staff violated inmates' constitutional rights</li>
+          <li>At least 22 inmate deaths documented since 2015, leading to at least seven wrongful-death lawsuits — most filed by Krudys</li>
+          <li>Three of those lawsuits settled, with the jail, its medical provider, and the state paying out more than $4.5 million combined</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Krudys Law Firm case archive, contemporaneous local news coverage, confirmed in hand</div>
+    </div>
+
+    <p>Separately, Krudys represented the family of Darryl Becton, who died in the Arlington County Detention Facility in October 2020 after, per the lawsuit, being left without help for hours during severe withdrawal. And in 2026, he filed a $20 million suit against the Newport News Sheriff's Office on behalf of Shakia Bailey, whose 21-year-old son Jaqaris Jemison — diagnosed with acute psychosis and known suicidal tendencies — was taken off suicide watch, placed in isolation, and found hanging in his cell 56 minutes after the jail had promised 15-minute checks.</p>
+
+    <div class="doc-quote">
+      "He was actually hanging in his cell for 56 minutes before any person entered his cell."
+      <div class="doc-quote-source">— Mark Krudys, on the Jemison case, 2026</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>The jail-death cases form the clearest, most consistent thread in Krudys's career: repeated allegations against multiple Virginia jails, years apart, with strikingly similar fact patterns — documented mental-health risk, a promised monitoring protocol, and a death that occurred during a gap in that protocol. Three of those specific allegations have already resulted in settlements totaling over $4.5 million, which is independent corroboration that at least some of his claims in this specific category have been found credible enough to pay out on, not merely alleged.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-martinsville">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Martinsville</div>
+    <div class="era-dates">2026</div>
+
+    <p>Separately from the jail-death pattern, Krudys announced a $77 million wrongful-death suit in September 2024 on behalf of the family of Michael Shamrock Robertson Sr. — a 71-year-old retired Navy Corpsman and disability-retired sheriff's deputy himself — who was shot and killed by a Stafford County Sheriff's Deputy during a welfare check in December 2023. The Spotsylvania County Commonwealth's Attorney had already declined to bring criminal charges before Krudys filed the civil suit. That case, and the broader public reputation it built, is the immediate backdrop for his retention by LC Jones.</p>
+
+    <p>Krudys represents Jones in Jones v. Rawls and Sands Anderson, filed June 9, 2026, and was Jones's attorney of record in CL26-011 before its dismissal. Star News TV publicly framed his involvement under the headline "LAWYER MARK KRUDYS HOPES TO CASH IN ON LOCAL TAXPAYERS," grouping Jones's suit together with Ferrell-Benavides's suit and an unrelated $25 million Henry County case (Timothy Howell, not a Krudys client) under a single taxpayer-cost narrative.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question — Worth Separating, Not Resolving</div>
+      <p>The Howell case bundled into that Star News framing is not a Krudys matter at all — the only connection is the editorial choice to group several large-dollar local legal threats together. Whether Krudys's specific pursuit of Jones's claims fits the same pattern as his jail-death practice — representing someone he believes was genuinely wronged by an institution — or represents a different kind of case entirely, isn't something this record is positioned to judge. Both his jail-death track record and his fee arrangement in this specific case are real and worth holding side by side.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Krudys did not arrive in Martinsville as an unknown quantity. He arrived with a 25-year, independently documented specialty in suing government institutions on behalf of people who say those institutions failed them — a specialty with real settlements behind it, not just allegations. Whatever one makes of his involvement in Jones's case specifically, it isn't a departure from his career. It's the same career, applied here.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">His client, full case detail</div></a>
+      <a href="chapter-08-the-dismissal.html" class="cl-item"><div class="cl-name">Chapter 8: The Dismissal</div><div class="cl-context">His role and statements at CL26-011's dismissal</div></a>
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">Jones v. Rawls and Sands Anderson</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Mark Krudys</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">KRUDYS-BIO</td><td>Krudys Law Firm — official biography</td><td>Ongoing</td><td>Confirmed in hand. Career background, Kellermann case, VTLA roles.</td></tr>
+        <tr><td class="src-id">KRUDYS-SUPERLAWYERS</td><td>Super Lawyers — Mark J. Krudys profile</td><td>2012, 2014–2026</td><td>Confirmed in hand. Civil Rights designation.</td></tr>
+        <tr><td class="src-id">HRRJ-PATTERN</td><td>Krudys Law Firm case archive; contemporaneous local news</td><td>2015–Present</td><td>Confirmed in hand. 22 deaths, 7+ suits, $4.5M+ settled.</td></tr>
+        <tr><td class="src-id">BECTON-SUIT</td><td>Washington Post, ArlNow, DCist — Arlington jail death suit</td><td>Mar 2022</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">JEMISON-SUIT</td><td>WAVY — $20M Newport News jail suicide suit</td><td>2026</td><td>Confirmed in hand. Direct Krudys quotes.</td></tr>
+        <tr><td class="src-id">ROBERTSON-SUIT</td><td>WRIC, 12 On Your Side, News &amp; Advance — $77M Stafford County suit</td><td>Sep 16, 2024</td><td>Confirmed in hand. Direct quotes, full case detail.</td></tr>
+        <tr><td class="src-id">KRUDYS-FRAME</td><td>Star News TV — "cash in on local taxpayers" graphic</td><td>Jun 2026</td><td>Confirmed in hand. Howell case bundled, but unconnected.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Jones page, Chapters 8 and 9</td><td>2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
