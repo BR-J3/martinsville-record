@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Payne — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Eric Payne</h1>
+    <div class="banner-roles">City Attorney Designee (2024) → Director of Development, EDA (2025–Present) → Key Witness, CL26-011</div>
+    <p class="banner-summary">A Clinton White House aide turned whistleblower who won a $1.7 million jury verdict against the District of Columbia, recruited to Martinsville as City Attorney Designee — and then the man who personally saw both hot tubs, brought the office break-in to the Police Chief, and ended up subpoenaed in the very case his own hires were meant to prevent.</p>
+    <div class="era-tabs">
+      <a href="#era-dc" class="era-tab t1">Washington, D.C. — Pre-2024</a>
+      <a href="#era-appointment" class="era-tab t2">City Attorney Designee — 2024–2025</a>
+      <a href="#era-witness" class="era-tab t3">Witness / Director of Development — 2024–Present</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-dc">
+    <div class="era-label">Era One</div>
+    <div class="era-title">Washington, D.C.</div>
+    <div class="era-dates">Pre-2024</div>
+
+    <p>Payne's career began as one of the youngest aides in the Clinton presidential administration, working in the White House Office of Communications Research. From there he built a 30-year career spanning the District of Columbia's Office of the Chief Financial Officer (where he served as Director of Contracts), Chief of Staff at the U.S. Department of Commerce's Economic Development Administration Bureau, a senior role at the Chicago Housing Authority, and international work managing multi-billion-dollar foreign military sales contracts in Riyadh, Saudi Arabia. He holds a law degree from the University of Arkansas and completed coursework toward a Master of Law in Government Procurement Law at George Washington University.</p>
+
+    <h3>The Whistleblower Case — Adjudicated, Not Alleged</h3>
+    <p>In 2009, while serving as a senior D.C. contracting official, Payne reported irregularities involving two city council members' undue influence over a $228 million lottery contract to two separate investigative agencies. He was demoted, then fired. He sued the District in 2010.</p>
+
+    <div class="doc-quote">
+      "The biggest victory is I have my name again, my integrity. I can start my life over again, and my family no longer has to suffer."
+      <div class="doc-quote-source">— Eric Payne, to the Washington Post, on the verdict</div>
+    </div>
+
+    <p>After a two-week federal trial, a jury found in 2016 that 10 of Payne's disclosures were legally protected whistleblowing, and awarded him <strong>$1.7 million</strong> in damages for wrongful demotion and reputational harm — six years after he first reported the contract irregularities. Payne has said he was effectively blackballed in Washington afterward and took an overseas position with the Air Force for three years before returning to the region.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">The D.C. Whistleblower Case — Key Facts</div>
+      <div class="fact-row"><span class="fact-item">2009</span><span class="fact-value">Reported $228M lottery contract irregularities; demoted, then fired</span></div>
+      <div class="fact-row"><span class="fact-item">2010</span><span class="fact-value">Filed federal whistleblower retaliation lawsuit against D.C.</span></div>
+      <div class="fact-row"><span class="fact-item">2016</span><span class="fact-value">Jury verdict: 10 of 10+ disclosures protected; $1.7M awarded</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This is the most concretely adjudicated whistleblower case connected to anyone in this entire record — an actual federal jury verdict with named damages, not a pending complaint or an unresolved allegation. It predates anything in Martinsville by nearly a decade and gives Payne's later role here a specific, documented credential: he had already been proven right once, at real personal cost, before Martinsville ever recruited him.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-appointment">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">City Attorney Designee</div>
+    <div class="era-dates">August 2024 – Summer 2025</div>
+
+    <p>The Martinsville City Council appointed Payne City Attorney Designee during a special called session on August 15, 2024, with plans for him to assume the full City Attorney title once admitted to the Virginia State Bar — he was already a member of the D.C. and Maryland bars. He was also named acting Managing Director of Development in the interim.</p>
+
+    <div class="doc-quote">
+      "It could not have worked out better for the City of Martinsville. We really need his experience; it's almost like fate how this worked out."
+      <div class="doc-quote-source">— Aaron Rawls, Vice Mayor, on Payne's appointment, August 2024</div>
+    </div>
+
+    <p>Mayor Jones and Councilwoman Kathy Lawson offered similarly enthusiastic public praise at the time, calling the hire proof the city could attract "top-tier talent."</p>
+
+    <h3>The Bar Admission Delay</h3>
+    <p>Payne's contract required Virginia Bar admission by April 1, 2025. Mayor Jones later said Payne faced "family medical issues" that delayed those plans. Rather than extend the contract or let it lapse, the city moved him into a newly created staff role with the city's Economic Development Authority — a position he had already been informally supporting during his time as City Attorney Designee.</p>
+
+    <div class="doc-quote">
+      "He gave up those positions to take the job under the EDA. He doesn't work for council or the city manager anymore. They have their own budget, and he'll operate under their purview."
+      <div class="doc-quote-source">— LC Jones, on Payne's transition, mid-2025</div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-witness">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Witness / Director of Development</div>
+    <div class="era-dates">2024 – Present</div>
+
+    <p>Payne is now the EDA's first economic development director, identifying redevelopment properties and pursuing grant opportunities. He is also one of the most direct fact-witnesses in the entire CL26-011 case — present, by his own account, at nearly every key moment of the hot tub timeline.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">PAYNE-WITNESS</span>
+        <span class="exhibit-title">Payne's Documented Role in CL26-011</span>
+        <span class="exhibit-date">Sep 2024 – Present</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>September 2024 — visited Ferrell-Benavides's residence, observed a hot tub, told it was intended for Jones</li>
+          <li>December 12, 2024 — visited Jones's residence, observed a brand-new boxed hot tub delivered</li>
+          <li>December 13–16, 2024 — spoke with Ferrell-Benavides, who confirmed she'd purchased a new hot tub rather than give Jones her own used one</li>
+          <li>Spring 2025 — summoned by Ferrell-Benavides to advise Jones informally on his Henry County Sheriff's Department resignation situation; not barred in Virginia at the time, provided non-legal observation only</li>
+          <li>Early Feb 2025 — discovered law enforcement had not been informed of the office break-in at Ferrell-Benavides's office, and personally brought it to Police Chief Fincher to start a criminal investigation</li>
+          <li>Subpoenaed to testify in Case CL26-011</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Cross-referenced across Jones, Ferrell-Benavides, and Fincher person-pages; Rawls Sworn Affidavit, Jan 12, 2026</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Payne advised Jones informally on a legal-adjacent matter (the HCSO resignation) while serving as the city's own City Attorney Designee, at the same City Manager's direction. Whether that overlap was ever formally examined for conflict-of-interest purposes is not established in any source reviewed.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Payne occupies an unusual position in this record: recruited specifically for his credibility as someone who had already stood up to government corruption once, he ended up as a central witness in exactly the kind of conduct his own background should have made him least likely to overlook. Whether that is best read as the system working as intended — a person of demonstrated integrity surfacing what he saw — or as evidence of how normalized the underlying conduct had become even to someone with his specific history, isn't resolved here. Both readings are available from the same facts.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The hot tub, the HCSO resignation advice</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">The office break-in, the hot tub purchase</div></a>
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">Payne brought him the break-in report</div></a>
+      <a href="chapter-09-the-lawsuits.html" class="cl-item"><div class="cl-name">Chapter 9: The Lawsuits</div><div class="cl-context">Background context on the wider case</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Eric Payne</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">PAYNE-DCVERDICT</td><td>Gilbert Employment Law / Washington Post coverage — $1.7M jury verdict</td><td>2016 (reported)</td><td>Confirmed in hand. Federal jury trial, adjudicated.</td></tr>
+        <tr><td class="src-id">PAYNE-APPOINTED</td><td>BTW21 / Henry County Enterprise / Martinsville Bulletin — City Attorney Designee appointment</td><td>Aug 15, 2024</td><td>Confirmed in hand. Full bio, council quotes.</td></tr>
+        <tr><td class="src-id">PAYNE-TRANSITION</td><td>Henry County Enterprise — move to EDA Director of Development</td><td>Jul 18, 2025</td><td>Confirmed in hand. Jones and Ferrell-Benavides quotes.</td></tr>
+        <tr><td class="src-id">PAYNE-WITNESS</td><td>Cross-referenced — Jones, Ferrell-Benavides, Fincher pages; Rawls Affidavit</td><td>Sep 2024 – Jan 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 1 through 10</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
