@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patti Covington — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--amber); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Patti Covington</h1>
+    <div class="banner-roles">Petition Organizer, CL26-011 — December 2025–Present</div>
+    <p class="banner-summary">A resident who voted for LC Jones in 2022 and lost confidence in him gathered nearly 500 signatures by hand in three weeks, signed her name to a federal-style cover letter to a sitting circuit court judge, and watched the case dismissed on a signature count she'd been told by a different official source was already met. None of that makes her wrong about what she was trying to do — it makes the record worth getting precisely right on her behalf.</p>
+    <div class="era-tabs">
+      <a href="#era-drive" class="era-tab t1">The Petition Drive — Dec 2025–Jan 2026</a>
+      <a href="#era-dismissal" class="era-tab t2">The Dismissal — May 2026</a>
+      <a href="#era-now" class="era-tab t3">Accountability Advocate — 2026–Present</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-drive">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Petition Drive</div>
+    <div class="era-dates">December 2025 – January 2026</div>
+
+    <p>Covington organized the citizen petition to remove Mayor LC Jones from office, beginning quietly in mid-December 2025. She is named in multiple Star News TV reports as the effort's principal administrator, and is confirmed in the petition's own circulator affidavit as Martha Patrice Covington — the legal circulator of record.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Signature Timeline</div>
+      <div class="fact-row"><span class="fact-item">Dec 23, 2025</span><span class="fact-value">~125 signatures (one-third of the goal)</span></div>
+      <div class="fact-row"><span class="fact-item">Dec 27, 2025</span><span class="fact-value">221 — Recycling Center collection event</span></div>
+      <div class="fact-row"><span class="fact-item">Jan 3, 2026</span><span class="fact-value">260 — two additional volunteers canvassing</span></div>
+      <div class="fact-row"><span class="fact-item">Jan 13, 2026</span><span class="fact-value">495 submitted to Circuit Court</span></div>
+    </div>
+
+    <p>Mary Ann McConnell, a retired nurse, assisted with the drive. Covington personally communicated with the Virginia Department of Elections during the collection process and personally drafted and signed the transmittal letter accompanying the petition's filing with Circuit Court Judge G. Carter Greer on January 13, 2026.</p>
+
+    <div class="doc-quote">
+      "I voted for L.C. Jones in the 2022 election, but have since lost confidence."
+      <div class="doc-quote-source">— Patti Covington, cover letter to Judge Greer, January 13, 2026</div>
+    </div>
+
+    <p>The letter cited both the Sands Anderson investigation and the Brown Edwards forensic audit as legal review of information "paid for by but concealed from taxpayers," stated there were fact witnesses among current and former city employees willing to testify, and referenced an attached email from Paul Goldman attempting to dissuade citizens from signing. It was copied to Commonwealth's Attorney Patrick Flinn.</p>
+
+    <h3>The Number She Was Given</h3>
+    <p>Martinsville's registrar, Sarah Workman, had publicly stated the threshold was 375 signatures — a figure later confirmed to trace to the 2022 election cycle. The court ultimately applied a different number: 682, based on total votes cast across the multi-candidate November 2022 council race in which Jones won his seat. The petition's 401 certified valid signatures cleared Workman's 375 with room to spare, but fell 281 short of the court's 682.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Covington was told by the city's own registrar that she needed 375 signatures, and gathered well past that number. The court instead applied a higher figure rooted in a different reading of which election year and which vote count governs Jones's specific seat — a genuine legal dispute among three different officials (Workman's 375, former CA Andy Hall's 571, and the court's 682), not a case of an organizer falling short of a goal she'd actually been given. Full detail on the threshold dispute itself is in Chapter 6.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-dismissal">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Dismissal</div>
+    <div class="era-dates">May 15, 2026</div>
+
+    <p>CL26-011 was dismissed with prejudice on May 15, 2026, with $40,000 in attorneys' fees awarded — full detail in Chapter 8. Jones's attorney, Mark Krudys, argued in open court that the petition was "meritless," that denying fees would tell future officials "the defense of a meritless removal petition is theirs to bear and to bear alone," and separately named Aaron Rawls and Eric Payne as the two people who had "an axe to grind" in connection with the case.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>The dismissal turned entirely on the signature-count question above — the court never reached the underlying conflict-of-interest and bribery allegations the petition raised. "Meritless" in this context describes the petition's procedural outcome, not a judicial finding that its underlying concerns lacked substance. Whether those underlying concerns hold up is a separate question this record does not consider settled by the dismissal itself.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-now">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Accountability Advocate</div>
+    <div class="era-dates">2026 – Present</div>
+
+    <p>Covington has remained an active, precise public commenter since the dismissal — consistently distinguishing procedural outcomes from substantive ones, and pushing back directly when she sees that distinction collapsed.</p>
+
+    <div class="doc-quote">
+      "The registrar verified and certified that it met the 375 minimum she communicated to the circuit court and the commonwealth attorney determined that it had merit and officially filed the petition with the circuit court. That responsibility falls under their respective positions, it is not the responsibility of citizens... The continued deflection by some to Aaron or the cost of investigations & court proceeding ignores the elephant in the room — THE BEHAVIOR, including the continued concealment of the [workplace investigation]."
+      <div class="doc-quote-source">— Patti Covington, Facebook, addressing Melody Cartwright's process critique</div>
+    </div>
+
+    <p>On April 21, 2026, with both the Brown Edwards audit and the Sands Anderson workplace investigation reportedly complete but not yet public, Covington was the source who confirmed the VSP investigation remained active: "The Virginia State Police are still investigating, and I don't think anything can interfere with that."</p>
+
+    <div class="doc-quote">
+      "Having lived in the former Soviet Union (Moscow) almost 2 years in the mid 90s, I assure you it ain't pretty when citizens have no voice. Martinsville has intelligent and invested citizens of all colors and ethnic backgrounds who stood up for transparency and accountability in our government."
+      <div class="doc-quote-source">— Patti Covington, Facebook, Memorial Day 2026</div>
+    </div>
+
+    <h3>Not a Simple Faction</h3>
+    <p>Covington's record doesn't sort neatly into a single camp. In November 2025 — before the petition existed — she defended council's unanimous, Rawls-supported approval of a 250th Anniversary race-event donation against Melody Cartwright's "good ole boy" framing of the same vote. The two women were not aligned then, and their alignment since has shifted by issue rather than settled into a fixed pattern.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Across every documented statement, Covington consistently separates who is legally responsible for a given decision from who is politically convenient to blame for it — applying that same discipline whether the question is the petition's signature math, the registrar's role versus the Commonwealth's Attorney's, or a council vote she had no part in organizing. That consistency is itself part of the record, not just her conclusions.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-06-the-petition.html" class="cl-item"><div class="cl-name">Chapter 6: The Petition</div><div class="cl-context">Full threshold dispute, signature math</div></a>
+      <a href="chapter-08-the-dismissal.html" class="cl-item"><div class="cl-name">Chapter 8: The Dismissal</div><div class="cl-context">$40K fees, Krudys's argument</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">The petition's subject</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Named alongside Payne in Krudys's argument</div></a>
+      <a href="payne.html" class="cl-item"><div class="cl-name">Eric Payne</div><div class="cl-context">Named alongside Rawls in Krudys's argument</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Patti Covington</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">PC-S1</td><td>Star News TV — petition signature timeline</td><td>Dec 23, 2025 – Jan 3, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">PC-S2</td><td>Covington cover letter to Judge Greer</td><td>Jan 13, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">PC-S3</td><td>Covington Facebook comment activity, post-dismissal</td><td>~Jun 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">PC-S4</td><td>Early comment, race-event donation thread</td><td>Nov 11, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">PETITION-CIRCULATOR</td><td>CL26-011 petition document, circulator affidavit</td><td>Jan 13, 2026</td><td>Confirmed in hand. Legal/primary document.</td></tr>
+        <tr><td class="src-id">CARDINAL-DISMISSAL</td><td>Cardinal News — dismissal coverage, threshold figures</td><td>May 15–16, 2026</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapters 6 through 10</td><td>2025–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
