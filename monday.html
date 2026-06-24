@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Monday — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--amber); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--green); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Eric Monday</h1>
+    <div class="banner-roles">City Attorney → Dual-Role Assistant City Manager → Terminated January 2023</div>
+    <p class="banner-summary">A city attorney who was also made assistant city manager — a dual role flagged as a conflict of interest at the time — whose contract was quietly altered by an outgoing council in its final weeks, then terminated by the council that replaced it. He said he wouldn't seek severance. He later sought more than a million dollars anyway.</p>
+    <div class="era-tabs">
+      <a href="#era-role" class="era-tab t1">The Dual Role</a>
+      <a href="#era-termination" class="era-tab t2">The Contract Alteration and Termination — 2022–2023</a>
+      <a href="#era-settlement" class="era-tab t3">The Severance Dispute — 2023–2025</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-role">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Dual Role</div>
+
+    <p>Monday served as Martinsville's City Attorney before then-City Manager Leon Towarnicki hired him into a second, simultaneous role as Assistant City Manager — holding both positions at once. Outspoken former Councilman Danny Turner was among those who considered the arrangement a conflict of interest at the time, given that a city's own attorney advising council and a city manager's own assistant are meant to serve, structurally, somewhat different functions.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This dual-role arrangement is the direct reason the city later changed its own charter — a reform documented in Era Three below. Whatever else is disputed about Monday's departure, the structural problem his case exposed was real enough that the city moved to make it impossible for anyone to repeat.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-termination">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Contract Alteration and Termination</div>
+    <div class="era-dates">November 2022 – January 2023</div>
+
+    <p>Documents released under the Virginia Freedom of Information Act show that Monday's employment contract was altered by the <strong>outgoing council majority</strong> after the November 2022 election — the same council that included Jennifer Bowles, in her final weeks as Vice Mayor. The alteration gave Monday full credit for years he had spent working only part-time for the city, a change that would later inflate what he was entitled to claim in severance.</p>
+
+    <p>Bowles's own last act as outgoing Vice Mayor, at the December 13, 2022 meeting, was the motion that carried to terminate Monday's contract effective January 2, 2023 — explicitly framed by Bowles at the time as not about any wrongdoing, but to let the city "go in a new direction." The new council, seated after the November 2022 election (Jones and Rawls among them), inherited a contract that had just been altered in Monday's favor days or weeks before his termination took effect.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Whether the outgoing council's contract alteration and Bowles's own termination motion were coordinated, sequential parts of the same plan, or two separate actions by the same outgoing body acting on different timelines, isn't established in any source reviewed. Both are documented facts; the relationship between them is not.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-settlement">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Severance Dispute</div>
+    <div class="era-dates">2023 – October 2025</div>
+
+    <p>Monday initially told council members, in open session, that he did not intend to seek a $100,000 severance when his revised contract was terminated. That position did not hold. He later pursued retirement benefits the Bulletin reported as $1 million or more, in a dispute stemming directly from the 2023 termination and the contract terms altered just before it.</p>
+
+    <div class="doc-quote">
+      "The current council has been able to resolve one of the several contractual disputes that arose under the prior administration as a result of actions by certain elected city officials and employees... As we move forward to solidify and strengthen the city with fiscal and policy best practices, it is our belief that this settlement of $110,000 is in the best interest of our community."
+      <div class="doc-quote-source">— Councilman Lawrence Mitchell, reading a prepared council statement, Tuesday night vote</div>
+    </div>
+
+    <p>The council voted unanimously to settle with Monday for $110,000 — described by a council member to the Bulletin as representing one year's salary, a small fraction of the seven-figure claim Monday had pursued.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">The Settlement — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Initial position</span><span class="fact-value">No severance sought (stated in open session)</span></div>
+      <div class="fact-row"><span class="fact-item">Later claim</span><span class="fact-value">$1,000,000+ in retirement benefits sought</span></div>
+      <div class="fact-row"><span class="fact-item">Final settlement</span><span class="fact-value">$110,000 — unanimous council vote</span></div>
+    </div>
+
+    <h3>The Reform That Followed</h3>
+    <p>The same council statement framed the settlement as one of several steps "to protect the citizens of Martinsville," specifically citing "approved changes to the charter to prevent serving as a dual employee, both as a city council appointee and as an administrative employee" — a direct, named response to the exact arrangement Monday had held under Towarnicki.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Monday's case sits at the intersection of two separate threads already documented elsewhere in this record: the outgoing-council contract alteration ties directly to Bowles's final weeks in office, and the case itself produced one of the few concrete structural reforms on record — a charter change specifically barring the dual-employee arrangement that made his case possible in the first place. The escalation from "no severance sought" to a seven-figure claim, settled for roughly a tenth of that amount, is documented here without further characterization; the gap between those two positions speaks for itself.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="bowles.html" class="cl-item"><div class="cl-name">Jennifer Bowles</div><div class="cl-context">Her last act as Vice Mayor; the contract alteration</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">Inherited the altered contract upon taking office</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">Inherited the altered contract upon taking office</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Eric Monday</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">MONDAY-SETTLEMENT</td><td>Martinsville Bulletin — "Martinsville settles compensation dispute with former city attorney"</td><td>Reported Oct 2025</td><td>Confirmed in hand. Full settlement detail, direct council quote, FOIA-released contract documents referenced.</td></tr>
+        <tr><td class="src-id">BOWLES-LASTACT</td><td>Martinsville Bulletin — council terminates city attorney contract</td><td>Dec 2022</td><td>Confirmed in hand. Cross-referenced on Bowles's page.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Bowles, Jones, Rawls pages</td><td>2022–2025</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
