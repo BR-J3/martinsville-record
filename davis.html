@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayne Davis — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Wayne Davis</h1>
+    <div class="banner-roles">Sheriff, Henry County, Virginia — July 2023 to Present</div>
+    <p class="banner-summary">A 23-year Henry County Sheriff's Office veteran who rose from patrol deputy to the department's top office — arriving there the same year a 2023 Martinsville-area incident, involving a captain by his name, became part of this record. His own career has no documented connection to the department's last major scandal, which ended 17 years before he became sheriff. Both things are true at once, and this page holds them that way.</p>
+    <div class="era-tabs">
+      <a href="#era-career" class="era-tab t1">The Career — 2000–2023</a>
+      <a href="#era-northview" class="era-tab t2">The Northview Incident — 2023</a>
+      <a href="#era-history" class="era-tab t3">Institutional History</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-career">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Career</div>
+    <div class="era-dates">2000 – 2023</div>
+
+    <p>Davis's entire law enforcement career, from 2000 to 2023, was spent with the Henry County Sheriff's Office — patrol, investigations, SWAT, sergeant, lieutenant, and captain of investigations, before being promoted to Chief Deputy. He became interim Sheriff of Henry County on July 1, 2023, succeeding 30-year Sheriff Lane Perry, and won the seat outright in the November 2023 election.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Career Timeline — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">2000–2023</span><span class="fact-value">Patrol → Investigations → SWAT → Sergeant → Lieutenant → Captain</span></div>
+      <div class="fact-row"><span class="fact-item">2023</span><span class="fact-value">Chief Deputy, then interim Sheriff, July 1</span></div>
+      <div class="fact-row"><span class="fact-item">Nov 2023</span><span class="fact-value">Elected Sheriff outright</span></div>
+    </div>
+
+    <p>As Sheriff, Davis oversees the department now handling the prosecution of Rayshaun Gravely's current Martinsville GDC charges (driving on a suspended license, expired inspection) and is the office whose deputies handle jurisdiction in Henry County areas like Collinsville and Northview, distinct from Martinsville Police Department and the separate Martinsville City Sheriff's Office.</p>
+  </section>
+
+  <section class="era-section" id="era-northview">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Northview Incident</div>
+    <div class="era-dates">2023</div>
+
+    <p>In 2023, while still a Captain, Davis was named by Charles Roark in connection with a Northview phone-confiscation incident — full detail documented on Fincher's and Roark's person-pages. Per Roark's account, Davis later admitted that a deputy under his command had given Roark's confiscated phone to a bystander rather than securing or returning it, and the phone was ultimately discarded in a city trash bin.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Davis rose from the captain associated with this specific incident to the county's top law enforcement office within months of it occurring — interim Sheriff that same July, elected outright that November. Whether those two facts are connected in any way isn't established by anything in the public record reviewed; they are simply close together in time, and both are documented here precisely as that.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-history">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Institutional History</div>
+
+    <p>The Henry County Sheriff's Office Davis now leads has a documented, serious history of corruption — predating his tenure by nearly two decades. Sheriff Frank Cassell, in office from 1991/92 to 2006, resigned amid a 48-count federal racketeering indictment naming 20 defendants, 13 of them current or former Sheriff's Office employees. Eighteen defendants, including Cassell himself, were convicted of felony offenses — drug distribution, theft of seized drugs and firearms, money laundering, and obstruction of justice, dating back to at least 1998. Cassell pleaded guilty to lying to federal investigators and served eight months in federal prison.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Precision Matters Here</div>
+      <p>A full 17-year gap — filled entirely by Sheriff Lane Perry's clean 30-year tenure — separates Cassell's 2006 resignation from Davis's 2023 ascension to the office. Nothing in the public record reviewed connects Davis personally to the Cassell-era corruption. This history is documented here as legitimate institutional context — the department Davis now leads has lived through a genuine, serious scandal before — not as an implication about Davis himself, who has no documented connection to it.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows, Overall</div>
+      <p>This page holds two separate kinds of fact side by side, deliberately: a department with a real history of corruption two decades back, and a sheriff whose own documented career — patrol deputy to captain to chief deputy to sheriff, over 23 years — shows no connection to that history. Not everything in this record points toward wrongdoing. Some of it is simply someone's career, documented as carefully as anything else here.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">The Northview/Martinsville jurisdictional split</div></a>
+      <a href="roark.html" class="cl-item"><div class="cl-name">Charles Roark</div><div class="cl-context">Named Davis in the Northview incident</div></a>
+      <a href="gravely.html" class="cl-item"><div class="cl-name">Rayshaun Gravely</div><div class="cl-context">Davis's office handles his current GDC case</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Wayne Davis</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">DAVIS-CAREER</td><td>Virginia Sheriffs' Association, WSET, WDBJ7 — career timeline, election</td><td>2000–2023</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">DAVIS-NORTHVIEW</td><td>Star News TV, Roark's own footage — Northview phone incident</td><td>2023</td><td>Confirmed in hand. See Fincher's, Roark's pages for full detail.</td></tr>
+        <tr><td class="src-id">CASSELL-HISTORY</td><td>Washington Post, ABC News, Roanoke Times, Wikipedia — Cassell indictment, plea, sentencing</td><td>2006–2007</td><td>Confirmed in hand. Multiple independent national and local outlets.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Fincher, Roark, Gravely, Keen pages</td><td>2023–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
