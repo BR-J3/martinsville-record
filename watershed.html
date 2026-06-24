@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Watershed — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017; --slate: #3a5a8c;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .era-tab.t4 { border-left: 3px solid var(--slate); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .pending-block { background: #fff; border: 2px dashed #ccc; padding: 22px; margin: 32px 0; }
+  .pending-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .pending-block ul { list-style: none; padding: 0; }
+  .pending-block li { font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--ink); padding: 6px 0 6px 18px; position: relative; border-bottom: 1px solid var(--paper-dark); }
+  .pending-block li:last-child { border-bottom: none; }
+  .pending-block li::before { content: '○'; position: absolute; left: 0; color: var(--muted); }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Place Record · Origins</div>
+    <h1 class="banner-name">The Watershed</h1>
+    <div class="banner-roles">Forest Park Country Club &amp; Lake Lanier — Martinsville, Virginia</div>
+    <p class="banner-summary">An 85-year-old design feature, not a discrimination lawsuit. In 1938, a planner who later coined the term "urban sprawl" was hired to design a 2,000-acre development for DuPont's management and employees — with lake access built in from the start. Nineteen years later, fifty unidentified graves were moved off the land four months before the club that controls that lake access was incorporated. This page documents the land, the design, the construction, and the corporate structure that followed — and the much older regional history underneath all of it.</p>
+    <div class="era-tabs">
+      <a href="#era-land" class="era-tab t1">The Land — 1730s–1925</a>
+      <a href="#era-design" class="era-tab t2">The Design — 1938</a>
+      <a href="#era-construction" class="era-tab t3">The Construction &amp; The Club — 1955–Present</a>
+      <a href="#era-regional" class="era-tab t4">The Regional Watershed</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-land">
+    <div class="era-label">Part One</div>
+    <div class="era-title">The Land</div>
+    <div class="era-dates">1730s – 1925</div>
+
+    <p>Patrick Henry owned roughly 13,879 acres in this area between 1780 and 1784. The land later passed through Daniel Lanier — the man the lake now bears the name of — to Henry Clay Lester, then to his adopted son, Rives S. Brown Sr. In 1925, Brown formed the Mulberry Development Company, the entity that would eventually shape the land into the subdivisions and lake that exist today.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">The Land Chain — Confirmed</div>
+      <div class="fact-row"><span class="fact-item">Patrick Henry ownership</span><span class="fact-value">~13,879 acres, 1780–1784</span></div>
+      <div class="fact-row"><span class="fact-item">Passes to Daniel Lanier</span><span class="fact-value">Lake's namesake</span></div>
+      <div class="fact-row"><span class="fact-item">Passes to Henry Clay Lester</span><span class="fact-value">—</span></div>
+      <div class="fact-row"><span class="fact-item">Passes to Rives S. Brown Sr.</span><span class="fact-value">Lester's adopted son</span></div>
+      <div class="fact-row"><span class="fact-item">Mulberry Development Company formed</span><span class="fact-value">1925, by Brown</span></div>
+    </div>
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Both "Mulberry Road" and "Mulberry Court" appear on the modern Lake Lanier Association's own eligibility list — a direct, unbroken naming thread from Brown's 1925 development company to the streets allowed lake access a century later.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-design">
+    <div class="era-label">Part Two</div>
+    <div class="era-title">The Design</div>
+    <div class="era-dates">1938</div>
+
+    <p>In 1938, the Mulberry Development Company hired Earle S. Draper — a nationally prominent planner who had worked under John Nolen and would later coin the term "urban sprawl" — to design roughly 2,000 acres of the Brown/Lanier land into what became the Forest Park and Druid Hills subdivisions. The development was explicitly designed for DuPont's management and employee housing, and lake access was built in from the outset as a designed amenity, not added later.</p>
+
+    <p>Draper's prior commission is its own thread in this same network: Stoneleigh, the estate of Thomas B. Stanley — later Governor of Virginia — and his wife Anne Pocahontas Bassett, of the Bassett furniture family. The same planner who designed Stoneleigh for the Stanley-Bassett family went on to design the DuPont-era development that became Forest Park, connecting the Bassett family, the Stanleys, Draper, and the Brown/Lanier Farm network into a single, traceable planning lineage.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">WATERSHED-DRAPER</span>
+        <span class="exhibit-title">Earle S. Draper's 1938 Lanier Farm Plan</span>
+        <span class="exhibit-date">1938</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Draper coined the term "urban sprawl"; worked under nationally known planner John Nolen</li>
+          <li>Hired to design ~2,000-acre "Lanier Farm" development — Forest Park and Druid Hills subdivisions</li>
+          <li>Explicit purpose: DuPont management and employee housing</li>
+          <li>Lake access built into the original design as an amenity, not a later addition</li>
+          <li>Draper's prior commission: Stoneleigh, estate of Gov. Thomas B. Stanley and Anne Pocahontas Bassett</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: SAH Archipedia / UVA Press, confirmed in hand</div>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-construction">
+    <div class="era-label">Part Three</div>
+    <div class="era-title">The Construction &amp; The Club</div>
+    <div class="era-dates">1955 – Present</div>
+
+    <h3>1955–1957: The Lake, the Graves, and the Incorporation</h3>
+    <p>Lake Lanier was physically constructed and excavated in 1955–56, per the Rives S. Brown family's own published account. On <strong>March 12, 1957</strong>, fifty unidentified graves were discovered during construction and moved to a marker near the spillway. The marker's inscription, confirmed via the Martinsville Bulletin, reads plainly:</p>
+    <div class="doc-quote">
+      "Here lie fifty unidentified dead moved from a point 300 yards northeast Mar. 12, 1957"
+      <div class="doc-quote-source">— Grave marker near the Lake Lanier spillway, per Martinsville Bulletin reporting</div>
+    </div>
+    <p>Henry County Archivist Desmond Kendrick, on record with the Bulletin, considers Native American origin unlikely for these graves. His leading theory: enslaved or freed people connected to the Hairston family's nearby Mulberry Creek operations — the same Hairston family detailed in Part Four below.</p>
+    <p><strong>On July 3, 1957 — four months after the graves were moved — Forest Park Country Club was formally incorporated.</strong> That timing is treated here as significant, not coincidental: the corporate entity that would govern access to this land was created within the same year, and the same general window, as the unmarked dead were relocated off it.</p>
+
+    <h3>1960–Present: Expansion and Corporate Structure</h3>
+    <p>In 1960, the club financed a nine-hole expansion through $60,000 in first-mortgage bonds sold directly to the membership, under then-president George Nease. The golf course itself is physically traversed by Mulberry Creek and is accessed via the Spruce Street exit off the US 58 Bypass — the same Spruce Street excluded from the modern Lake Lanier Association's eligibility list, detailed below.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">WATERSHED-SCC</span>
+        <span class="exhibit-title">Forest Park Country Club, Incorporated — Corporate Record</span>
+        <span class="exhibit-date">1957 – Present</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>VA SCC Entity ID 00373654, Stock Corporation — Active and in Good Standing</li>
+          <li>Formation/VA qualification date: July 3, 1957; perpetual duration</li>
+          <li>Registered agent: George Kasey (also former Club President, 2019–2023), 812 Hazelwood Ln, Martinsville</li>
+          <li>Principal office: PO Box 4106, 1821 Mulberry Road, Martinsville VA 24115</li>
+          <li>600 total shares outstanding — shareholders not publicly listed</li>
+          <li>Current officers, per 07/21/2025 annual report: Andy Holt (President, 1108 Country Club Dr — a street on the Association's eligibility list), Patrick Moore (VP, 1000 Meadowview Dr), Erika Trapp (Recording Secretary, 1701 Mulberry Rd)</li>
+          <li>Federal 501(c)(7) tax-exempt status granted December 1941 — the same month and year DuPont's Martinsville factory opened</li>
+          <li>IRS Form 990s (via ProPublica) show persistent negative net assets: –$768,429 in 2024</li>
+          <li>Timothy Martin has served as a Director continuously, 2020–2024</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Virginia SCC entity records; IRS Form 990s via ProPublica; confirmed in hand</div>
+    </div>
+
+    <p>Timothy Martin is the son of Fred Thomas Martin Sr., described by the Martinsville Bulletin as one of the largest property owners in Martinsville and Henry County — a direct, documented link between the club's current leadership and the "Martin" family referenced in the modern lake-access dispute's own "three families" framework (Lester, Martin, and "Bass" — almost certainly Bassett, the same furniture dynasty connected through Draper's Stoneleigh commission above).</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">WATERSHED-HBMARTIN</span>
+        <span class="exhibit-title">H.B. Martin LLC — Ownership Resolved</span>
+        <span class="exhibit-date">Confirmed 2026</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>211 Lester Street, Martinsville — a separate business entity referenced during research into the Martin family connection</li>
+          <li>Registered owner/principal: Barry C. Martin</li>
+          <li>No documented relationship found to Fred Thomas Martin Sr. or Timothy Martin</li>
+          <li>Resolved as a non-connection — included here so the question doesn't resurface unanswered</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Dun &amp; Bradstreet, Blue Book business directories, confirmed via search</div>
+    </div>
+
+    <h3>The Eligibility List</h3>
+    <p>The Lake Lanier Association itself — distinct from Forest Park Country Club — remains unincorporated. No Virginia SCC record exists for it, no IRS Form 990, no public board. Access runs through a printed street list and a $65 annual membership fee. The full, current list of streets eligible for membership:</p>
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">WATERSHED-LIST</span>
+        <span class="exhibit-title">Lake Lanier Association — Streets Eligible for Membership</span>
+        <span class="exhibit-date">Primary document, photographed</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Arrowhead Trail, Auburn Place, Beechnut Lane, Berkshire Place, Beverly Way, Cherokee Court, Cherokee Trail, Circle Court, Clarke Road, Corn Tassel Trail, Country Club Drive, Courtney Terrace, Dan Lee Terrace, Dundee Court, Dundee Lane, Dove Lane, Druid Lane, Farmington Court, Finley Street, Gates Street, Grattan Road, Hampstead Place, Hazelwood Lane, Hunting Ridge Road, Indian Trail, Kenmar Drive, Knollwood Place, Lakemont Court, Lakeview Trail, Lanier Road, Lombardy Court, Maplewood Court, Meadowview Lane, Melrose Place, Morningside Lane, Mulberry Court, Mulberry Road, Myers Place, Norwood Court, Oakwood Court, Orchard Street, Park Court, Parkview Avenue, Prospect Hill Drive, River Forest Place, Root Trail, Sam Lions Trail, Sheraton Court, Sherwood Place, Surrey Court, Susan Lane, Tomahawk Court, Tuckahoe Place, Valient Lane, Valleyview Road, Weston Street, Westover Lane, White Oak Court, Whittle Court, Whittle Road, Windsor Lane</li>
+          <li>Spruce Street does not appear on this list</li>
+          <li>Country Club Drive does appear — the same street as current Forest Park CC President Andy Holt's address</li>
+          <li>Both Mulberry Road and Mulberry Court appear — the direct naming link back to the 1925 Mulberry Development Company</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Lake Lanier Association, P.O. Box 4327, Martinsville VA 24115 — primary document, photographed copy in hand</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Holding Two Things at Once</div>
+      <p>A genuine counter-argument exists and deserves to stay visible: Lake Lanier Association membership is street-based, tied to a mailing list and dues, not explicitly race-based on its face, and people of multiple races live on streets both included and excluded from the list. That counter-argument doesn't change the historical record above — the 1938 design-for-DuPont-housing plan, the 1957 grave relocation, and the incorporation timing are all documented fact regardless of how today's list is enforced or perceived. But the present-day enforcement question and the 85-year historical design question are two different things, and this page deliberately keeps them separate. The present-day political dimension of this geography — including its connection to recent Martinsville governance — is documented elsewhere on this Record, on Jennifer Bowles's and LC Jones's own pages, not here.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>The club that controls physical access to this stretch of land is incorporated, regulated, and leaves a documented paper trail — SCC filings, IRS 990s, named officers. The Association that actually decides who gets to use the lake itself has none of that. One layer of this system is accountable on paper; the other isn't accountable on paper at all.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-regional">
+    <div class="era-label">Part Four</div>
+    <div class="era-title">The Regional Watershed</div>
+    <div class="era-dates">1788 – 1952</div>
+
+    <p>Forest Park and Lake Lanier sit inside a much larger regional history along the same Smith River watershed — one that connects several of the area's most prominent family names to a shared economic foundation.</p>
+
+    <h3>Hairston</h3>
+    <p>Samuel Hairston (1788–1875) was possibly the wealthiest man in America in 1854, enslaving approximately 1,700 people across Henry and Patrick Counties, Virginia, and Stokes County, North Carolina; the broader Hairston family enslaved an estimated 10,000 people total across generations. Hairston-named places remain on the map today: Chatmoss (now a country club, on the site of a burned Hairston house), Leatherwood, and Magna Vista (the site of the former Marrowbone plantation). The Henry County Courthouse itself was built on Hairston-donated land. George Hairston founded the Smith River Navigation Company — the same river system that fed both Bassett's timber operations and the Forest Park golf course.</p>
+
+    <h3>Bassett</h3>
+    <p>John D. Bassett founded Bassett Furniture Company in 1902, built from Smith River timber; the family donated land for the railroad, and the town of Bassett is named for them. The same family connects to Forest Park through the Draper/Stoneleigh/Stanley thread documented in Part Two.</p>
+
+    <h3>Philpott</h3>
+    <p>Philpott Dam, built by the Army Corps of Engineers between 1948 and 1952, required the exhumation and reinterment of 29 cemeteries in 1950, displacing multiple families from the land that became Philpott Lake. Fayerdale — a lost mining, timber, and moonshine town — now sits beneath that same lake.</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows — Part Four</div>
+      <p>None of this regional history is offered as proof of anything about the present-day Lake Lanier dispute specifically. It documents that the land underneath this entire area — Forest Park, the Smith River corridor, Philpott Lake — has a real, repeated pattern of large land and water projects displacing people, often without their names being recorded. The 1957 unidentified graves at Lake Lanier are one instance of a pattern that repeats at Philpott five years earlier. That pattern is the actual subject of this page.</p>
+    </div>
+  </section>
+
+  <div class="pending-block">
+    <div class="pending-label">▸ Outstanding — Confirmed Not Yet Resolved, Revisit When Available</div>
+    <ul>
+      <li>Deed 208/876 (Forest Park CC parcel) — request submitted to the Circuit Court Clerk's office, awaiting response</li>
+      <li>Historic subdivision covenants for Forest Park/Druid Hills — requires an in-person visit to the Henry County Circuit Court Clerk's office; not yet scheduled</li>
+      <li>Direct interview with Henry County Archivist Desmond Kendrick — request sent, awaiting response</li>
+      <li>Manual Virginia Chronicle newspaper-archive searches ("Rives Brown," "Forest Park," "Lake Lanier," "Mulberry Development," "DuPont Martinsville," 1938–1965) — the archive blocks automated access; needs a manual desktop session</li>
+      <li>Forest Park CC's 600 shareholders are not publicly listed anywhere found; no historical membership rolls or bond-purchaser lists located either — likely requires a private archive or direct source, not further search</li>
+    </ul>
+  </div>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="bowles.html" class="cl-item"><div class="cl-name">Jennifer Bowles</div><div class="cl-context">Precinct 5 / Mulberry Road — present-day political connection</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">Precinct 5 / Mulberry Road — present-day political connection</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — The Watershed</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">WATERSHED-DRAPER</td><td>SAH Archipedia / UVA Press — Earle S. Draper, Lanier Farm plan</td><td>1938</td><td>Confirmed in hand. DuPont housing purpose, Stoneleigh connection.</td></tr>
+        <tr><td class="src-id">WATERSHED-BROWN</td><td>Rives S. Brown family, published Medium article</td><td>1955–56 construction</td><td>Confirmed in hand. Primary family-sourced account of lake construction.</td></tr>
+        <tr><td class="src-id">WATERSHED-GRAVES</td><td>Martinsville Bulletin — grave marker, Kendrick quote</td><td>Mar 12, 1957 discovery</td><td>Confirmed in hand. Marker inscription, Kendrick's enslaved/freed-people theory.</td></tr>
+        <tr><td class="src-id">WATERSHED-SCC</td><td>Virginia SCC Entity ID 00373654 — Forest Park Country Club, Inc.</td><td>Incorporated Jul 3, 1957</td><td>Confirmed in hand. Officers, registered agent, share structure.</td></tr>
+        <tr><td class="src-id">WATERSHED-990</td><td>IRS Form 990s via ProPublica — Forest Park Country Club</td><td>2024 filing</td><td>Confirmed in hand. Negative net assets, Timothy Martin directorship.</td></tr>
+        <tr><td class="src-id">WATERSHED-HBMARTIN</td><td>Dun &amp; Bradstreet, Blue Book — H.B. Martin LLC ownership</td><td>Confirmed 2026</td><td>Confirmed via search. Barry C. Martin, no Martin-family-of-the-club connection found.</td></tr>
+        <tr><td class="src-id">WATERSHED-LIST</td><td>Lake Lanier Association — street eligibility list</td><td>Current</td><td>Primary document, photographed, confirmed in hand.</td></tr>
+        <tr><td class="src-id">WATERSHED-HAIRSTON</td><td>Regional historical sources — Samuel Hairston, Smith River Navigation Co.</td><td>1788–1875</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">WATERSHED-PHILPOTT</td><td>Army Corps of Engineers historical records — Philpott Dam exhumations</td><td>1948–1952</td><td>Confirmed in hand. 29 cemeteries, 1950 reinterment.</td></tr>
+        <tr><td class="src-id">RESEARCH-HUB</td><td>Martinsville Research Hub — Lake Lanier / Forest Park Research Thread</td><td>Ongoing</td><td>Full underlying research document, Notion.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
