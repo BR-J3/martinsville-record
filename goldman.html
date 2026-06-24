@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul Goldman — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--amber); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Career</div>
+    <h1 class="banner-name">Paul Goldman</h1>
+    <div class="banner-roles">Attorney for Aretha Ferrell-Benavides; Adviser to LC Jones</div>
+    <p class="banner-summary">A former chair of the Democratic Party of Virginia who has spent the last several years almost entirely on pro se activist litigation rather than representing clients in the traditional sense — and who showed up in Martinsville defending both the fired city manager and the suspended mayor at once. The question this record can't yet resolve isn't whether he's a real public figure; it's whether the "attorney" title he's used for decades actually carries a current Virginia license behind it.</p>
+    <div class="era-tabs">
+      <a href="#era-richmond" class="era-tab t1">The Richmond Career</a>
+      <a href="#era-martinsville" class="era-tab t2">Martinsville — 2025–2026</a>
+      <a href="#era-question" class="era-tab t3">The Licensing Question</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-richmond">
+    <div class="era-label">Era One</div>
+    <div class="era-title">The Richmond Career</div>
+
+    <p>Goldman chaired the Democratic Party of Virginia from 1990 to 1993. He worked on Robert F. Kennedy's 1968 presidential campaign, volunteered at Chicago's Cabrini-Green housing project, and began his legal career at the New Jersey Department of Consumer Protection in 1973 after earning a J.D. and M.P.A. from Syracuse University. He relocated to Virginia to work as a campaign consultant for Chuck Robb. In the decades since, he has run for office repeatedly and lost: a 2021 Democratic primary bid for Lieutenant Governor of Virginia, and a 2024 Richmond City Council race, both unsuccessful.</p>
+
+    <p>Goldman's more recent public profile centers almost entirely on pro se activist litigation — lawsuits he files and argues himself, as a voter or activist, rather than as counsel representing a client. His best-known recent case argued that Virginia's 2021 House of Delegates elections were unconstitutional for using outdated district maps, a suit he pursued largely alone over nearly a year before voluntarily considering dropping it. He has also formed activist entities like the anti-casino group "No Means No."</p>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Multiple independent outlets — Wikipedia, Ballotpedia, the Roanoke Times, Virginia Mercury, RVA Magazine — consistently describe Goldman as an attorney, over a span of decades. That consistent description doesn't resolve the specific Virginia bar-licensing question raised in Martinsville; it does establish that Goldman is a genuine, long-standing public figure with a real activist and political record, not an obscure or fabricated identity.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-martinsville">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">Martinsville</div>
+    <div class="era-dates">2025 – 2026</div>
+
+    <p>Goldman represented Aretha Ferrell-Benavides from at least September 2025, telling WSLS the city council had not provided proof of its claims against her and had withheld a copy of the investigative report. In October 2025, he announced intent to send the city a notice of claims citing 15 separate incidents between July 14 and September 8, 2025, estimating a possible lawsuit filing for late October or early November — a timeline that preceded the actual federal suit filed June 9, 2026 by several months.</p>
+
+    <div class="doc-quote">
+      "There is no crime. There is no fraud. There is no money missing. There is no bribery."
+      <div class="doc-quote-source">— Paul Goldman, on the Brown Edwards audit findings, April 2026</div>
+    </div>
+
+    <p>Goldman characterized the audit itself as having been "done on behalf of" the Sands Anderson law firm — his own framing of the same attribution ambiguity already documented in Chapter 5 of this record, where contemporaneous reporting blurred which firm actually conducted which workstream. In November 2025, with the city declining mediation on Ferrell-Benavides's EEOC complaint, Goldman said his side had been open to it.</p>
+
+    <p>By April 2026, Goldman's role had expanded: Cardinal News reported he was "also advising" Mayor LC Jones, simultaneous with representing Ferrell-Benavides, and had "questioned the apparent inconsistency of the law's application" regarding Jones's suspension.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Goldman's Role — Confirmed Timeline</div>
+      <div class="fact-row"><span class="fact-item">Sep 2025</span><span class="fact-value">Representing Ferrell-Benavides, on the record to WSLS</span></div>
+      <div class="fact-row"><span class="fact-item">Oct 2025</span><span class="fact-value">Notice of 15 claims sent; possible suit timeline estimated</span></div>
+      <div class="fact-row"><span class="fact-item">Nov 2025</span><span class="fact-value">EEOC mediation discussed; his side open to it, city declined</span></div>
+      <div class="fact-row"><span class="fact-item">Apr 2026</span><span class="fact-value">Confirmed also advising Jones, simultaneous with Ferrell-Benavides</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Goldman represented or advised both of the two principal subjects of this entire record at the same time — Jones and Ferrell-Benavides — across the same period their own accounts of events (the hot tub, the raise, the audit) were sometimes in tension with each other on points of detail elsewhere in this record. Whether that dual role created any conflict between his two clients isn't addressed in any source reviewed.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-question">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">The Licensing Question</div>
+
+    <p>Aaron Rawls's sworn affidavit, notarized January 12, 2026, states he could find no evidence of Goldman being licensed to practice law in Virginia, despite Goldman representing himself as counsel in communications with media and city council.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question — Now Better Contextualized</div>
+      <p>Goldman's well-documented public record fits a specific, consistent pattern: decades of press coverage describing him as an attorney, paired almost entirely with pro se activist litigation rather than traditional client representation. That pattern is exactly the kind of profile that could produce Rawls's specific concern — someone who has practiced law somewhere, or once held a license, or represents himself in his own name regularly, without currently holding the active Virginia State Bar membership his media presence implies. This record has not independently checked the Virginia State Bar's own attorney directory for Goldman's current status, and does not treat Rawls's affidavit or this page as a final answer either way.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Goldman is a real, well-documented public figure with a genuine four-decade record in Virginia politics and activist law. That record makes the specific Virginia-licensing question in Martinsville more precise, not less important: this isn't a question of whether Goldman exists or has any legal background at all — he clearly does — it's a narrower, still-unresolved question of whether his current Virginia bar status actually supports the "attorney" role he has held in this specific case.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">His primary client</div></a>
+      <a href="jones.html" class="cl-item"><div class="cl-name">LC Jones</div><div class="cl-context">Also advised, simultaneous with Ferrell-Benavides</div></a>
+      <a href="rawls.html" class="cl-item"><div class="cl-name">Aaron Rawls</div><div class="cl-context">His affidavit raises the licensing question</div></a>
+      <a href="chapter-05-the-audits.html" class="cl-item"><div class="cl-name">Chapter 5: The Audits</div><div class="cl-context">His response to the audit findings</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Paul Goldman</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">GOLDMAN-BIO</td><td>Wikipedia, Ballotpedia, Virginia Mercury, Roanoke Times, RVA Magazine — political/biographical record</td><td>1990–2024</td><td>Confirmed in hand. Independently consistent across multiple outlets.</td></tr>
+        <tr><td class="src-id">GOLDMAN-WSLS-SEP25</td><td>WSLS — special prosecutor investigation begins, Goldman's statement</td><td>Sep 29, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GOLDMAN-NOTICE</td><td>Cardinal News — notice of 15 claims, possible suit timeline</td><td>Oct 7, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GOLDMAN-MEDIATION</td><td>Cardinal News — EEOC mediation rejected by council</td><td>Nov 19, 2025</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">GOLDMAN-AUDIT</td><td>WDBJ7, Cardinal News, WSLS — audit response, "witch hunt" framing</td><td>Apr 15–21, 2026</td><td>Confirmed in hand. Direct quotes.</td></tr>
+        <tr><td class="src-id">GOLDMAN-JONES</td><td>Cardinal News — confirmed also advising Jones, "Richmond-based"</td><td>Apr 21, 2026</td><td>Confirmed in hand. Confirms same person as the Richmond political figure.</td></tr>
+        <tr><td class="src-id">RAWLS-AFFIDAVIT</td><td>Aaron Rawls Sworn Affidavit, notarized</td><td>Jan 12, 2026</td><td>Confirmed in hand. Source of the licensing question.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Cross-referenced — Jones, Ferrell-Benavides, Rawls pages, Chapter 5</td><td>2025–2026</td><td>Cross-referenced throughout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
