@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peyton Nibblett — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--amber); }
+  .era-tab.t3 { border-left: 3px solid var(--red); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Person Record · Full Account</div>
+    <h1 class="banner-name">Peyton Nibblett</h1>
+    <div class="banner-roles">Assistant to the City Manager &amp; Deputy City Clerk, City of Martinsville — June 2024 to Present</div>
+    <p class="banner-summary">He holds two jobs that, together, touch nearly everything in this record: one gives him direct visibility into the city manager's office during the exact period it was under investigation, the other gives him custody of council's own meeting records, correspondence, and official documents. He is a subpoenaed witness in CL26-011 — not for what he did, but for what he would have seen.</p>
+    <div class="era-tabs">
+      <a href="#era-joining" class="era-tab t1">Joining The City — June 2024</a>
+      <a href="#era-post" class="era-tab t2">The Archived Post — July 2025</a>
+      <a href="#era-witness" class="era-tab t3">Subpoenaed Witness — 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-joining">
+    <div class="era-label">Era One</div>
+    <div class="era-title">Joining The City</div>
+    <div class="era-dates">June 2024</div>
+
+    <p>Nibblett joined the City of Martinsville in June 2024 — already inside the window this record covers, roughly two months after the Las Vegas trip documented in Chapter 2 and well before any of the conflict that followed became public. He holds a degree in Learning and Organizational Change and Psychology from Northwestern University, and is a commissioned Virginia Notary Public.</p>
+
+    <p>His dual title is the notable thing here. As <strong>Assistant to the City Manager</strong>, he worked directly inside Aretha Ferrell-Benavides's office during the entire period documented in Chapters 1 through 4 — the closed-session raise, the two leaves, the firing. As <strong>Deputy City Clerk</strong>, he separately holds custody of council's meeting records, official correspondence, and documents — the institutional memory of the council itself. His job description also covers operational studies, strategic planning, media relations, and the city's social media and website management.</p>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Earlier research material in this hub spells his name two ways — "Nibblett" (matching the official CL26-011 subpoena list and the July 2025 Facebook-post reporting) and "Niblett" (in earlier, less-verified notes). This page uses "Nibblett" as the more authoritative spelling, but the discrepancy itself is logged here rather than silently resolved.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>Two separate roles, each with a different kind of access, sitting in one person: direct visibility into the city manager's day-to-day operations, and formal custody of the council's own records. That combination is almost certainly why he appears on the subpoena list in Era Three below — not because of any allegation against him, but because of what he would have necessarily seen and filed in the ordinary course of both jobs.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-post">
+    <div class="era-label">Era Two</div>
+    <div class="era-title">The Archived Post</div>
+    <div class="era-dates">July 5, 2025</div>
+
+    <p>A City of Martinsville Facebook post announcing a rescheduling of the July 8, 2025 council meeting was taken down shortly after public comments — including from Councilman Julian Mei — were posted in the thread. Mei said he was never notified the original post was going out, and that when he went to check tagged-comment alerts, the post itself was gone. Full context: the broader Mei transparency complaint, documented separately in this research hub.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">NIBBLETT-POST</span>
+        <span class="exhibit-title">The City's Explanation, Via Nibblett</span>
+        <span class="exhibit-date">Jul 5, 2025</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>The city's explanation, attributed to Deputy City Clerk Peyton Nibblett: the post was not deleted but "archived," because council had not yet voted on the proposed meeting date change</li>
+          <li>A vote was instead scheduled for a special meeting July 7, 2025</li>
+          <li>This happened eight days before Ferrell-Benavides's second administrative leave (July 23, 2025) and the formal authorization of the Brown Edwards forensic audit</li>
+          <li>Separately and significantly: the city's Public Information Officer position (formerly held by Kendall Davis) had just been eliminated in the new fiscal year budget, effective July 1, 2025 — as of this story, no one had been publicly identified as currently managing the city's Facebook account</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: News story dated July 5, 2025, confirmed in hand; publication not specified in material reviewed</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>"Archived" is the city's own word for what happened to a public post with constituent and council comments attached, given to the press by the one person whose job actually covers the city's social media management. No claim is made here that Nibblett himself decided to take the post down, or that "archived" was a misleading characterization rather than an accurate procedural one — only that he is the named source for the explanation, at a moment when the city had no separately identified communications staff at all.</p>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Question</div>
+      <p>Was the decision to archive the post Nibblett's own, a directive from the city manager's office, or a standard procedure applied automatically whenever a meeting-date item hasn't yet been voted on? Nothing in the source reviewed distinguishes between those three possibilities.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-witness">
+    <div class="era-label">Era Three</div>
+    <div class="era-title">Subpoenaed Witness</div>
+    <div class="era-dates">2026</div>
+
+    <p>Nibblett appears on the CL26-011 subpoena list alongside LC Jones, Nikima Robinson, Eric Payne, Karen Roberts, Richard Stanfield, Robert Fincher, Kathy Lawson, Julian Mei, Rayshaun Gravely, and Aaron Rawls — eleven names total. Full detail on the prosecutor chain and the subpoena process: Chapter 7.</p>
+
+    <div class="fact-block">
+      <div class="fact-label">Why He's Likely On The List</div>
+      <div class="fact-row"><span class="fact-item">As Assistant to the City Manager</span><span class="fact-value">Direct operational visibility, 2024–2025</span></div>
+      <div class="fact-row"><span class="fact-item">As Deputy City Clerk</span><span class="fact-value">Custody of meeting records and correspondence</span></div>
+      <div class="fact-row"><span class="fact-item">Listed role at subpoena</span><span class="fact-value">Operational and documentation witness</span></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>CL26-011 was dismissed with prejudice May 15, 2026 — on signature-threshold grounds, before a jury heard testimony from any of the eleven subpoenaed witnesses, Nibblett included. Whatever he would have testified to about the city manager's office or the council's own records during this period was never heard in open court.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="chapter-07-the-legal-chain.html" class="cl-item"><div class="cl-name">Chapter 7: The Legal Chain</div><div class="cl-context">Full CL26-011 subpoena list</div></a>
+      <a href="ferrell-benavides.html" class="cl-item"><div class="cl-name">Aretha Ferrell-Benavides</div><div class="cl-context">Office he worked directly inside, 2024–2025</div></a>
+      <a href="mei.html" class="cl-item"><div class="cl-name">Julian Mei</div><div class="cl-context">The July 2025 transparency complaint</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Peyton Nibblett</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">NIBBLETT-BIO</td><td>Martinsville Research Hub — role, background, education</td><td>Current</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">NIBBLETT-POST</td><td>News story — Facebook post "archived" explanation</td><td>Jul 5, 2025</td><td>Confirmed in hand. Publication not specified.</td></tr>
+        <tr><td class="src-id">CL26-011</td><td>Commonwealth v. Jones — subpoena list</td><td>2026</td><td>Confirmed in hand. See Chapter 7.</td></tr>
+        <tr><td class="src-id">ALL-CHAPTERS</td><td>Full source index — Chapter 7</td><td>2026</td><td>Cross-referenced.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
