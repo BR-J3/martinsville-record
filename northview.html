@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northview Gardens — The Martinsville Record</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --ink-deep: #0d0d0d; --paper: #f5f2eb; --paper-dark: #ede9df;
+    --red: #c0392b; --red-dark: #922b21; --green: #1e7e34; --amber: #d4a017; --slate: #3a5a8c;
+    --muted: #5a5a5a; --mono: 'Courier New', Courier, monospace;
+    --serif: Georgia, 'Times New Roman', serif; --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.7; }
+  .person-banner { background: var(--ink-deep); border-bottom: 4px solid var(--red); padding: 52px 24px 40px; }
+  .banner-inner { max-width: 860px; margin: 0 auto; }
+  .banner-nav { font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .banner-nav a { color: #555; text-decoration: none; }
+  .banner-nav a:hover { color: var(--red); }
+  .banner-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .banner-name { font-size: clamp(32px, 6vw, 56px); font-weight: 700; color: var(--paper); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .banner-roles { font-family: var(--sans); font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
+  .banner-summary { font-size: 17px; color: #bbb; line-height: 1.65; max-width: 680px; margin-bottom: 32px; }
+  .era-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .era-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); background: #1a1a1a; border: 1px solid #333; padding: 8px 16px; text-decoration: none; }
+  .era-tab:hover { border-color: var(--red); color: var(--red); }
+  .era-tab.t1 { border-left: 3px solid var(--green); }
+  .era-tab.t2 { border-left: 3px solid var(--red); }
+  .era-tab.t3 { border-left: 3px solid var(--slate); }
+  .body-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .era-section { padding: 56px 0; border-bottom: 2px solid var(--paper-dark); }
+  .era-section:last-of-type { border-bottom: none; }
+  .era-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px; }
+  .era-title { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .era-dates { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .era-section h3 { font-size: 20px; margin: 32px 0 14px; }
+  .era-section p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+  .era-section p strong { color: var(--red-dark); }
+  .exhibit { margin: 28px 0; border: 1px solid #ccc; }
+  .exhibit-header { background: var(--ink); color: var(--paper); padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .exhibit-id { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--red); text-transform: uppercase; }
+  .exhibit-title { font-family: var(--mono); font-size: 12px; color: var(--paper); flex: 1; }
+  .exhibit-date { font-family: var(--mono); font-size: 10px; color: #888; white-space: nowrap; }
+  .exhibit-body { background: #fafaf7; padding: 18px; border-left: 4px solid var(--ink); }
+  .exhibit-body li { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #333; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .exhibit-body li::before { content: '▸'; position: absolute; left: 0; color: var(--red); }
+  .exhibit-source { background: #f0ede5; padding: 8px 16px; font-family: var(--mono); font-size: 10px; color: var(--muted); border-top: 1px solid #ddd; }
+  .doc-quote { background: var(--paper-dark); border-left: 4px solid var(--ink); padding: 16px 18px; margin: 24px 0; font-family: var(--mono); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .doc-quote-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .open-question { background: #fff8ed; border: 1px solid var(--amber); border-left: 5px solid var(--amber); padding: 18px; margin: 24px 0; }
+  .oq-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .oq-label::before { content: '? '; }
+  .open-question p { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .finding { background: var(--ink); color: var(--paper); padding: 22px; margin: 28px 0; border-left: 5px solid var(--red); }
+  .finding-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .finding p { font-size: 14px; line-height: 1.65; color: #ddd; margin-bottom: 0; }
+  .fact-block { background: var(--ink-deep); border: 1px solid #333; padding: 22px; margin: 24px 0; }
+  .fact-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .fact-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #1e1e1e; gap: 10px; flex-wrap: wrap; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-item { font-family: var(--mono); font-size: 12px; color: #aaa; }
+  .fact-value { font-family: var(--mono); font-size: 12.5px; color: var(--paper); font-weight: bold; text-align: right; }
+  .cross-links { background: var(--ink-deep); padding: 48px 24px; }
+  .cross-links-inner { max-width: 860px; margin: 0 auto; }
+  .cl-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cl-item { background: #141414; border: 1px solid #222; padding: 14px 16px; text-decoration: none; display: block; }
+  .cl-item:hover { border-color: var(--red); }
+  .cl-name { font-size: 14px; color: var(--paper); font-weight: 700; margin-bottom: 4px; }
+  .cl-context { font-family: var(--mono); font-size: 10px; color: #777; }
+  .source-section { background: var(--ink-deep); padding: 48px 24px; border-top: 3px solid var(--red); }
+  .source-inner { max-width: 860px; margin: 0 auto; }
+  .source-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+  .source-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .source-table th { background: #1e1e1e; color: #888; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .source-table td { padding: 11px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .source-table tr:last-child td { border-bottom: none; }
+  .src-id { color: var(--red); font-weight: bold; white-space: nowrap; }
+  .page-footer { background: #111; padding: 32px 24px; text-align: center; }
+  .page-footer a { font-family: var(--mono); font-size: 12px; color: #777; text-decoration: none; }
+  .page-footer a:hover { color: var(--red); }
+  @media (max-width: 600px) { .person-banner { padding: 36px 16px 28px; } .era-section { padding: 38px 0; } }
+</style>
+</head>
+<body>
+
+<header class="person-banner">
+  <div class="banner-inner">
+    <div class="banner-nav"><a href="index.html">← The Martinsville Record</a></div>
+    <div class="banner-label">Place Record · Origins</div>
+    <h1 class="banner-name">Northview Gardens</h1>
+    <div class="banner-roles">755 Stultz Road — A Martinsville Address That Isn't Martinsville's Jurisdiction</div>
+    <p class="banner-summary">A 100-unit federally subsidized apartment complex with a Martinsville mailing address that actually sits in Henry County — already documented elsewhere in this record for a 2023 incident involving a journalist's confiscated phone. This page covers the property itself: a 2023 fatal shooting, a HUD contract running through 2034, and a March 2026 sale to an undisclosed buyer that one county supervisor confirmed publicly, once, and never followed up on.</p>
+    <div class="era-tabs">
+      <a href="#era-property" class="era-tab t1">The Property</a>
+      <a href="#era-shooting" class="era-tab t2">The Shooting — Feb 2023</a>
+      <a href="#era-sale" class="era-tab t3">The Sale — March 2026</a>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <section class="era-section" id="era-property">
+    <div class="era-label">Part One</div>
+    <div class="era-title">The Property</div>
+    <div class="era-dates">Built 1976</div>
+
+    <p>Northview Gardens — also referred to in some records as Northview Garden Apartments — sits at 755 Stultz Road, carrying a Martinsville mailing address despite falling under Henry County jurisdiction, the same jurisdictional split already documented on Robert Fincher's and Wayne Davis's pages in connection with a separate 2023 incident at the same property. Built in 1976, the complex spans 8.74 acres across ten two-story apartment buildings plus a leasing office, with a unit mix of 21 one-bedroom, 49 two-bedroom, and 30 three-bedroom apartments — 100 units total.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">NORTHVIEW-HUD</span>
+        <span class="exhibit-title">Federal Housing Profile</span>
+        <span class="exhibit-date">Current</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>HUD Project ID 800021980</li>
+          <li>HAP (Housing Assistance Payment) contract covers 20% of units, running through September 2034</li>
+          <li>REAC physical-condition score declined from 91 (2016) to 83b (2019) — the most recent score identified in materials reviewed</li>
+          <li>Located in a 2023 Qualified Census Tract, carrying a 30% basis boost for federal Low-Income Housing Tax Credit financing</li>
+          <li>Marketed to investors by SAB Capital prior to the 2026 sale, explicitly highlighting the HAP contract and LIHTC/QCT status as selling points</li>
+          <li>Managed day-to-day by Vista Capital Management (Greenville, SC)</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: SAB Capital listing materials, HUD project records, confirmed in hand</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>This is federally subsidized housing, marketed to outside investors in part because of the federal subsidy itself, sitting in a jurisdiction split that already produced one documented accountability gap elsewhere in this record. Both facts matter independently of each other and are worth holding together.</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-shooting">
+    <div class="era-label">Part Two</div>
+    <div class="era-title">The Shooting</div>
+    <div class="era-dates">February 14, 2023</div>
+
+    <p>On the night of February 14, 2023, the Henry County 911 Communications Center received a call reporting a gunshot victim at Northview Gardens. Henry County Sheriff's deputies found Deshawn Marquis Ross, 22, of Bassett, inside an apartment with a gunshot wound; Henry County Public Safety EMS began treatment, but Ross died at the scene.</p>
+
+    <p>Investigators determined an argument had occurred between Ross and Jahari Keontae Pritchett, 22, of Martinsville, before Pritchett produced a firearm, shot Ross, and fled. Pritchett was taken into custody without incident the next morning in the Axton area of the county and charged with first-degree murder, use of a firearm in the commission of a felony, and possession of a firearm by a convicted felon.</p>
+
+    <div class="doc-quote">
+      "I always said I never wanted to be that mother who got that phone call saying your kid just got shot."
+      <div class="doc-quote-source">— Star Ross, Deshawn Ross's mother, to WFXR, March 2, 2023</div>
+    </div>
+
+    <p>Ross's mother told WFXR that gun violence and crime had "gotten out of hand" in the Martinsville area, and asked that her son be remembered as a good son and father. Pritchett's case proceeded through the courts over the following two years; he was ultimately sentenced to 30 years in prison for second-degree murder in connection with the killing — a reduced charge from the original first-degree murder count.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">NORTHVIEW-SHOOTING</span>
+        <span class="exhibit-title">The Ross/Pritchett Case — Key Facts</span>
+        <span class="exhibit-date">Feb 2023 – Sentencing</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Victim: Deshawn Marquis Ross, 22, of Bassett — died at the scene</li>
+          <li>Charged: Jahari Keontae Pritchett, 22, of Martinsville — first-degree murder, firearm charges</li>
+          <li>Henry County Sheriff's Office jurisdiction, not Martinsville Police, consistent with the property's actual location</li>
+          <li>Outcome: sentenced to 30 years for second-degree murder, a reduced charge from the original first-degree count</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Martinsville Bulletin, WDBJ7, BTW21, WFXR — confirmed in hand</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">A Separate 2023 Incident, Same Property</div>
+      <p>This shooting is not the same event as the 2023 Northview incident already documented on Fincher's, Roark's, and Davis's pages — that incident involved Charles Roark's confiscated phone during a Henry County Sheriff's Office response, and is a separate, unrelated matter that happens to have occurred at the same complex in the same year. The two should not be merged into a single "Northview incident."</p>
+    </div>
+  </section>
+
+  <section class="era-section" id="era-sale">
+    <div class="era-label">Part Three</div>
+    <div class="era-title">The Sale</div>
+    <div class="era-dates">Closed March 2026</div>
+
+    <p>The sale of Northview Gardens closed in March 2026, brokered by The Kirkland Company (Brentwood, TN), with Virginia-licensed brokers Braeden O'Brien and Austin Haney handling the transaction. The buyer has not been publicly identified. As of this writing, Henry County's own GIS property records still list <strong>Rigamaz Northview LLC</strong> as the owner — likely because the deed transfer has not yet been formally recorded, not because the sale didn't happen.</p>
+
+    <p>Henry County Supervisor Chris Lawless confirmed the sale directly and publicly — responding, while on vacation, to a comment on a Star News TV post. Lawless confirmed the property had sold, that renovation was underway, and that few or no tenants remained on site.</p>
+
+    <div class="exhibit">
+      <div class="exhibit-header">
+        <span class="exhibit-id">NORTHVIEW-LAWLESS</span>
+        <span class="exhibit-title">Supervisor Lawless's Public Comment Reply</span>
+        <span class="exhibit-date">2026</span>
+      </div>
+      <div class="exhibit-body">
+        <ul>
+          <li>Confirmed: property sold, renovation underway, few or no tenants remained at the time of his reply</li>
+          <li>Responded from what he described as his own perspective, framed around his role as a parent</li>
+          <li>This is the only public engagement on record from Lawless on this specific matter; a planned follow-up inquiry was never answered</li>
+        </ul>
+      </div>
+      <div class="exhibit-source">Source: Star News TV public comment thread, confirmed in hand</div>
+    </div>
+
+    <div class="open-question">
+      <div class="oq-label">Open Questions — Genuinely Unresolved</div>
+      <p>Who is the actual buyer? Was HUD properly notified of the ownership transfer, as required for a property carrying an active HAP contract through 2034? What happened to the roughly 20 HUD-assisted households Lawless said were largely gone by the time of his reply — relocated with assistance, or simply displaced? None of these are answered in any source reviewed.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">What The Record Shows</div>
+      <p>A federally subsidized apartment complex with an active 20-year HUD contract changed hands through an out-of-state broker to an undisclosed buyer, confirmed publicly by exactly one elected official, exactly once, in an informal social media reply rather than any formal public notice. Whatever happened to the households living there during that transition has not been documented anywhere in the public record found so far.</p>
+    </div>
+  </section>
+
+</div>
+
+<section class="cross-links">
+  <div class="cross-links-inner">
+    <div class="cl-label">Connected — Appears Elsewhere In This Record</div>
+    <div class="cl-grid">
+      <a href="fincher.html" class="cl-item"><div class="cl-name">Robert Fincher</div><div class="cl-context">The 2023 Roark/Harper incident, same property</div></a>
+      <a href="roark.html" class="cl-item"><div class="cl-name">Charles Roark</div><div class="cl-context">The confiscated phone, Henry County jurisdiction</div></a>
+      <a href="davis.html" class="cl-item"><div class="cl-name">Wayne Davis</div><div class="cl-context">Captain at the time of the 2023 phone incident</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="source-section">
+  <div class="source-inner">
+    <div class="source-label">Source Index — Northview Gardens</div>
+    <table class="source-table">
+      <thead><tr><th>ID</th><th>Document / Source</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="src-id">NORTHVIEW-HUD</td><td>SAB Capital listing; HUD Project ID 800021980 records</td><td>Current</td><td>Confirmed in hand.</td></tr>
+        <tr><td class="src-id">NORTHVIEW-SHOOTING</td><td>Martinsville Bulletin, WDBJ7, BTW21 — initial shooting coverage</td><td>Feb 15, 2023</td><td>Confirmed via search. Henry County Sheriff's Office jurisdiction confirmed directly in reporting.</td></tr>
+        <tr><td class="src-id">WFXR-ROSS</td><td>WFXR — Ross family statement</td><td>Mar 2, 2023</td><td>Confirmed via search. Direct quote from Star Ross.</td></tr>
+        <tr><td class="src-id">BULLETIN-SENTENCE</td><td>Martinsville Bulletin — Pritchett sentenced 30 years, second-degree murder</td><td>2026</td><td>Confirmed via search.</td></tr>
+        <tr><td class="src-id">NORTHVIEW-LAWLESS</td><td>Star News TV public comment thread — Supervisor Chris Lawless reply</td><td>2026</td><td>Confirmed in hand. Single public engagement; follow-up never answered.</td></tr>
+        <tr><td class="src-id">KIRKLAND-SALE</td><td>The Kirkland Company; Henry County GIS records</td><td>Closed Mar 2026</td><td>Confirmed in hand. Buyer undisclosed; GIS not yet updated.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <a href="index.html">← Back to The Martinsville Record</a>
+</footer>
+
+</body>
+</html>
